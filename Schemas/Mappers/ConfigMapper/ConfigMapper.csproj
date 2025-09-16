@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Shantiw.Data.Schema</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Mapper\Mapper.csproj" />
+    <ProjectReference Include="..\PluralizationServices\System.Data.Entity.Design.PluralizationServices.csproj" />
+  </ItemGroup>
+
+</Project>

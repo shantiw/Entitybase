@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Mapping>
+	<EntityTypeMapping Name="{EntityTypeName}" EntitySetName="{EntitySetName}" TableName="{TableName}">
+		<PropertyMapping Name="{PropertyName}" ColumnName="{ColumnName}" />
+		// ...
+	</EntityTypeMapping>
+	// ...
+	<SequenceAttaching Name="{}" ColumnName="{}" TableName="{}" />
+	// ...
+</Mapping>

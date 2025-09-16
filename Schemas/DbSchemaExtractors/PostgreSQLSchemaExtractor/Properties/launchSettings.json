@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PostgreSQLSchemaExtractor": {
+      "commandName": "Project",
+      "commandLineArgs": "\"Host=localhost;Username=postgres;Password=123456;Database=dvdrental\" dvdrental_db.xml"
+    }
+  }
+}

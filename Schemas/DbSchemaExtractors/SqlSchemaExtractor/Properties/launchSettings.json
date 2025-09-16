@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SqlSchemaExtractor": {
+      "commandName": "Project",
+      "commandLineArgs": "\"Data Source=LOCALHOST\\SQLEXPRESS;Initial Catalog=northwind;User ID=sa;Password=123456;Encrypt=False\" Northwind_db.xml"
+    }
+  }
+}

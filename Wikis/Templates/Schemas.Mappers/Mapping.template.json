@@ -1,0 +1,25 @@
+{
+  "EntityTypeMapping": [
+    {
+      "Name": "{EntityTypeName}",
+      "EntitySetName": "{EntitySetName}",
+      "TableName": "{TableName}",
+      "PropertyMapping": [
+        {
+          "Name": "{PropertyName}",
+          "ColumnName": "{ColumnName}"
+        }
+        // ...
+      ]
+    }
+    // ...
+  ],
+  "SequenceAttaching": [
+    {
+      "Name": "{SequenceName}",
+      "ColumnName": "{ColumnName}",
+      "TableName": "{TableName}"
+    }
+    // ...
+  ]
+}

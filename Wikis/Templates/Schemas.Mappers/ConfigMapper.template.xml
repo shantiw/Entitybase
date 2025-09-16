@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Mapping>
+	<Mapper Type="Shantiw.Data.Schema.ConfigMapper" >
+		<!-- Internal functions: ToLower, ToUpper, ToPascalCase, ToCamelCase, ToSnakeCase, Singularize, Pluralize -->
+		<EntitySetMapping Format="[Prefix]{Funcs(TableName)}/{TableName}[Suffix]" >
+			<Functions>
+				<!-- Default parameter="TableName" -->
+				<Function Name="FunctionName1" Order ="1" />
+				<Function Name="FunctionName2" Order ="2" />
+				<!-- ... -->
+				<Function Name="FunctionNamen" Order ="n" />
+			</Functions>
+		</EntitySetMapping>
+		<EntityTypeMapping Format="[Prefix]{Funcs(TableName)}/{TableName}[Suffix]" optional-DisplayName="{Comment}" >
+			<!-- Default parameter="TableName" -->
+			<Function Name="FunctionName1" Order ="1" />
+			<Function Name="FunctionName2" Order ="2" />
+			<!-- ... -->
+			<Function Name="FunctionNamen" Order ="n" />
+		</EntityTypeMapping>
+		<PropertyMapping
+			Format="[Prefix]{Funcs(TableName)}/{TableName}[*]{Funcs(ColumnName)/{ColumnName}/{Funcs(ColumnName)/{ColumnName}[*]{Funcs(TableName)}/{TableName}[Suffix]"
+			optional-DisplayName="{Comment}">
+			<Functions>
+				<Function Name="FunctionName1" Parameter="ColumnName" Order ="1" />
+				<Function Name="FunctionName2" Parameter="ColumnName" Order ="2" />
+				<!-- ... -->
+				<Function Name="FunctionNamen" Parameter="ColumnName" Order ="n" />
+
+				<Function Name="FunctionName1" Parameter="TableName" Order ="1" />
+				<Function Name="FunctionName2" Parameter="TableName" Order ="2" />
+				<!-- ... -->
+				<Function Name="FunctionNamen" Parameter="TableName" Order ="n" />
+			</Functions>
+		</PropertyMapping>
+		<SequenceAttaching Format="[Prefix]{TableName}[*]{ColumnName}/{ColumnName}[*]{TableName}[Suffix]/{Null}" />
+	</Mapper>
+</Mapping>

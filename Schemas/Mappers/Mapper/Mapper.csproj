@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Shantiw.Data.Schema</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="PascalCaseMapper.cs" />
+    <Compile Remove="SimpleMapper.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Mapping.csv" />
+    <None Remove="Mapping.json" />
+    <None Remove="Mapping.xml" />
+    <None Remove="Mapping1.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\Common.csproj" />
+  </ItemGroup>
+
+</Project>

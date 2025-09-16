@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MySqlSchemaExtractor": {
+      "commandName": "Project",
+      "commandLineArgs": "\"Server=localhost;Database=northwind;Uid=root;Pwd=123456\" northwind_db.xml"
+    }
+  }
+}

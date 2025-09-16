@@ -1,0 +1,20 @@
+{
+  "Tables": [
+    {
+      "{TableName}": { "{EntityTypeName}": "{EntitySetName}" },
+      "Columns": [
+        {
+          "{ColumnName}": "{PropertyName}"
+        }
+        // ...
+      ]
+    }
+    // ...
+  ],
+  "Sequences": [
+    {
+      "{SequenceName}": { "{ColumnName}": "{TableName}" }
+    }
+    // ...
+  ]
+}

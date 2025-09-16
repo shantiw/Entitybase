@@ -1,0 +1,4 @@
+{TableName},{EntityTypeName},{EntitySetName}
+{ColumnName},{PropertyName},[{SequenceName}]
+...
+{ColumnName},{PropertyName},[{SequenceName}]

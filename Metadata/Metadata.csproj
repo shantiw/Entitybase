@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Shantiw.Data.Meta</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="EntityDataModelDelta.cs" />
+    <Compile Remove="EntityType.partial.cs" />
+    <Compile Remove="Vocabulary.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
+  </ItemGroup>
+
+</Project>

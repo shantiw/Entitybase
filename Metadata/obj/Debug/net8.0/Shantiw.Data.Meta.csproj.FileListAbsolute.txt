@@ -1,0 +1,15 @@
+D:\Entitybase_New\Entitybase\Shantiw.Data.Meta\obj\Debug\net8.0\Shantiw.Data.Meta.GeneratedMSBuildEditorConfig.editorconfig
+D:\Entitybase_New\Entitybase\Shantiw.Data.Meta\obj\Debug\net8.0\Shantiw.Data.Meta.AssemblyInfoInputs.cache
+D:\Entitybase_New\Entitybase\Shantiw.Data.Meta\obj\Debug\net8.0\Shantiw.Data.Meta.AssemblyInfo.cs
+D:\Entitybase_New\Entitybase\Shantiw.Data.Meta\obj\Debug\net8.0\Shantiw.Data.Meta.csproj.CoreCompileInputs.cache
+D:\Entitybase_New\Entitybase\Shantiw.Data.Meta\bin\Debug\net8.0\Shantiw.Data.Meta.deps.json
+D:\Entitybase_New\Entitybase\Shantiw.Data.Meta\bin\Debug\net8.0\Shantiw.Data.Meta.dll
+D:\Entitybase_New\Entitybase\Shantiw.Data.Meta\bin\Debug\net8.0\Shantiw.Data.Meta.pdb
+D:\Entitybase_New\Entitybase\Shantiw.Data.Meta\bin\Debug\net8.0\Common.dll
+D:\Entitybase_New\Entitybase\Shantiw.Data.Meta\bin\Debug\net8.0\Common.pdb
+D:\Entitybase_New\Entitybase\Shantiw.Data.Meta\obj\Debug\net8.0\Shantiw.Data.Meta.csproj.AssemblyReference.cache
+D:\Entitybase_New\Entitybase\Shantiw.Data.Meta\obj\Debug\net8.0\Shantiw..B2414DDF.Up2Date
+D:\Entitybase_New\Entitybase\Shantiw.Data.Meta\obj\Debug\net8.0\Shantiw.Data.Meta.dll
+D:\Entitybase_New\Entitybase\Shantiw.Data.Meta\obj\Debug\net8.0\refint\Shantiw.Data.Meta.dll
+D:\Entitybase_New\Entitybase\Shantiw.Data.Meta\obj\Debug\net8.0\Shantiw.Data.Meta.pdb
+D:\Entitybase_New\Entitybase\Shantiw.Data.Meta\obj\Debug\net8.0\ref\Shantiw.Data.Meta.dll

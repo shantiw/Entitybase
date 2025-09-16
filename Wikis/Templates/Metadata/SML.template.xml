@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MSL>
+	<Remove>
+		<EntityType Name="...">
+			<Property Name="...">
+				<Annotation Type="..." />
+			</Property>
+			<PrincipalProperty Name="...">
+				<Annotation Type="..." />
+			</PrincipalProperty>
+			<NavigationProperty Name="...">
+				<Annotation Type="..." />
+			</NavigationProperty>
+			<Annotation Type="..." />
+		</EntityType>
+	</Remove>
+	<Add>
+		<EntityType Name="...">
+			<Property Name="...">
+				<Annotation Type="..." />
+			</Property>
+			<PrincipalProperty Name="..." Route="..." NameOfPropertyRef="...">
+				<Annotation Type="DisplayAttribute"  Name="..." />
+			</PrincipalProperty>
+			<NavigationProperty Name="..." Route="...">
+				<Annotation Type="DisplayAttribute" Name="..." />
+			</NavigationProperty>
+			<Annotation Type="..." />
+		</EntityType>
+	</Add>
+	<Replace>
+		<!-- the same as Add -->
+	</Replace>
+</MSL>
