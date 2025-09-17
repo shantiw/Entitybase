@@ -23,12 +23,6 @@ namespace Shantiw.Data.OData
 
         public Query()
         {
-            DataValidationAttribute attribute = new DataValidationAttribute("ID > 10");
-            Dictionary<string, object> dict = new()
-            {
-                { "ID", 19 }
-            };
-            bool r = attribute.IsValid(dict);
             var factory = new EntityDataModelFactory(XElement.Load("northwind.xml"));
             var mode = factory.GetInstance();
         }
