@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SchemaGenerator": {
+      "commandName": "Project",
+      "commandLineArgs": "northwind_db.xml northwind_mapping.xml northwind.xml"
+    }
+  }
+}
