@@ -1,19 +1,21 @@
 
-/WebAPI
+/WebAPI/.vs
+/WebAPI/obj
+/WebAPI/bin
+
+/Entitybase/.vs
+/Entitybase/obj
+/Entitybase/bin
 
 /.vs
-
-/Common/.vs
-/Common/obj
-/Common/bin
 
 /Metadata/.vs
 /Metadata/obj
 /Metadata/bin
 
-/Entitybase/.vs
-/Entitybase/obj
-/Entitybase/bin
+/Common/.vs
+/Common/obj
+/Common/bin
 
 /Schemas/.vs
 /Schemas/Schemas.sln
@@ -38,14 +40,6 @@
 /Schemas/DbSchemaExtractors/PostgreSQLSchemaExtractor/bin
 /Schemas/DbSchemaExtractors/PostgreSQLSchemaExtractor/obj
 
-/Schemas/DbSchemaExtractors/SQLite.Schema.Extractor
-/Schemas/DbSchemaExtractors/SQLiteSchemaExtractor
-/Schemas/DbSchemaExtractors/SQLiteSchemaExtractor.sln
-/Schemas/DbSchemaExtractors/SQLite.Schema.Extractor/bin
-/Schemas/DbSchemaExtractors/SQLite.Schema.Extractor/obj
-/Schemas/DbSchemaExtractors/SQLiteSchemaExtractor/bin
-/Schemas/DbSchemaExtractors/SQLiteSchemaExtractor/obj
-
 /Schemas/DbSchemaExtractors/Sql.Schema.Extractor/bin
 /Schemas/DbSchemaExtractors/Sql.Schema.Extractor/obj
 /Schemas/DbSchemaExtractors/SqlSchemaExtractor/bin
@@ -69,4 +63,3 @@
 /Schemas/SchemaGenerators/Schema.Generator/obj
 /Schemas/SchemaGenerators/SchemaGenerator/bin
 /Schemas/SchemaGenerators/SchemaGenerator/obj
-
