@@ -1,14 +1,19 @@
 
+/WebAPI
+
 /.vs
 
+/Common/.vs
 /Common/obj
 /Common/bin
 
-/Entitybase/.vs
-/Entitybase/Entitybase/obj
-/Entitybase/Entitybase/bin
+/Metadata/.vs
+/Metadata/obj
+/Metadata/bin
 
-/Material
+/Entitybase/.vs
+/Entitybase/obj
+/Entitybase/bin
 
 /Schemas/.vs
 /Schemas/Schemas.sln
