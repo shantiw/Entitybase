@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Mapping>
+  <EntityTypeMapping Name="Author" EntitySetName="Authors" TableName="authors">
+    <PropertyMapping Name="AuthorId" ColumnName="au_id" />
+    <PropertyMapping Name="Lastname" ColumnName="au_lname" />
+    <PropertyMapping Name="Firstname" ColumnName="au_fname" />
+  </EntityTypeMapping>
+  <EntityTypeMapping Name="Employee" EntitySetName="Employees" TableName="employee">
+    <PropertyMapping Name="Firstname" ColumnName="fname" />
+    <PropertyMapping Name="Lastname" ColumnName="lname" />
+  </EntityTypeMapping>
+  <EntityTypeMapping Name="TitleView" EntitySetName="TitleViews" TableName="titleview">
+    <PropertyMapping Name="AuthorOrd" ColumnName="au_ord" />
+    <PropertyMapping Name="AuthorName" ColumnName="au_lname" />
+  </EntityTypeMapping>
+</Mapping>

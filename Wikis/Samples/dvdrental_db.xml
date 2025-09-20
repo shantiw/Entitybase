@@ -1,0 +1,849 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<StoreSchema>
+  <!-- Database schema -->
+  <Schema Database="dvdrental" Provider="Npgsql" CreatedAt="2025-09-18T04:15:18.067377">
+    <Table Name="inventory" Type="Table">
+      <Key Name="inventory_pkey">
+        <ColumnRef Name="inventory_id" />
+      </Key>
+      <Column Name="inventory_id" DataType="integer" Nullable="false" AutoIncrement="true" DefaultValue="nextval('inventory_inventory_id_seq'::regclass)" FixedLength="true" Precision="32" Scale="0" />
+      <Column Name="film_id" DataType="smallint" Nullable="false" AutoIncrement="false" FixedLength="true" Precision="16" Scale="0" />
+      <Column Name="store_id" DataType="smallint" Nullable="false" AutoIncrement="false" FixedLength="true" Precision="16" Scale="0" />
+      <Column Name="last_update" DataType="timestamp without time zone" Nullable="false" AutoIncrement="false" DefaultValue="now()" FixedLength="true" Precision="6" />
+      <ForeignKeyConstraint Name="inventory_film_id_fkey" Related="film">
+        <ColumnRef Name="film_id" Related="film_id" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="language" Type="Table">
+      <Key Name="language_pkey">
+        <ColumnRef Name="language_id" />
+      </Key>
+      <Column Name="language_id" DataType="integer" Nullable="false" AutoIncrement="true" DefaultValue="nextval('language_language_id_seq'::regclass)" FixedLength="true" Precision="32" Scale="0" />
+      <Column Name="name" DataType="character" Nullable="false" AutoIncrement="false" MaxLength="20" FixedLength="true" />
+      <Column Name="last_update" DataType="timestamp without time zone" Nullable="false" AutoIncrement="false" DefaultValue="now()" FixedLength="true" Precision="6" />
+    </Table>
+    <Table Name="address" Type="Table">
+      <Key Name="address_pkey">
+        <ColumnRef Name="address_id" />
+      </Key>
+      <Column Name="address_id" DataType="integer" Nullable="false" AutoIncrement="true" DefaultValue="nextval('address_address_id_seq'::regclass)" FixedLength="true" Precision="32" Scale="0" />
+      <Column Name="address" DataType="character varying" Nullable="false" AutoIncrement="false" MaxLength="50" FixedLength="false" />
+      <Column Name="address2" DataType="character varying" Nullable="true" AutoIncrement="false" MaxLength="50" FixedLength="false" />
+      <Column Name="district" DataType="character varying" Nullable="false" AutoIncrement="false" MaxLength="20" FixedLength="false" />
+      <Column Name="city_id" DataType="smallint" Nullable="false" AutoIncrement="false" FixedLength="true" Precision="16" Scale="0" />
+      <Column Name="postal_code" DataType="character varying" Nullable="true" AutoIncrement="false" MaxLength="10" FixedLength="false" />
+      <Column Name="phone" DataType="character varying" Nullable="false" AutoIncrement="false" MaxLength="20" FixedLength="false" />
+      <Column Name="last_update" DataType="timestamp without time zone" Nullable="false" AutoIncrement="false" DefaultValue="now()" FixedLength="true" Precision="6" />
+      <ForeignKeyConstraint Name="fk_address_city" Related="city">
+        <ColumnRef Name="city_id" Related="city_id" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="category" Type="Table">
+      <Key Name="category_pkey">
+        <ColumnRef Name="category_id" />
+      </Key>
+      <Column Name="category_id" DataType="integer" Nullable="false" AutoIncrement="true" DefaultValue="nextval('category_category_id_seq'::regclass)" FixedLength="true" Precision="32" Scale="0" />
+      <Column Name="name" DataType="character varying" Nullable="false" AutoIncrement="false" MaxLength="25" FixedLength="false" />
+      <Column Name="last_update" DataType="timestamp without time zone" Nullable="false" AutoIncrement="false" DefaultValue="now()" FixedLength="true" Precision="6" />
+    </Table>
+    <Table Name="payment" Type="Table">
+      <Key Name="payment_pkey">
+        <ColumnRef Name="payment_id" />
+      </Key>
+      <Column Name="payment_id" DataType="integer" Nullable="false" AutoIncrement="true" DefaultValue="nextval('payment_payment_id_seq'::regclass)" FixedLength="true" Precision="32" Scale="0" />
+      <Column Name="customer_id" DataType="smallint" Nullable="false" AutoIncrement="false" FixedLength="true" Precision="16" Scale="0" />
+      <Column Name="staff_id" DataType="smallint" Nullable="false" AutoIncrement="false" FixedLength="true" Precision="16" Scale="0" />
+      <Column Name="rental_id" DataType="integer" Nullable="false" AutoIncrement="false" FixedLength="true" Precision="32" Scale="0" />
+      <Column Name="amount" DataType="numeric" Nullable="false" AutoIncrement="false" FixedLength="true" Precision="5" Scale="2" />
+      <Column Name="payment_date" DataType="timestamp without time zone" Nullable="false" AutoIncrement="false" FixedLength="true" Precision="6" />
+      <ForeignKeyConstraint Name="payment_customer_id_fkey" Related="customer">
+        <ColumnRef Name="customer_id" Related="customer_id" />
+      </ForeignKeyConstraint>
+      <ForeignKeyConstraint Name="payment_rental_id_fkey" Related="rental">
+        <ColumnRef Name="rental_id" Related="rental_id" />
+      </ForeignKeyConstraint>
+      <ForeignKeyConstraint Name="payment_staff_id_fkey" Related="staff">
+        <ColumnRef Name="staff_id" Related="staff_id" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="film" Type="Table">
+      <Key Name="film_pkey">
+        <ColumnRef Name="film_id" />
+      </Key>
+      <Column Name="film_id" DataType="integer" Nullable="false" AutoIncrement="true" DefaultValue="nextval('film_film_id_seq'::regclass)" FixedLength="true" Precision="32" Scale="0" />
+      <Column Name="title" DataType="character varying" Nullable="false" AutoIncrement="false" MaxLength="255" FixedLength="false" />
+      <Column Name="description" DataType="text" Nullable="true" AutoIncrement="false" FixedLength="false" />
+      <Column Name="release_year" DataType="integer" Nullable="true" AutoIncrement="false" FixedLength="true" Precision="32" Scale="0" />
+      <Column Name="language_id" DataType="smallint" Nullable="false" AutoIncrement="false" FixedLength="true" Precision="16" Scale="0" />
+      <Column Name="rental_duration" DataType="smallint" Nullable="false" AutoIncrement="false" DefaultValue="3" FixedLength="true" Precision="16" Scale="0" />
+      <Column Name="rental_rate" DataType="numeric" Nullable="false" AutoIncrement="false" DefaultValue="4.99" FixedLength="true" Precision="4" Scale="2" />
+      <Column Name="length" DataType="smallint" Nullable="true" AutoIncrement="false" FixedLength="true" Precision="16" Scale="0" />
+      <Column Name="replacement_cost" DataType="numeric" Nullable="false" AutoIncrement="false" DefaultValue="19.99" FixedLength="true" Precision="5" Scale="2" />
+      <Column Name="rating" DataType="USER-DEFINED" Nullable="true" AutoIncrement="false" DefaultValue="'G'::mpaa_rating" FixedLength="true" />
+      <Column Name="last_update" DataType="timestamp without time zone" Nullable="false" AutoIncrement="false" DefaultValue="now()" FixedLength="true" Precision="6" />
+      <Column Name="special_features" DataType="ARRAY" Nullable="true" AutoIncrement="false" FixedLength="true" />
+      <Column Name="fulltext" DataType="tsvector" Nullable="false" AutoIncrement="false" FixedLength="true" />
+      <ForeignKeyConstraint Name="film_language_id_fkey" Related="language">
+        <ColumnRef Name="language_id" Related="language_id" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="customer" Type="Table">
+      <Key Name="customer_pkey">
+        <ColumnRef Name="customer_id" />
+      </Key>
+      <Column Name="customer_id" DataType="integer" Nullable="false" AutoIncrement="true" DefaultValue="nextval('customer_customer_id_seq'::regclass)" FixedLength="true" Precision="32" Scale="0" />
+      <Column Name="store_id" DataType="smallint" Nullable="false" AutoIncrement="false" FixedLength="true" Precision="16" Scale="0" />
+      <Column Name="first_name" DataType="character varying" Nullable="false" AutoIncrement="false" MaxLength="45" FixedLength="false" />
+      <Column Name="last_name" DataType="character varying" Nullable="false" AutoIncrement="false" MaxLength="45" FixedLength="false" />
+      <Column Name="email" DataType="character varying" Nullable="true" AutoIncrement="false" MaxLength="50" FixedLength="false" />
+      <Column Name="address_id" DataType="smallint" Nullable="false" AutoIncrement="false" FixedLength="true" Precision="16" Scale="0" />
+      <Column Name="activebool" DataType="boolean" Nullable="false" AutoIncrement="false" DefaultValue="true" FixedLength="true" />
+      <Column Name="create_date" DataType="date" Nullable="false" AutoIncrement="false" DefaultValue="('now'::text)::date" FixedLength="true" Precision="0" />
+      <Column Name="last_update" DataType="timestamp without time zone" Nullable="true" AutoIncrement="false" DefaultValue="now()" FixedLength="true" Precision="6" />
+      <Column Name="active" DataType="integer" Nullable="true" AutoIncrement="false" FixedLength="true" Precision="32" Scale="0" />
+      <ForeignKeyConstraint Name="customer_address_id_fkey" Related="address">
+        <ColumnRef Name="address_id" Related="address_id" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="city" Type="Table">
+      <Key Name="city_pkey">
+        <ColumnRef Name="city_id" />
+      </Key>
+      <Column Name="city_id" DataType="integer" Nullable="false" AutoIncrement="true" DefaultValue="nextval('city_city_id_seq'::regclass)" FixedLength="true" Precision="32" Scale="0" />
+      <Column Name="city" DataType="character varying" Nullable="false" AutoIncrement="false" MaxLength="50" FixedLength="false" />
+      <Column Name="country_id" DataType="smallint" Nullable="false" AutoIncrement="false" FixedLength="true" Precision="16" Scale="0" />
+      <Column Name="last_update" DataType="timestamp without time zone" Nullable="false" AutoIncrement="false" DefaultValue="now()" FixedLength="true" Precision="6" />
+      <ForeignKeyConstraint Name="fk_city" Related="country">
+        <ColumnRef Name="country_id" Related="country_id" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="actor" Type="Table">
+      <Key Name="actor_pkey">
+        <ColumnRef Name="actor_id" />
+      </Key>
+      <Column Name="actor_id" DataType="integer" Nullable="false" AutoIncrement="true" DefaultValue="nextval('actor_actor_id_seq'::regclass)" FixedLength="true" Precision="32" Scale="0" />
+      <Column Name="first_name" DataType="character varying" Nullable="false" AutoIncrement="false" MaxLength="45" FixedLength="false" />
+      <Column Name="last_name" DataType="character varying" Nullable="false" AutoIncrement="false" MaxLength="45" FixedLength="false" />
+      <Column Name="last_update" DataType="timestamp without time zone" Nullable="false" AutoIncrement="false" DefaultValue="now()" FixedLength="true" Precision="6" />
+    </Table>
+    <Table Name="country" Type="Table">
+      <Key Name="country_pkey">
+        <ColumnRef Name="country_id" />
+      </Key>
+      <Column Name="country_id" DataType="integer" Nullable="false" AutoIncrement="true" DefaultValue="nextval('country_country_id_seq'::regclass)" FixedLength="true" Precision="32" Scale="0" />
+      <Column Name="country" DataType="character varying" Nullable="false" AutoIncrement="false" MaxLength="50" FixedLength="false" />
+      <Column Name="last_update" DataType="timestamp without time zone" Nullable="false" AutoIncrement="false" DefaultValue="now()" FixedLength="true" Precision="6" />
+    </Table>
+    <Table Name="store" Type="Table">
+      <Key Name="store_pkey">
+        <ColumnRef Name="store_id" />
+      </Key>
+      <Column Name="store_id" DataType="integer" Nullable="false" AutoIncrement="true" DefaultValue="nextval('store_store_id_seq'::regclass)" FixedLength="true" Precision="32" Scale="0" />
+      <Column Name="manager_staff_id" DataType="smallint" Nullable="false" AutoIncrement="false" FixedLength="true" Precision="16" Scale="0" />
+      <Column Name="address_id" DataType="smallint" Nullable="false" AutoIncrement="false" FixedLength="true" Precision="16" Scale="0" />
+      <Column Name="last_update" DataType="timestamp without time zone" Nullable="false" AutoIncrement="false" DefaultValue="now()" FixedLength="true" Precision="6" />
+      <ForeignKeyConstraint Name="store_address_id_fkey" Related="address">
+        <ColumnRef Name="address_id" Related="address_id" />
+      </ForeignKeyConstraint>
+      <ForeignKeyConstraint Name="store_manager_staff_id_fkey" Related="staff">
+        <ColumnRef Name="manager_staff_id" Related="staff_id" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="film_actor" Type="Table">
+      <Key Name="film_actor_pkey">
+        <ColumnRef Name="actor_id" />
+        <ColumnRef Name="film_id" />
+      </Key>
+      <Column Name="actor_id" DataType="smallint" Nullable="false" AutoIncrement="false" FixedLength="true" Precision="16" Scale="0" />
+      <Column Name="film_id" DataType="smallint" Nullable="false" AutoIncrement="false" FixedLength="true" Precision="16" Scale="0" />
+      <Column Name="last_update" DataType="timestamp without time zone" Nullable="false" AutoIncrement="false" DefaultValue="now()" FixedLength="true" Precision="6" />
+      <ForeignKeyConstraint Name="film_actor_actor_id_fkey" Related="actor">
+        <ColumnRef Name="actor_id" Related="actor_id" />
+      </ForeignKeyConstraint>
+      <ForeignKeyConstraint Name="film_actor_film_id_fkey" Related="film">
+        <ColumnRef Name="film_id" Related="film_id" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="staff" Type="Table">
+      <Key Name="staff_pkey">
+        <ColumnRef Name="staff_id" />
+      </Key>
+      <Column Name="staff_id" DataType="integer" Nullable="false" AutoIncrement="true" DefaultValue="nextval('staff_staff_id_seq'::regclass)" FixedLength="true" Precision="32" Scale="0" />
+      <Column Name="first_name" DataType="character varying" Nullable="false" AutoIncrement="false" MaxLength="45" FixedLength="false" />
+      <Column Name="last_name" DataType="character varying" Nullable="false" AutoIncrement="false" MaxLength="45" FixedLength="false" />
+      <Column Name="address_id" DataType="smallint" Nullable="false" AutoIncrement="false" FixedLength="true" Precision="16" Scale="0" />
+      <Column Name="email" DataType="character varying" Nullable="true" AutoIncrement="false" MaxLength="50" FixedLength="false" />
+      <Column Name="store_id" DataType="smallint" Nullable="false" AutoIncrement="false" FixedLength="true" Precision="16" Scale="0" />
+      <Column Name="active" DataType="boolean" Nullable="false" AutoIncrement="false" DefaultValue="true" FixedLength="true" />
+      <Column Name="username" DataType="character varying" Nullable="false" AutoIncrement="false" MaxLength="16" FixedLength="false" />
+      <Column Name="password" DataType="character varying" Nullable="true" AutoIncrement="false" MaxLength="40" FixedLength="false" />
+      <Column Name="last_update" DataType="timestamp without time zone" Nullable="false" AutoIncrement="false" DefaultValue="now()" FixedLength="true" Precision="6" />
+      <Column Name="picture" DataType="bytea" Nullable="true" AutoIncrement="false" FixedLength="true" />
+      <ForeignKeyConstraint Name="staff_address_id_fkey" Related="address">
+        <ColumnRef Name="address_id" Related="address_id" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="rental" Type="Table">
+      <Key Name="rental_pkey">
+        <ColumnRef Name="rental_id" />
+      </Key>
+      <Column Name="rental_id" DataType="integer" Nullable="false" AutoIncrement="true" DefaultValue="nextval('rental_rental_id_seq'::regclass)" FixedLength="true" Precision="32" Scale="0" />
+      <Column Name="rental_date" DataType="timestamp without time zone" Nullable="false" AutoIncrement="false" FixedLength="true" Precision="6" />
+      <Column Name="inventory_id" DataType="integer" Nullable="false" AutoIncrement="false" FixedLength="true" Precision="32" Scale="0" />
+      <Column Name="customer_id" DataType="smallint" Nullable="false" AutoIncrement="false" FixedLength="true" Precision="16" Scale="0" />
+      <Column Name="return_date" DataType="timestamp without time zone" Nullable="true" AutoIncrement="false" FixedLength="true" Precision="6" />
+      <Column Name="staff_id" DataType="smallint" Nullable="false" AutoIncrement="false" FixedLength="true" Precision="16" Scale="0" />
+      <Column Name="last_update" DataType="timestamp without time zone" Nullable="false" AutoIncrement="false" DefaultValue="now()" FixedLength="true" Precision="6" />
+      <ForeignKeyConstraint Name="rental_customer_id_fkey" Related="customer">
+        <ColumnRef Name="customer_id" Related="customer_id" />
+      </ForeignKeyConstraint>
+      <ForeignKeyConstraint Name="rental_inventory_id_fkey" Related="inventory">
+        <ColumnRef Name="inventory_id" Related="inventory_id" />
+      </ForeignKeyConstraint>
+      <ForeignKeyConstraint Name="rental_staff_id_key" Related="staff">
+        <ColumnRef Name="staff_id" Related="staff_id" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="film_category" Type="Table">
+      <Key Name="film_category_pkey">
+        <ColumnRef Name="film_id" />
+        <ColumnRef Name="category_id" />
+      </Key>
+      <Column Name="film_id" DataType="smallint" Nullable="false" AutoIncrement="false" FixedLength="true" Precision="16" Scale="0" />
+      <Column Name="category_id" DataType="smallint" Nullable="false" AutoIncrement="false" FixedLength="true" Precision="16" Scale="0" />
+      <Column Name="last_update" DataType="timestamp without time zone" Nullable="false" AutoIncrement="false" DefaultValue="now()" FixedLength="true" Precision="6" />
+      <ForeignKeyConstraint Name="film_category_category_id_fkey" Related="category">
+        <ColumnRef Name="category_id" Related="category_id" />
+      </ForeignKeyConstraint>
+      <ForeignKeyConstraint Name="film_category_film_id_fkey" Related="film">
+        <ColumnRef Name="film_id" Related="film_id" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="actor_info" Type="View" Updatable="false">
+      <Column Name="actor_id" DataType="integer" Nullable="true" AutoIncrement="false" FixedLength="true" Precision="32" Scale="0" />
+      <Column Name="first_name" DataType="character varying" Nullable="true" AutoIncrement="false" MaxLength="45" FixedLength="false" />
+      <Column Name="last_name" DataType="character varying" Nullable="true" AutoIncrement="false" MaxLength="45" FixedLength="false" />
+      <Column Name="film_info" DataType="text" Nullable="true" AutoIncrement="false" FixedLength="false" />
+    </Table>
+    <Table Name="customer_list" Type="View" Updatable="false">
+      <Column Name="id" DataType="integer" Nullable="true" AutoIncrement="false" FixedLength="true" Precision="32" Scale="0" />
+      <Column Name="name" DataType="text" Nullable="true" AutoIncrement="false" FixedLength="false" />
+      <Column Name="address" DataType="character varying" Nullable="true" AutoIncrement="false" MaxLength="50" FixedLength="false" />
+      <Column Name="zip code" DataType="character varying" Nullable="true" AutoIncrement="false" MaxLength="10" FixedLength="false" />
+      <Column Name="phone" DataType="character varying" Nullable="true" AutoIncrement="false" MaxLength="20" FixedLength="false" />
+      <Column Name="city" DataType="character varying" Nullable="true" AutoIncrement="false" MaxLength="50" FixedLength="false" />
+      <Column Name="country" DataType="character varying" Nullable="true" AutoIncrement="false" MaxLength="50" FixedLength="false" />
+      <Column Name="notes" DataType="text" Nullable="true" AutoIncrement="false" FixedLength="false" />
+      <Column Name="sid" DataType="smallint" Nullable="true" AutoIncrement="false" FixedLength="true" Precision="16" Scale="0" />
+    </Table>
+    <Table Name="film_list" Type="View" Updatable="false">
+      <Column Name="fid" DataType="integer" Nullable="true" AutoIncrement="false" FixedLength="true" Precision="32" Scale="0" />
+      <Column Name="title" DataType="character varying" Nullable="true" AutoIncrement="false" MaxLength="255" FixedLength="false" />
+      <Column Name="description" DataType="text" Nullable="true" AutoIncrement="false" FixedLength="false" />
+      <Column Name="category" DataType="character varying" Nullable="true" AutoIncrement="false" MaxLength="25" FixedLength="false" />
+      <Column Name="price" DataType="numeric" Nullable="true" AutoIncrement="false" FixedLength="true" Precision="4" Scale="2" />
+      <Column Name="length" DataType="smallint" Nullable="true" AutoIncrement="false" FixedLength="true" Precision="16" Scale="0" />
+      <Column Name="rating" DataType="USER-DEFINED" Nullable="true" AutoIncrement="false" FixedLength="true" />
+      <Column Name="actors" DataType="text" Nullable="true" AutoIncrement="false" FixedLength="false" />
+    </Table>
+    <Table Name="nicer_but_slower_film_list" Type="View" Updatable="false">
+      <Column Name="fid" DataType="integer" Nullable="true" AutoIncrement="false" FixedLength="true" Precision="32" Scale="0" />
+      <Column Name="title" DataType="character varying" Nullable="true" AutoIncrement="false" MaxLength="255" FixedLength="false" />
+      <Column Name="description" DataType="text" Nullable="true" AutoIncrement="false" FixedLength="false" />
+      <Column Name="category" DataType="character varying" Nullable="true" AutoIncrement="false" MaxLength="25" FixedLength="false" />
+      <Column Name="price" DataType="numeric" Nullable="true" AutoIncrement="false" FixedLength="true" Precision="4" Scale="2" />
+      <Column Name="length" DataType="smallint" Nullable="true" AutoIncrement="false" FixedLength="true" Precision="16" Scale="0" />
+      <Column Name="rating" DataType="USER-DEFINED" Nullable="true" AutoIncrement="false" FixedLength="true" />
+      <Column Name="actors" DataType="text" Nullable="true" AutoIncrement="false" FixedLength="false" />
+    </Table>
+    <Table Name="sales_by_film_category" Type="View" Updatable="false">
+      <Column Name="category" DataType="character varying" Nullable="true" AutoIncrement="false" MaxLength="25" FixedLength="false" />
+      <Column Name="total_sales" DataType="numeric" Nullable="true" AutoIncrement="false" FixedLength="true" />
+    </Table>
+    <Table Name="sales_by_store" Type="View" Updatable="false">
+      <Column Name="store" DataType="text" Nullable="true" AutoIncrement="false" FixedLength="false" />
+      <Column Name="manager" DataType="text" Nullable="true" AutoIncrement="false" FixedLength="false" />
+      <Column Name="total_sales" DataType="numeric" Nullable="true" AutoIncrement="false" FixedLength="true" />
+    </Table>
+    <Table Name="staff_list" Type="View" Updatable="false">
+      <Column Name="id" DataType="integer" Nullable="true" AutoIncrement="false" FixedLength="true" Precision="32" Scale="0" />
+      <Column Name="name" DataType="text" Nullable="true" AutoIncrement="false" FixedLength="false" />
+      <Column Name="address" DataType="character varying" Nullable="true" AutoIncrement="false" MaxLength="50" FixedLength="false" />
+      <Column Name="zip code" DataType="character varying" Nullable="true" AutoIncrement="false" MaxLength="10" FixedLength="false" />
+      <Column Name="phone" DataType="character varying" Nullable="true" AutoIncrement="false" MaxLength="20" FixedLength="false" />
+      <Column Name="city" DataType="character varying" Nullable="true" AutoIncrement="false" MaxLength="50" FixedLength="false" />
+      <Column Name="country" DataType="character varying" Nullable="true" AutoIncrement="false" MaxLength="50" FixedLength="false" />
+      <Column Name="sid" DataType="smallint" Nullable="true" AutoIncrement="false" FixedLength="true" Precision="16" Scale="0" />
+    </Table>
+    <Sequence Name="customer_customer_id_seq" />
+    <Sequence Name="actor_actor_id_seq" />
+    <Sequence Name="category_category_id_seq" />
+    <Sequence Name="film_film_id_seq" />
+    <Sequence Name="address_address_id_seq" />
+    <Sequence Name="city_city_id_seq" />
+    <Sequence Name="country_country_id_seq" />
+    <Sequence Name="inventory_inventory_id_seq" />
+    <Sequence Name="language_language_id_seq" />
+    <Sequence Name="payment_payment_id_seq" />
+    <Sequence Name="rental_rental_id_seq" />
+    <Sequence Name="staff_staff_id_seq" />
+    <Sequence Name="store_store_id_seq" />
+  </Schema>
+  <!-- DataSet schema -->
+  <xs:schema id="dvdrental" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="dvdrental" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="actor_info">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="actor_id" msdata:ReadOnly="true" type="xs:int" minOccurs="0" />
+                <xs:element name="first_name" msdata:ReadOnly="true" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="45" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="last_name" msdata:ReadOnly="true" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="45" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="film_info" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="customer_list">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="id" msdata:ReadOnly="true" type="xs:int" minOccurs="0" />
+                <xs:element name="name" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+                <xs:element name="address" msdata:ReadOnly="true" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="50" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="zip_x0020_code" msdata:ReadOnly="true" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="10" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="phone" msdata:ReadOnly="true" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="20" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="city" msdata:ReadOnly="true" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="50" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="country" msdata:ReadOnly="true" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="50" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="notes" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+                <xs:element name="sid" msdata:ReadOnly="true" type="xs:short" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="film_list">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="fid" msdata:ReadOnly="true" type="xs:int" minOccurs="0" />
+                <xs:element name="title" msdata:ReadOnly="true" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="255" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="description" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+                <xs:element name="category" msdata:ReadOnly="true" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="25" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="price" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+                <xs:element name="length" msdata:ReadOnly="true" type="xs:short" minOccurs="0" />
+                <xs:element name="rating" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+                <xs:element name="actors" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="nicer_but_slower_film_list">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="fid" msdata:ReadOnly="true" type="xs:int" minOccurs="0" />
+                <xs:element name="title" msdata:ReadOnly="true" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="255" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="description" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+                <xs:element name="category" msdata:ReadOnly="true" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="25" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="price" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+                <xs:element name="length" msdata:ReadOnly="true" type="xs:short" minOccurs="0" />
+                <xs:element name="rating" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+                <xs:element name="actors" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="sales_by_film_category">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="category" msdata:ReadOnly="true" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="25" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="total_sales" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="sales_by_store">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="store" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+                <xs:element name="manager" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+                <xs:element name="total_sales" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="staff_list">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="id" msdata:ReadOnly="true" type="xs:int" minOccurs="0" />
+                <xs:element name="name" msdata:ReadOnly="true" type="xs:string" minOccurs="0" />
+                <xs:element name="address" msdata:ReadOnly="true" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="50" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="zip_x0020_code" msdata:ReadOnly="true" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="10" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="phone" msdata:ReadOnly="true" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="20" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="city" msdata:ReadOnly="true" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="50" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="country" msdata:ReadOnly="true" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="50" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="sid" msdata:ReadOnly="true" type="xs:short" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="inventory">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="inventory_id" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="film_id" type="xs:short" />
+                <xs:element name="store_id" type="xs:short" />
+                <xs:element name="last_update" type="xs:dateTime" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="language">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="language_id" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="name">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="20" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="last_update" type="xs:dateTime" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="address">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="address_id" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="address">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="50" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="address2" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="50" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="district">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="20" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="city_id" type="xs:short" />
+                <xs:element name="postal_code" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="10" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="phone">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="20" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="last_update" type="xs:dateTime" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="category">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="category_id" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="name">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="25" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="last_update" type="xs:dateTime" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="payment">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="payment_id" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="customer_id" type="xs:short" />
+                <xs:element name="staff_id" type="xs:short" />
+                <xs:element name="rental_id" type="xs:int" />
+                <xs:element name="amount" type="xs:decimal" />
+                <xs:element name="payment_date" type="xs:dateTime" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="film">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="film_id" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="title">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="255" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="description" type="xs:string" minOccurs="0" />
+                <xs:element name="release_year" type="xs:int" minOccurs="0" />
+                <xs:element name="language_id" type="xs:short" />
+                <xs:element name="rental_duration" type="xs:short" default="3" />
+                <xs:element name="rental_rate" type="xs:decimal" default="4.99" />
+                <xs:element name="length" type="xs:short" minOccurs="0" />
+                <xs:element name="replacement_cost" type="xs:decimal" default="19.99" />
+                <xs:element name="rating" type="xs:string" default="'G'::mpaa_rating" minOccurs="0" />
+                <xs:element name="last_update" type="xs:dateTime" />
+                <xs:element name="special_features" msdata:DataType="System.String[], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e" type="xs:anyType" minOccurs="0" />
+                <xs:element name="fulltext" msdata:DataType="NpgsqlTypes.NpgsqlTsVector, Npgsql, Version=9.0.3.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7" type="xs:anyType" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="customer">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="customer_id" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="store_id" type="xs:short" />
+                <xs:element name="first_name">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="45" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="last_name">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="45" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="email" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="50" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="address_id" type="xs:short" />
+                <xs:element name="activebool" type="xs:boolean" />
+                <xs:element name="create_date" type="xs:dateTime" />
+                <xs:element name="last_update" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="active" type="xs:int" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="city">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="city_id" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="city">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="50" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="country_id" type="xs:short" />
+                <xs:element name="last_update" type="xs:dateTime" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="actor">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="actor_id" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="first_name">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="45" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="last_name">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="45" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="last_update" type="xs:dateTime" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="country">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="country_id" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="country">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="50" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="last_update" type="xs:dateTime" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="store">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="store_id" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="manager_staff_id" type="xs:short" />
+                <xs:element name="address_id" type="xs:short" />
+                <xs:element name="last_update" type="xs:dateTime" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="film_actor">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="actor_id" type="xs:short" />
+                <xs:element name="film_id" type="xs:short" />
+                <xs:element name="last_update" type="xs:dateTime" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="staff">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="staff_id" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="first_name">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="45" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="last_name">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="45" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="address_id" type="xs:short" />
+                <xs:element name="email" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="50" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="store_id" type="xs:short" />
+                <xs:element name="active" type="xs:boolean" />
+                <xs:element name="username">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="16" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="password" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="last_update" type="xs:dateTime" />
+                <xs:element name="picture" type="xs:base64Binary" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="rental">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="rental_id" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="rental_date" type="xs:dateTime" />
+                <xs:element name="inventory_id" type="xs:int" />
+                <xs:element name="customer_id" type="xs:short" />
+                <xs:element name="return_date" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="staff_id" type="xs:short" />
+                <xs:element name="last_update" type="xs:dateTime" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="film_category">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="film_id" type="xs:short" />
+                <xs:element name="category_id" type="xs:short" />
+                <xs:element name="last_update" type="xs:dateTime" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+      <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//inventory" />
+        <xs:field xpath="inventory_id" />
+      </xs:unique>
+      <xs:unique name="language_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//language" />
+        <xs:field xpath="language_id" />
+      </xs:unique>
+      <xs:unique name="address_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//address" />
+        <xs:field xpath="address_id" />
+      </xs:unique>
+      <xs:unique name="category_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//category" />
+        <xs:field xpath="category_id" />
+      </xs:unique>
+      <xs:unique name="payment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//payment" />
+        <xs:field xpath="payment_id" />
+      </xs:unique>
+      <xs:unique name="film_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//film" />
+        <xs:field xpath="film_id" />
+      </xs:unique>
+      <xs:unique name="customer_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//customer" />
+        <xs:field xpath="customer_id" />
+      </xs:unique>
+      <xs:unique name="city_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//city" />
+        <xs:field xpath="city_id" />
+      </xs:unique>
+      <xs:unique name="actor_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//actor" />
+        <xs:field xpath="actor_id" />
+      </xs:unique>
+      <xs:unique name="country_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//country" />
+        <xs:field xpath="country_id" />
+      </xs:unique>
+      <xs:unique name="store_Constraint1" msdata:ConstraintName="Constraint1">
+        <xs:selector xpath=".//store" />
+        <xs:field xpath="manager_staff_id" />
+      </xs:unique>
+      <xs:unique name="Constraint2" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//store" />
+        <xs:field xpath="store_id" />
+      </xs:unique>
+      <xs:unique name="film_actor_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//film_actor" />
+        <xs:field xpath="actor_id" />
+        <xs:field xpath="film_id" />
+      </xs:unique>
+      <xs:unique name="staff_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//staff" />
+        <xs:field xpath="staff_id" />
+      </xs:unique>
+      <xs:unique name="rental_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//rental" />
+        <xs:field xpath="rental_id" />
+      </xs:unique>
+      <xs:unique name="film_category_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//film_category" />
+        <xs:field xpath="film_id" />
+        <xs:field xpath="category_id" />
+      </xs:unique>
+    </xs:element>
+  </xs:schema>
+</StoreSchema>

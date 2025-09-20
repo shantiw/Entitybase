@@ -1,0 +1,400 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Model="Pubs" CreatedAt="DESKTOP-OGGQE7P, 2025/9/19 8:35:53">
+  <EntityType Name="Author" EntitySetName="Authors" TableName="authors">
+    <Key>
+      <PropertyRef Name="AuthorId" />
+    </Key>
+    <Property Name="AuthorId" Type="String" Nullable="false" ColumnName="au_id" MaxLength="11">
+      <Annotation Type="RequiredAttribute" />
+      <Annotation Type="MaxLengthAttribute" Length="11" />
+    </Property>
+    <Property Name="Lastname" Type="String" Nullable="false" ColumnName="au_lname" MaxLength="40">
+      <Annotation Type="RequiredAttribute" />
+      <Annotation Type="MaxLengthAttribute" Length="40" />
+    </Property>
+    <Property Name="Firstname" Type="String" Nullable="false" ColumnName="au_fname" MaxLength="20">
+      <Annotation Type="RequiredAttribute" />
+      <Annotation Type="MaxLengthAttribute" Length="20" />
+    </Property>
+    <Property Name="Phone" Type="String" Nullable="false" ColumnName="phone" MaxLength="12" DefaultValue="UNKNOWN">
+      <Annotation Type="RequiredAttribute" />
+      <Annotation Type="MaxLengthAttribute" Length="12" />
+    </Property>
+    <Property Name="Address" Type="String" Nullable="true" ColumnName="address" MaxLength="40">
+      <Annotation Type="MaxLengthAttribute" Length="40" />
+    </Property>
+    <Property Name="City" Type="String" Nullable="true" ColumnName="city" MaxLength="20">
+      <Annotation Type="MaxLengthAttribute" Length="20" />
+    </Property>
+    <Property Name="State" Type="String" Nullable="true" ColumnName="state" MaxLength="2">
+      <Annotation Type="MaxLengthAttribute" Length="2" />
+    </Property>
+    <Property Name="Zip" Type="String" Nullable="true" ColumnName="zip" MaxLength="5">
+      <Annotation Type="MaxLengthAttribute" Length="5" />
+    </Property>
+    <Property Name="Contract" Type="Boolean" Nullable="false" ColumnName="contract">
+      <Annotation Type="RequiredAttribute" />
+    </Property>
+    <NavigationProperty Name="Titleauthors" Relationship="FK__titleauth__au_id__44FF419A" FromRole="Author" ToRole="Titleauthor" />
+  </EntityType>
+  <EntityType Name="Publisher" EntitySetName="Publishers" TableName="publishers">
+    <Key>
+      <PropertyRef Name="PubId" />
+    </Key>
+    <Property Name="PubId" Type="String" Nullable="false" ColumnName="pub_id" MaxLength="4">
+      <Annotation Type="RequiredAttribute" />
+      <Annotation Type="MaxLengthAttribute" Length="4" />
+    </Property>
+    <Property Name="PubName" Type="String" Nullable="true" ColumnName="pub_name" MaxLength="40">
+      <Annotation Type="MaxLengthAttribute" Length="40" />
+    </Property>
+    <Property Name="City" Type="String" Nullable="true" ColumnName="city" MaxLength="20">
+      <Annotation Type="MaxLengthAttribute" Length="20" />
+    </Property>
+    <Property Name="State" Type="String" Nullable="true" ColumnName="state" MaxLength="2">
+      <Annotation Type="MaxLengthAttribute" Length="2" />
+    </Property>
+    <Property Name="Country" Type="String" Nullable="true" ColumnName="country" MaxLength="30" DefaultValue="USA">
+      <Annotation Type="MaxLengthAttribute" Length="30" />
+    </Property>
+    <NavigationProperty Name="Titles" Relationship="FK__titles__pub_id__412EB0B6" FromRole="Publisher" ToRole="Title" />
+    <NavigationProperty Name="PubInfo" Relationship="FK__pub_info__pub_id__571DF1D5" FromRole="Publisher" ToRole="PubInfo" />
+    <NavigationProperty Name="Employees" Relationship="FK__employee__pub_id__5EBF139D" FromRole="Publisher" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Title" EntitySetName="Titles" TableName="titles">
+    <Key>
+      <PropertyRef Name="TitleId" />
+    </Key>
+    <Property Name="TitleId" Type="String" Nullable="false" ColumnName="title_id" MaxLength="6">
+      <Annotation Type="RequiredAttribute" />
+      <Annotation Type="MaxLengthAttribute" Length="6" />
+    </Property>
+    <Property Name="Title" Type="String" Nullable="false" ColumnName="title" MaxLength="80">
+      <Annotation Type="RequiredAttribute" />
+      <Annotation Type="MaxLengthAttribute" Length="80" />
+    </Property>
+    <Property Name="Type" Type="String" Nullable="false" ColumnName="type" MaxLength="12" DefaultValue="UNDECIDED">
+      <Annotation Type="RequiredAttribute" />
+      <Annotation Type="MaxLengthAttribute" Length="12" />
+    </Property>
+    <Property Name="PubId" Type="String" Nullable="true" ColumnName="pub_id" MaxLength="4">
+      <Annotation Type="MaxLengthAttribute" Length="4" />
+    </Property>
+    <Property Name="Price" Type="Decimal" Nullable="true" ColumnName="price" />
+    <Property Name="Advance" Type="Decimal" Nullable="true" ColumnName="advance" />
+    <Property Name="Royalty" Type="Int32" Nullable="true" ColumnName="royalty" />
+    <Property Name="YtdSales" Type="Int32" Nullable="true" ColumnName="ytd_sales" />
+    <Property Name="Notes" Type="String" Nullable="true" ColumnName="notes" MaxLength="200">
+      <Annotation Type="MaxLengthAttribute" Length="200" />
+    </Property>
+    <Property Name="Pubdate" Type="DateTime" Nullable="false" ColumnName="pubdate" DefaultValue="getdate()">
+      <Annotation Type="RequiredAttribute" />
+    </Property>
+    <NavigationProperty Name="Publisher" Relationship="FK__titles__pub_id__412EB0B6" FromRole="Title" ToRole="Publisher" />
+    <NavigationProperty Name="Titleauthors" Relationship="FK__titleauth__title__45F365D3" FromRole="Title" ToRole="Titleauthor" />
+    <NavigationProperty Name="Sales" Relationship="FK__sales__title_id__4BAC3F29" FromRole="Title" ToRole="Sale" />
+    <NavigationProperty Name="Royscheds" Relationship="FK__roysched__title___4D94879B" FromRole="Title" ToRole="Roysched" />
+  </EntityType>
+  <EntityType Name="Titleauthor" EntitySetName="Titleauthors" TableName="titleauthor">
+    <Key>
+      <PropertyRef Name="AuId" />
+      <PropertyRef Name="TitleId" />
+    </Key>
+    <Property Name="AuId" Type="String" Nullable="false" ColumnName="au_id" MaxLength="11">
+      <Annotation Type="RequiredAttribute" />
+      <Annotation Type="MaxLengthAttribute" Length="11" />
+    </Property>
+    <Property Name="TitleId" Type="String" Nullable="false" ColumnName="title_id" MaxLength="6">
+      <Annotation Type="RequiredAttribute" />
+      <Annotation Type="MaxLengthAttribute" Length="6" />
+    </Property>
+    <Property Name="AuOrd" Type="Byte" Nullable="true" ColumnName="au_ord" />
+    <Property Name="Royaltyper" Type="Int32" Nullable="true" ColumnName="royaltyper" />
+    <NavigationProperty Name="Author" Relationship="FK__titleauth__au_id__44FF419A" FromRole="Titleauthor" ToRole="Author" />
+    <NavigationProperty Name="Title" Relationship="FK__titleauth__title__45F365D3" FromRole="Titleauthor" ToRole="Title" />
+  </EntityType>
+  <EntityType Name="Store" EntitySetName="Stores" TableName="stores">
+    <Key>
+      <PropertyRef Name="StorId" />
+    </Key>
+    <Property Name="StorId" Type="String" Nullable="false" ColumnName="stor_id" MaxLength="4">
+      <Annotation Type="RequiredAttribute" />
+      <Annotation Type="MaxLengthAttribute" Length="4" />
+    </Property>
+    <Property Name="StorName" Type="String" Nullable="true" ColumnName="stor_name" MaxLength="40">
+      <Annotation Type="MaxLengthAttribute" Length="40" />
+    </Property>
+    <Property Name="StorAddress" Type="String" Nullable="true" ColumnName="stor_address" MaxLength="40">
+      <Annotation Type="MaxLengthAttribute" Length="40" />
+    </Property>
+    <Property Name="City" Type="String" Nullable="true" ColumnName="city" MaxLength="20">
+      <Annotation Type="MaxLengthAttribute" Length="20" />
+    </Property>
+    <Property Name="State" Type="String" Nullable="true" ColumnName="state" MaxLength="2">
+      <Annotation Type="MaxLengthAttribute" Length="2" />
+    </Property>
+    <Property Name="Zip" Type="String" Nullable="true" ColumnName="zip" MaxLength="5">
+      <Annotation Type="MaxLengthAttribute" Length="5" />
+    </Property>
+    <NavigationProperty Name="Sales" Relationship="FK__sales__stor_id__4AB81AF0" FromRole="Store" ToRole="Sale" />
+    <NavigationProperty Name="Discounts" Relationship="FK__discounts__stor___4F7CD00D" FromRole="Store" ToRole="Discount" />
+  </EntityType>
+  <EntityType Name="Sale" EntitySetName="Sales" TableName="sales">
+    <Key>
+      <PropertyRef Name="OrdNum" />
+      <PropertyRef Name="StorId" />
+      <PropertyRef Name="TitleId" />
+    </Key>
+    <Property Name="StorId" Type="String" Nullable="false" ColumnName="stor_id" MaxLength="4">
+      <Annotation Type="RequiredAttribute" />
+      <Annotation Type="MaxLengthAttribute" Length="4" />
+    </Property>
+    <Property Name="OrdNum" Type="String" Nullable="false" ColumnName="ord_num" MaxLength="20">
+      <Annotation Type="RequiredAttribute" />
+      <Annotation Type="MaxLengthAttribute" Length="20" />
+    </Property>
+    <Property Name="OrdDate" Type="DateTime" Nullable="false" ColumnName="ord_date">
+      <Annotation Type="RequiredAttribute" />
+    </Property>
+    <Property Name="Qty" Type="Int16" Nullable="false" ColumnName="qty">
+      <Annotation Type="RequiredAttribute" />
+    </Property>
+    <Property Name="Payterms" Type="String" Nullable="false" ColumnName="payterms" MaxLength="12">
+      <Annotation Type="RequiredAttribute" />
+      <Annotation Type="MaxLengthAttribute" Length="12" />
+    </Property>
+    <Property Name="TitleId" Type="String" Nullable="false" ColumnName="title_id" MaxLength="6">
+      <Annotation Type="RequiredAttribute" />
+      <Annotation Type="MaxLengthAttribute" Length="6" />
+    </Property>
+    <NavigationProperty Name="Store" Relationship="FK__sales__stor_id__4AB81AF0" FromRole="Sale" ToRole="Store" />
+    <NavigationProperty Name="Title" Relationship="FK__sales__title_id__4BAC3F29" FromRole="Sale" ToRole="Title" />
+  </EntityType>
+  <EntityType Name="Roysched" EntitySetName="Royscheds" TableName="roysched">
+    <Property Name="TitleId" Type="String" Nullable="false" ColumnName="title_id" MaxLength="6">
+      <Annotation Type="RequiredAttribute" />
+      <Annotation Type="MaxLengthAttribute" Length="6" />
+    </Property>
+    <Property Name="Lorange" Type="Int32" Nullable="true" ColumnName="lorange" />
+    <Property Name="Hirange" Type="Int32" Nullable="true" ColumnName="hirange" />
+    <Property Name="Royalty" Type="Int32" Nullable="true" ColumnName="royalty" />
+    <NavigationProperty Name="Title" Relationship="FK__roysched__title___4D94879B" FromRole="Roysched" ToRole="Title" />
+  </EntityType>
+  <EntityType Name="Discount" EntitySetName="Discounts" TableName="discounts">
+    <Property Name="Discounttype" Type="String" Nullable="false" ColumnName="discounttype" MaxLength="40">
+      <Annotation Type="RequiredAttribute" />
+      <Annotation Type="MaxLengthAttribute" Length="40" />
+    </Property>
+    <Property Name="StorId" Type="String" Nullable="true" ColumnName="stor_id" MaxLength="4">
+      <Annotation Type="MaxLengthAttribute" Length="4" />
+    </Property>
+    <Property Name="Lowqty" Type="Int16" Nullable="true" ColumnName="lowqty" />
+    <Property Name="Highqty" Type="Int16" Nullable="true" ColumnName="highqty" />
+    <Property Name="Discount" Type="Decimal" Nullable="false" ColumnName="discount">
+      <Annotation Type="RequiredAttribute" />
+    </Property>
+    <NavigationProperty Name="Store" Relationship="FK__discounts__stor___4F7CD00D" FromRole="Discount" ToRole="Store" />
+  </EntityType>
+  <EntityType Name="Job" EntitySetName="Jobs" TableName="jobs">
+    <Key>
+      <PropertyRef Name="JobId" />
+    </Key>
+    <Property Name="JobId" Type="Int16" Nullable="false" ColumnName="job_id" AutoGenerated="true">
+      <Annotation Type="RequiredAttribute" />
+    </Property>
+    <Property Name="JobDesc" Type="String" Nullable="false" ColumnName="job_desc" MaxLength="50" DefaultValue="New Position - title not formalized yet">
+      <Annotation Type="RequiredAttribute" />
+      <Annotation Type="MaxLengthAttribute" Length="50" />
+    </Property>
+    <Property Name="MinLvl" Type="Byte" Nullable="false" ColumnName="min_lvl">
+      <Annotation Type="RequiredAttribute" />
+    </Property>
+    <Property Name="MaxLvl" Type="Byte" Nullable="false" ColumnName="max_lvl">
+      <Annotation Type="RequiredAttribute" />
+    </Property>
+    <NavigationProperty Name="Employees" Relationship="FK__employee__job_id__5BE2A6F2" FromRole="Job" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="PubInfo" EntitySetName="PubInfoes" TableName="pub_info">
+    <Key>
+      <PropertyRef Name="PubId" />
+    </Key>
+    <Property Name="PubId" Type="String" Nullable="false" ColumnName="pub_id" MaxLength="4">
+      <Annotation Type="RequiredAttribute" />
+      <Annotation Type="MaxLengthAttribute" Length="4" />
+    </Property>
+    <Property Name="Logo" Type="Byte[]" Nullable="true" ColumnName="logo" />
+    <Property Name="PrInfo" Type="String" Nullable="true" ColumnName="pr_info" MaxLength="2147483647">
+      <Annotation Type="MaxLengthAttribute" Length="2147483647" />
+    </Property>
+    <NavigationProperty Name="Publisher" Relationship="FK__pub_info__pub_id__571DF1D5" FromRole="PubInfo" ToRole="Publisher" />
+  </EntityType>
+  <EntityType Name="Employee" EntitySetName="Employees" TableName="employee">
+    <Key>
+      <PropertyRef Name="EmpId" />
+    </Key>
+    <Property Name="EmpId" Type="String" Nullable="false" ColumnName="emp_id" MaxLength="9">
+      <Annotation Type="RequiredAttribute" />
+      <Annotation Type="MaxLengthAttribute" Length="9" />
+    </Property>
+    <Property Name="Firstname" Type="String" Nullable="false" ColumnName="fname" MaxLength="20">
+      <Annotation Type="RequiredAttribute" />
+      <Annotation Type="MaxLengthAttribute" Length="20" />
+    </Property>
+    <Property Name="Minit" Type="String" Nullable="true" ColumnName="minit" MaxLength="1">
+      <Annotation Type="MaxLengthAttribute" Length="1" />
+    </Property>
+    <Property Name="Lastname" Type="String" Nullable="false" ColumnName="lname" MaxLength="30">
+      <Annotation Type="RequiredAttribute" />
+      <Annotation Type="MaxLengthAttribute" Length="30" />
+    </Property>
+    <Property Name="JobId" Type="Int16" Nullable="false" ColumnName="job_id" DefaultValue="1">
+      <Annotation Type="RequiredAttribute" />
+    </Property>
+    <Property Name="JobLvl" Type="Byte" Nullable="true" ColumnName="job_lvl" DefaultValue="10" />
+    <Property Name="PubId" Type="String" Nullable="false" ColumnName="pub_id" MaxLength="4" DefaultValue="9952">
+      <Annotation Type="RequiredAttribute" />
+      <Annotation Type="MaxLengthAttribute" Length="4" />
+    </Property>
+    <Property Name="HireDate" Type="DateTime" Nullable="false" ColumnName="hire_date" DefaultValue="getdate()">
+      <Annotation Type="RequiredAttribute" />
+    </Property>
+    <NavigationProperty Name="Job" Relationship="FK__employee__job_id__5BE2A6F2" FromRole="Employee" ToRole="Job" />
+    <NavigationProperty Name="Publisher" Relationship="FK__employee__pub_id__5EBF139D" FromRole="Employee" ToRole="Publisher" />
+  </EntityType>
+  <EntityType Name="TitleView" EntitySetName="TitleViews" TableName="titleview" ReadOnly="true">
+    <Property Name="Title" Type="String" Nullable="false" ColumnName="title" MaxLength="80">
+      <Annotation Type="RequiredAttribute" />
+      <Annotation Type="MaxLengthAttribute" Length="80" />
+    </Property>
+    <Property Name="AuthorOrd" Type="Byte" Nullable="true" ColumnName="au_ord" />
+    <Property Name="AuthorName" Type="String" Nullable="false" ColumnName="au_lname" MaxLength="40">
+      <Annotation Type="RequiredAttribute" />
+      <Annotation Type="MaxLengthAttribute" Length="40" />
+    </Property>
+    <Property Name="Price" Type="Decimal" Nullable="true" ColumnName="price" />
+    <Property Name="YtdSales" Type="Int32" Nullable="true" ColumnName="ytd_sales" />
+    <Property Name="PubId" Type="String" Nullable="true" ColumnName="pub_id" MaxLength="4">
+      <Annotation Type="MaxLengthAttribute" Length="4" />
+    </Property>
+  </EntityType>
+  <Association Name="FK__titles__pub_id__412EB0B6">
+    <End Role="Publisher" Type="Publisher" Multiplicity="0..1" />
+    <End Role="Title" Type="Title" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Publisher">
+        <PropertyRef Name="PubId" />
+      </Principal>
+      <Dependent Role="Title">
+        <PropertyRef Name="PubId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__titleauth__au_id__44FF419A">
+    <End Role="Author" Type="Author" Multiplicity="1" />
+    <End Role="Titleauthor" Type="Titleauthor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author">
+        <PropertyRef Name="AuthorId" />
+      </Principal>
+      <Dependent Role="Titleauthor">
+        <PropertyRef Name="AuId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__titleauth__title__45F365D3">
+    <End Role="Title" Type="Title" Multiplicity="1" />
+    <End Role="Titleauthor" Type="Titleauthor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Title">
+        <PropertyRef Name="TitleId" />
+      </Principal>
+      <Dependent Role="Titleauthor">
+        <PropertyRef Name="TitleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__sales__stor_id__4AB81AF0">
+    <End Role="Store" Type="Store" Multiplicity="1" />
+    <End Role="Sale" Type="Sale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Store">
+        <PropertyRef Name="StorId" />
+      </Principal>
+      <Dependent Role="Sale">
+        <PropertyRef Name="StorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__sales__title_id__4BAC3F29">
+    <End Role="Title" Type="Title" Multiplicity="1" />
+    <End Role="Sale" Type="Sale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Title">
+        <PropertyRef Name="TitleId" />
+      </Principal>
+      <Dependent Role="Sale">
+        <PropertyRef Name="TitleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__roysched__title___4D94879B">
+    <End Role="Title" Type="Title" Multiplicity="1" />
+    <End Role="Roysched" Type="Roysched" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Title">
+        <PropertyRef Name="TitleId" />
+      </Principal>
+      <Dependent Role="Roysched">
+        <PropertyRef Name="TitleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__discounts__stor___4F7CD00D">
+    <End Role="Store" Type="Store" Multiplicity="0..1" />
+    <End Role="Discount" Type="Discount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Store">
+        <PropertyRef Name="StorId" />
+      </Principal>
+      <Dependent Role="Discount">
+        <PropertyRef Name="StorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__pub_info__pub_id__571DF1D5">
+    <End Role="Publisher" Type="Publisher" Multiplicity="1" />
+    <End Role="PubInfo" Type="PubInfo" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Publisher">
+        <PropertyRef Name="PubId" />
+      </Principal>
+      <Dependent Role="PubInfo">
+        <PropertyRef Name="PubId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__employee__job_id__5BE2A6F2">
+    <End Role="Job" Type="Job" Multiplicity="1" />
+    <End Role="Employee" Type="Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Job">
+        <PropertyRef Name="JobId" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="JobId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__employee__pub_id__5EBF139D">
+    <End Role="Publisher" Type="Publisher" Multiplicity="1" />
+    <End Role="Employee" Type="Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Publisher">
+        <PropertyRef Name="PubId" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="PubId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

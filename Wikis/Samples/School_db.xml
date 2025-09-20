@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<StoreSchema>
+  <!-- Database schema -->
+  <Schema Database="School" Provider="Microsoft.Data.SqlClient" CreatedAt="2025-09-18T16:41:50.863">
+    <Table Name="Department" Type="Table">
+      <Key Name="PK_Department">
+        <ColumnRef Name="DepartmentID" />
+      </Key>
+      <Column Name="DepartmentID" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="Name" DataType="nvarchar" Nullable="false" MaxLength="50" FixedLength="false" />
+      <Column Name="Budget" DataType="money" Nullable="false" FixedLength="true" Precision="19" Scale="4" />
+      <Column Name="StartDate" DataType="datetime" Nullable="false" FixedLength="true" Precision="3" />
+      <Column Name="Administrator" DataType="int" Nullable="true" FixedLength="true" Precision="10" Scale="0" />
+    </Table>
+    <Table Name="Person" Type="Table">
+      <Key Name="PK_School.Student">
+        <ColumnRef Name="PersonID" />
+      </Key>
+      <Column Name="PersonID" DataType="int" Nullable="false" AutoIncrement="true" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="LastName" DataType="nvarchar" Nullable="false" MaxLength="50" FixedLength="false" />
+      <Column Name="FirstName" DataType="nvarchar" Nullable="false" MaxLength="50" FixedLength="false" />
+      <Column Name="HireDate" DataType="datetime" Nullable="true" FixedLength="true" Precision="3" />
+      <Column Name="EnrollmentDate" DataType="datetime" Nullable="true" FixedLength="true" Precision="3" />
+      <Column Name="Discriminator" DataType="nvarchar" Nullable="false" MaxLength="50" FixedLength="false" />
+    </Table>
+    <Table Name="OnsiteCourse" Type="Table">
+      <Key Name="PK_OnsiteCourse">
+        <ColumnRef Name="CourseID" />
+      </Key>
+      <Column Name="CourseID" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="Location" DataType="nvarchar" Nullable="false" MaxLength="50" FixedLength="false" />
+      <Column Name="Days" DataType="nvarchar" Nullable="false" MaxLength="50" FixedLength="false" />
+      <Column Name="Time" DataType="smalldatetime" Nullable="false" FixedLength="true" Precision="0" />
+      <ForeignKeyConstraint Name="FK_OnsiteCourse_Course" Related="Course">
+        <ColumnRef Name="CourseID" Related="CourseID" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="OnlineCourse" Type="Table">
+      <Key Name="PK_OnlineCourse">
+        <ColumnRef Name="CourseID" />
+      </Key>
+      <Column Name="CourseID" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="URL" DataType="nvarchar" Nullable="false" MaxLength="100" FixedLength="false" />
+      <ForeignKeyConstraint Name="FK_OnlineCourse_Course" Related="Course">
+        <ColumnRef Name="CourseID" Related="CourseID" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="StudentGrade" Type="Table">
+      <Key Name="PK_StudentGrade">
+        <ColumnRef Name="EnrollmentID" />
+      </Key>
+      <Column Name="EnrollmentID" DataType="int" Nullable="false" AutoIncrement="true" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="CourseID" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="StudentID" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="Grade" DataType="decimal" Nullable="true" FixedLength="true" Precision="3" Scale="2" />
+      <ForeignKeyConstraint Name="FK_StudentGrade_Course" Related="Course">
+        <ColumnRef Name="CourseID" Related="CourseID" />
+      </ForeignKeyConstraint>
+      <ForeignKeyConstraint Name="FK_StudentGrade_Student" Related="Person">
+        <ColumnRef Name="StudentID" Related="PersonID" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="CourseInstructor" Type="Table">
+      <Key Name="PK_CourseInstructor">
+        <ColumnRef Name="CourseID" />
+        <ColumnRef Name="PersonID" />
+      </Key>
+      <Column Name="CourseID" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="PersonID" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <ForeignKeyConstraint Name="FK_CourseInstructor_Course" Related="Course">
+        <ColumnRef Name="CourseID" Related="CourseID" />
+      </ForeignKeyConstraint>
+      <ForeignKeyConstraint Name="FK_CourseInstructor_Person" Related="Person">
+        <ColumnRef Name="PersonID" Related="PersonID" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="Course" Type="Table">
+      <Key Name="PK_School.Course">
+        <ColumnRef Name="CourseID" />
+      </Key>
+      <Column Name="CourseID" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="Title" DataType="nvarchar" Nullable="false" MaxLength="100" FixedLength="false" />
+      <Column Name="Credits" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="DepartmentID" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <ForeignKeyConstraint Name="FK_Course_Department" Related="Department">
+        <ColumnRef Name="DepartmentID" Related="DepartmentID" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="OfficeAssignment" Type="Table">
+      <Key Name="PK_OfficeAssignment">
+        <ColumnRef Name="InstructorID" />
+      </Key>
+      <Column Name="InstructorID" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="Location" DataType="nvarchar" Nullable="false" MaxLength="50" FixedLength="false" />
+      <Column Name="Timestamp" DataType="timestamp" Nullable="false" FixedLength="true" ConcurrencyMode="Fixed" />
+      <ForeignKeyConstraint Name="FK_OfficeAssignment_Person" Related="Person">
+        <ColumnRef Name="InstructorID" Related="PersonID" />
+      </ForeignKeyConstraint>
+    </Table>
+  </Schema>
+  <!-- DataSet schema -->
+  <xs:schema id="School" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="School" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Department">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="DepartmentID" type="xs:int" />
+                <xs:element name="Name">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="50" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Budget" type="xs:decimal" />
+                <xs:element name="StartDate" type="xs:dateTime" />
+                <xs:element name="Administrator" type="xs:int" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Person">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="PersonID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="LastName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="50" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="FirstName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="50" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="HireDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="EnrollmentDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="Discriminator">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="50" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="OnsiteCourse">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="CourseID" type="xs:int" />
+                <xs:element name="Location">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="50" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Days">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="50" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Time" type="xs:dateTime" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="OnlineCourse">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="CourseID" type="xs:int" />
+                <xs:element name="URL">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="100" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="StudentGrade">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="EnrollmentID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="CourseID" type="xs:int" />
+                <xs:element name="StudentID" type="xs:int" />
+                <xs:element name="Grade" type="xs:decimal" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="CourseInstructor">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="CourseID" type="xs:int" />
+                <xs:element name="PersonID" type="xs:int" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Course">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="CourseID" type="xs:int" />
+                <xs:element name="Title">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="100" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Credits" type="xs:int" />
+                <xs:element name="DepartmentID" type="xs:int" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="OfficeAssignment">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="InstructorID" type="xs:int" />
+                <xs:element name="Location">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="50" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Timestamp" msdata:ReadOnly="true" type="xs:base64Binary" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+      <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Department" />
+        <xs:field xpath="DepartmentID" />
+      </xs:unique>
+      <xs:unique name="Person_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Person" />
+        <xs:field xpath="PersonID" />
+      </xs:unique>
+      <xs:unique name="OnsiteCourse_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//OnsiteCourse" />
+        <xs:field xpath="CourseID" />
+      </xs:unique>
+      <xs:unique name="OnlineCourse_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//OnlineCourse" />
+        <xs:field xpath="CourseID" />
+      </xs:unique>
+      <xs:unique name="StudentGrade_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//StudentGrade" />
+        <xs:field xpath="EnrollmentID" />
+      </xs:unique>
+      <xs:unique name="CourseInstructor_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//CourseInstructor" />
+        <xs:field xpath="CourseID" />
+        <xs:field xpath="PersonID" />
+      </xs:unique>
+      <xs:unique name="Course_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Course" />
+        <xs:field xpath="CourseID" />
+      </xs:unique>
+      <xs:unique name="OfficeAssignment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//OfficeAssignment" />
+        <xs:field xpath="InstructorID" />
+      </xs:unique>
+    </xs:element>
+  </xs:schema>
+</StoreSchema>

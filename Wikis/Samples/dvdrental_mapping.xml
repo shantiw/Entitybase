@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Mapping>
+	<Mapper Type="ConfigMapper">
+		<EntitySetMapping Format="{Funcs(TableName)}">
+			<Functions>
+				<Function Name="Pluralize" Order ="1" />
+				<Function Name="ToPascalCase" Order ="2" />
+			</Functions>
+		</EntitySetMapping>
+		<EntityTypeMapping Format="{Funcs(TableName)}" DisplayName="{Comment}">
+			<Functions>
+				<Function Name="Singularize" Order ="1" />
+				<Function Name="ToPascalCase" Order ="2" />
+			</Functions>
+		</EntityTypeMapping>
+		<PropertyMapping Format="{Funcs(ColumnName)}" DisplayName="{Comment}">
+			<Functions>
+				<Function Name="ToSnakeCase" Parameter="ColumnName" Order ="1" />
+				<Function Name="ToPascalCase" Parameter="ColumnName" Order ="2" />
+			</Functions>
+		</PropertyMapping>
+		<SequenceAttaching Format="{TableName}_{ColumnName}_seq" />
+	</Mapper>
+</Mapping>

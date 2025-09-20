@@ -119,12 +119,12 @@ namespace Shantiw.Data.Schema
                     if (column.Unicode != null)
                         xColumn.SetAttributeValue(nameof(column.Unicode), column.Unicode);
 
-                    if (column.Collation != null)
-                        xColumn.SetAttributeValue(nameof(column.Collation), column.Collation);
-
+                    //  if (column.Collation != null)
+                    //      xColumn.SetAttributeValue(nameof(column.Collation), column.Collation);
+                    
                     if (column.Precision != null)
                         xColumn.SetAttributeValue(nameof(column.Precision), column.Precision);
-
+                    
                     if (column.Scale != null)
                         xColumn.SetAttributeValue(nameof(column.Scale), column.Scale);
 

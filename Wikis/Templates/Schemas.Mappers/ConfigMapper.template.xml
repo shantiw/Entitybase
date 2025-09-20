@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Mapping>
+<Mapping optional-File=".xml/.json/.csv">
 	<Mapper Type="Shantiw.Data.Schema.ConfigMapper" >
 		<!-- Internal functions: ToLower, ToUpper, ToPascalCase, ToCamelCase, ToSnakeCase, Singularize, Pluralize -->
 		<EntitySetMapping Format="[Prefix]{Funcs(TableName)}/{TableName}[Suffix]" >

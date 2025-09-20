@@ -32,9 +32,13 @@ namespace Shantiw.Data.Schema
         private static DataSet CreateSchemaDataSet(XElement storeSchema)
         {
             XElement dataSetSchema = storeSchema.Elements().Single(e => e.GetNamespaceOfPrefix("xs") != null && e.Attribute("id") != null);
-            using XmlReader xmlReader = dataSetSchema.CreateReader();
+
+            using MemoryStream stream = new();
+            dataSetSchema.Save(stream);
+            stream.Position = 0;
             DataSet SchemaDataSet = new();
-            SchemaDataSet.ReadXmlSchema(xmlReader);
+            SchemaDataSet.ReadXmlSchema(stream);
+
             return SchemaDataSet;
         }
 

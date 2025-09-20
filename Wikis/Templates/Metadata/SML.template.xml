@@ -28,7 +28,4 @@
 			<Annotation Type="..." />
 		</EntityType>
 	</Add>
-	<Replace>
-		<!-- the same as Add -->
-	</Replace>
 </MSL>

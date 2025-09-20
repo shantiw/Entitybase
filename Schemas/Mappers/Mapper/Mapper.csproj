@@ -13,13 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Mapping.csv" />
-    <None Remove="Mapping.json" />
-    <None Remove="Mapping.xml" />
-    <None Remove="Mapping1.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Common.csproj" />
   </ItemGroup>
 

@@ -1,0 +1,632 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<StoreSchema>
+  <!-- Database schema -->
+  <Schema Database="Pubs" Provider="Microsoft.Data.SqlClient" CreatedAt="2025-09-18T16:37:56.543">
+    <Table Name="authors" Type="Table">
+      <Key Name="UPKCL_auidind">
+        <ColumnRef Name="au_id" />
+      </Key>
+      <Column Name="au_id" DataType="varchar" Nullable="false" MaxLength="11" FixedLength="false" />
+      <Column Name="au_lname" DataType="varchar" Nullable="false" MaxLength="40" FixedLength="false" />
+      <Column Name="au_fname" DataType="varchar" Nullable="false" MaxLength="20" FixedLength="false" />
+      <Column Name="phone" DataType="char" Nullable="false" DefaultValue="UNKNOWN" MaxLength="12" FixedLength="true" />
+      <Column Name="address" DataType="varchar" Nullable="true" MaxLength="40" FixedLength="false" />
+      <Column Name="city" DataType="varchar" Nullable="true" MaxLength="20" FixedLength="false" />
+      <Column Name="state" DataType="char" Nullable="true" MaxLength="2" FixedLength="true" />
+      <Column Name="zip" DataType="char" Nullable="true" MaxLength="5" FixedLength="true" />
+      <Column Name="contract" DataType="bit" Nullable="false" FixedLength="true" />
+      <CheckConstraint Name="CK__authors__au_id__37A5467C" BooleanExpression="([au_id] like '[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]')">
+        <ColumnRef Name="au_id" />
+      </CheckConstraint>
+      <CheckConstraint Name="CK__authors__zip__398D8EEE" BooleanExpression="([zip] like '[0-9][0-9][0-9][0-9][0-9]')">
+        <ColumnRef Name="zip" />
+      </CheckConstraint>
+    </Table>
+    <Table Name="publishers" Type="Table">
+      <Key Name="UPKCL_pubind">
+        <ColumnRef Name="pub_id" />
+      </Key>
+      <Column Name="pub_id" DataType="char" Nullable="false" MaxLength="4" FixedLength="true" />
+      <Column Name="pub_name" DataType="varchar" Nullable="true" MaxLength="40" FixedLength="false" />
+      <Column Name="city" DataType="varchar" Nullable="true" MaxLength="20" FixedLength="false" />
+      <Column Name="state" DataType="char" Nullable="true" MaxLength="2" FixedLength="true" />
+      <Column Name="country" DataType="varchar" Nullable="true" DefaultValue="USA" MaxLength="30" FixedLength="false" />
+      <CheckConstraint Name="CK__publisher__pub_i__3C69FB99" BooleanExpression="([pub_id]='1756' OR [pub_id]='1622' OR [pub_id]='0877' OR [pub_id]='0736' OR [pub_id]='1389' OR [pub_id] like '99[0-9][0-9]')">
+        <ColumnRef Name="pub_id" />
+      </CheckConstraint>
+    </Table>
+    <Table Name="titles" Type="Table">
+      <Key Name="UPKCL_titleidind">
+        <ColumnRef Name="title_id" />
+      </Key>
+      <Column Name="title_id" DataType="varchar" Nullable="false" MaxLength="6" FixedLength="false" />
+      <Column Name="title" DataType="varchar" Nullable="false" MaxLength="80" FixedLength="false" />
+      <Column Name="type" DataType="char" Nullable="false" DefaultValue="UNDECIDED" MaxLength="12" FixedLength="true" />
+      <Column Name="pub_id" DataType="char" Nullable="true" MaxLength="4" FixedLength="true" />
+      <Column Name="price" DataType="money" Nullable="true" FixedLength="true" Precision="19" Scale="4" />
+      <Column Name="advance" DataType="money" Nullable="true" FixedLength="true" Precision="19" Scale="4" />
+      <Column Name="royalty" DataType="int" Nullable="true" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="ytd_sales" DataType="int" Nullable="true" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="notes" DataType="varchar" Nullable="true" MaxLength="200" FixedLength="false" />
+      <Column Name="pubdate" DataType="datetime" Nullable="false" DefaultValue="getdate()" FixedLength="true" Precision="3" />
+      <ForeignKeyConstraint Name="FK__titles__pub_id__412EB0B6" Related="publishers">
+        <ColumnRef Name="pub_id" Related="pub_id" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="titleauthor" Type="Table">
+      <Key Name="UPKCL_taind">
+        <ColumnRef Name="au_id" />
+        <ColumnRef Name="title_id" />
+      </Key>
+      <Column Name="au_id" DataType="varchar" Nullable="false" MaxLength="11" FixedLength="false" />
+      <Column Name="title_id" DataType="varchar" Nullable="false" MaxLength="6" FixedLength="false" />
+      <Column Name="au_ord" DataType="tinyint" Nullable="true" FixedLength="true" Precision="3" Scale="0" />
+      <Column Name="royaltyper" DataType="int" Nullable="true" FixedLength="true" Precision="10" Scale="0" />
+      <ForeignKeyConstraint Name="FK__titleauth__au_id__44FF419A" Related="authors">
+        <ColumnRef Name="au_id" Related="au_id" />
+      </ForeignKeyConstraint>
+      <ForeignKeyConstraint Name="FK__titleauth__title__45F365D3" Related="titles">
+        <ColumnRef Name="title_id" Related="title_id" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="stores" Type="Table">
+      <Key Name="UPK_storeid">
+        <ColumnRef Name="stor_id" />
+      </Key>
+      <Column Name="stor_id" DataType="char" Nullable="false" MaxLength="4" FixedLength="true" />
+      <Column Name="stor_name" DataType="varchar" Nullable="true" MaxLength="40" FixedLength="false" />
+      <Column Name="stor_address" DataType="varchar" Nullable="true" MaxLength="40" FixedLength="false" />
+      <Column Name="city" DataType="varchar" Nullable="true" MaxLength="20" FixedLength="false" />
+      <Column Name="state" DataType="char" Nullable="true" MaxLength="2" FixedLength="true" />
+      <Column Name="zip" DataType="char" Nullable="true" MaxLength="5" FixedLength="true" />
+    </Table>
+    <Table Name="sales" Type="Table">
+      <Key Name="UPKCL_sales">
+        <ColumnRef Name="ord_num" />
+        <ColumnRef Name="stor_id" />
+        <ColumnRef Name="title_id" />
+      </Key>
+      <Column Name="stor_id" DataType="char" Nullable="false" MaxLength="4" FixedLength="true" />
+      <Column Name="ord_num" DataType="varchar" Nullable="false" MaxLength="20" FixedLength="false" />
+      <Column Name="ord_date" DataType="datetime" Nullable="false" FixedLength="true" Precision="3" />
+      <Column Name="qty" DataType="smallint" Nullable="false" FixedLength="true" Precision="5" Scale="0" />
+      <Column Name="payterms" DataType="varchar" Nullable="false" MaxLength="12" FixedLength="false" />
+      <Column Name="title_id" DataType="varchar" Nullable="false" MaxLength="6" FixedLength="false" />
+      <ForeignKeyConstraint Name="FK__sales__stor_id__4AB81AF0" Related="stores">
+        <ColumnRef Name="stor_id" Related="stor_id" />
+      </ForeignKeyConstraint>
+      <ForeignKeyConstraint Name="FK__sales__title_id__4BAC3F29" Related="titles">
+        <ColumnRef Name="title_id" Related="title_id" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="roysched" Type="Table">
+      <Column Name="title_id" DataType="varchar" Nullable="false" MaxLength="6" FixedLength="false" />
+      <Column Name="lorange" DataType="int" Nullable="true" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="hirange" DataType="int" Nullable="true" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="royalty" DataType="int" Nullable="true" FixedLength="true" Precision="10" Scale="0" />
+      <ForeignKeyConstraint Name="FK__roysched__title___4D94879B" Related="titles">
+        <ColumnRef Name="title_id" Related="title_id" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="discounts" Type="Table">
+      <Column Name="discounttype" DataType="varchar" Nullable="false" MaxLength="40" FixedLength="false" />
+      <Column Name="stor_id" DataType="char" Nullable="true" MaxLength="4" FixedLength="true" />
+      <Column Name="lowqty" DataType="smallint" Nullable="true" FixedLength="true" Precision="5" Scale="0" />
+      <Column Name="highqty" DataType="smallint" Nullable="true" FixedLength="true" Precision="5" Scale="0" />
+      <Column Name="discount" DataType="decimal" Nullable="false" FixedLength="true" Precision="4" Scale="2" />
+      <ForeignKeyConstraint Name="FK__discounts__stor___4F7CD00D" Related="stores">
+        <ColumnRef Name="stor_id" Related="stor_id" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="jobs" Type="Table">
+      <Key Name="PK__jobs__6E32B6A5C4635D22">
+        <ColumnRef Name="job_id" />
+      </Key>
+      <Column Name="job_id" DataType="smallint" Nullable="false" AutoIncrement="true" FixedLength="true" Precision="5" Scale="0" />
+      <Column Name="job_desc" DataType="varchar" Nullable="false" DefaultValue="New Position - title not formalized yet" MaxLength="50" FixedLength="false" />
+      <Column Name="min_lvl" DataType="tinyint" Nullable="false" FixedLength="true" Precision="3" Scale="0" />
+      <Column Name="max_lvl" DataType="tinyint" Nullable="false" FixedLength="true" Precision="3" Scale="0" />
+      <CheckConstraint Name="CK__jobs__min_lvl__534D60F1" BooleanExpression="([min_lvl]&gt;=(10))">
+        <ColumnRef Name="min_lvl" />
+      </CheckConstraint>
+      <CheckConstraint Name="CK__jobs__max_lvl__5441852A" BooleanExpression="([max_lvl]&lt;=(250))">
+        <ColumnRef Name="max_lvl" />
+      </CheckConstraint>
+    </Table>
+    <Table Name="pub_info" Type="Table">
+      <Key Name="UPKCL_pubinfo">
+        <ColumnRef Name="pub_id" />
+      </Key>
+      <Column Name="pub_id" DataType="char" Nullable="false" MaxLength="4" FixedLength="true" />
+      <Column Name="logo" DataType="image" Nullable="true" MaxLength="2147483647" FixedLength="false" />
+      <Column Name="pr_info" DataType="text" Nullable="true" MaxLength="2147483647" FixedLength="false" />
+      <ForeignKeyConstraint Name="FK__pub_info__pub_id__571DF1D5" Related="publishers">
+        <ColumnRef Name="pub_id" Related="pub_id" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="employee" Type="Table">
+      <Key Name="PK_emp_id">
+        <ColumnRef Name="emp_id" />
+      </Key>
+      <Column Name="emp_id" DataType="char" Nullable="false" MaxLength="9" FixedLength="true" />
+      <Column Name="fname" DataType="varchar" Nullable="false" MaxLength="20" FixedLength="false" />
+      <Column Name="minit" DataType="char" Nullable="true" MaxLength="1" FixedLength="true" />
+      <Column Name="lname" DataType="varchar" Nullable="false" MaxLength="30" FixedLength="false" />
+      <Column Name="job_id" DataType="smallint" Nullable="false" DefaultValue="1" FixedLength="true" Precision="5" Scale="0" />
+      <Column Name="job_lvl" DataType="tinyint" Nullable="true" DefaultValue="10" FixedLength="true" Precision="3" Scale="0" />
+      <Column Name="pub_id" DataType="char" Nullable="false" DefaultValue="9952" MaxLength="4" FixedLength="true" />
+      <Column Name="hire_date" DataType="datetime" Nullable="false" DefaultValue="getdate()" FixedLength="true" Precision="3" />
+      <CheckConstraint Name="CK_emp_id" BooleanExpression="([emp_id] like '[A-Z][A-Z][A-Z][1-9][0-9][0-9][0-9][0-9][FM]' OR [emp_id] like '[A-Z]-[A-Z][1-9][0-9][0-9][0-9][0-9][FM]')">
+        <ColumnRef Name="emp_id" />
+      </CheckConstraint>
+      <ForeignKeyConstraint Name="FK__employee__job_id__5BE2A6F2" Related="jobs">
+        <ColumnRef Name="job_id" Related="job_id" />
+      </ForeignKeyConstraint>
+      <ForeignKeyConstraint Name="FK__employee__pub_id__5EBF139D" Related="publishers">
+        <ColumnRef Name="pub_id" Related="pub_id" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="titleview" Type="View" Updatable="false">
+      <Column Name="title" DataType="varchar" Nullable="false" MaxLength="80" FixedLength="false" />
+      <Column Name="au_ord" DataType="tinyint" Nullable="true" FixedLength="true" Precision="3" Scale="0" />
+      <Column Name="au_lname" DataType="varchar" Nullable="false" MaxLength="40" FixedLength="false" />
+      <Column Name="price" DataType="money" Nullable="true" FixedLength="true" Precision="19" Scale="4" />
+      <Column Name="ytd_sales" DataType="int" Nullable="true" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="pub_id" DataType="char" Nullable="true" MaxLength="4" FixedLength="true" />
+    </Table>
+  </Schema>
+  <!-- DataSet schema -->
+  <xs:schema id="Pubs" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="Pubs" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="authors">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="au_id">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="11" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="au_lname">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="au_fname">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="20" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="phone" default="UNKNOWN">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="12" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="address" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="city" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="20" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="state" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="2" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="zip" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="5" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="contract" type="xs:boolean" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="publishers">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="pub_id">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="4" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="pub_name" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="city" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="20" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="state" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="2" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="country" default="USA" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="30" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="titles">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="title_id">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="6" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="title">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="80" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="type" default="UNDECIDED">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="12" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="pub_id" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="4" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="price" type="xs:decimal" minOccurs="0" />
+                <xs:element name="advance" type="xs:decimal" minOccurs="0" />
+                <xs:element name="royalty" type="xs:int" minOccurs="0" />
+                <xs:element name="ytd_sales" type="xs:int" minOccurs="0" />
+                <xs:element name="notes" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="200" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="pubdate" type="xs:dateTime" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="titleauthor">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="au_id">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="11" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="title_id">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="6" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="au_ord" type="xs:unsignedByte" minOccurs="0" />
+                <xs:element name="royaltyper" type="xs:int" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="stores">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="stor_id">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="4" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="stor_name" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="stor_address" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="city" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="20" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="state" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="2" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="zip" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="5" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="sales">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="stor_id">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="4" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ord_num">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="20" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ord_date" type="xs:dateTime" />
+                <xs:element name="qty" type="xs:short" />
+                <xs:element name="payterms">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="12" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="title_id">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="6" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="roysched">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="title_id">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="6" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="lorange" type="xs:int" minOccurs="0" />
+                <xs:element name="hirange" type="xs:int" minOccurs="0" />
+                <xs:element name="royalty" type="xs:int" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="discounts">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="discounttype">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="stor_id" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="4" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="lowqty" type="xs:short" minOccurs="0" />
+                <xs:element name="highqty" type="xs:short" minOccurs="0" />
+                <xs:element name="discount" type="xs:decimal" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="jobs">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="job_id" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xs:short" />
+                <xs:element name="job_desc" default="New Position - title not formalized yet">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="50" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="min_lvl" type="xs:unsignedByte" />
+                <xs:element name="max_lvl" type="xs:unsignedByte" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="pub_info">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="pub_id">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="4" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="logo" type="xs:base64Binary" minOccurs="0" />
+                <xs:element name="pr_info" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="2147483647" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="employee">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="emp_id">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="9" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="fname">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="20" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="minit" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="1" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="lname">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="30" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="job_id" type="xs:short" default="1" />
+                <xs:element name="job_lvl" type="xs:unsignedByte" default="10" minOccurs="0" />
+                <xs:element name="pub_id" default="9952">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="4" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="hire_date" type="xs:dateTime" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="titleview">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="title">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="80" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="au_ord" type="xs:unsignedByte" minOccurs="0" />
+                <xs:element name="au_lname">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="price" type="xs:decimal" minOccurs="0" />
+                <xs:element name="ytd_sales" type="xs:int" minOccurs="0" />
+                <xs:element name="pub_id" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="4" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+      <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//authors" />
+        <xs:field xpath="au_id" />
+      </xs:unique>
+      <xs:unique name="publishers_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//publishers" />
+        <xs:field xpath="pub_id" />
+      </xs:unique>
+      <xs:unique name="titles_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//titles" />
+        <xs:field xpath="title_id" />
+      </xs:unique>
+      <xs:unique name="titleauthor_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//titleauthor" />
+        <xs:field xpath="au_id" />
+        <xs:field xpath="title_id" />
+      </xs:unique>
+      <xs:unique name="stores_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//stores" />
+        <xs:field xpath="stor_id" />
+      </xs:unique>
+      <xs:unique name="sales_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//sales" />
+        <xs:field xpath="stor_id" />
+        <xs:field xpath="ord_num" />
+        <xs:field xpath="title_id" />
+      </xs:unique>
+      <xs:unique name="jobs_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//jobs" />
+        <xs:field xpath="job_id" />
+      </xs:unique>
+      <xs:unique name="pub_info_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//pub_info" />
+        <xs:field xpath="pub_id" />
+      </xs:unique>
+      <xs:unique name="employee_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//employee" />
+        <xs:field xpath="emp_id" />
+      </xs:unique>
+    </xs:element>
+  </xs:schema>
+</StoreSchema>

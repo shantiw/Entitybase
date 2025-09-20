@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Mapping>
+	<Mapper Type="ConfigMapper">
+		<EntitySetMapping Format="{Funcs(TableName)}">
+			<Functions>
+				<Function Name="Pluralize" />
+			</Functions>
+		</EntitySetMapping>
+		<EntityTypeMapping Format="{TableName}" DisplayName="{Comment}" />
+		<PropertyMapping Format="{ColumnName}" DisplayName="{Comment}" />
+	</Mapper>
+</Mapping>

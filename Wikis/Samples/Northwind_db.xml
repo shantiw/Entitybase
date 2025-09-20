@@ -1,0 +1,1472 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<StoreSchema>
+  <!-- Database schema -->
+  <Schema Database="Northwind" Provider="Microsoft.Data.SqlClient" CreatedAt="2025-09-18T16:36:43.143">
+    <Table Name="Employees" Type="Table">
+      <Key Name="PK_Employees">
+        <ColumnRef Name="EmployeeID" />
+      </Key>
+      <Column Name="EmployeeID" DataType="int" Nullable="false" AutoIncrement="true" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="LastName" DataType="nvarchar" Nullable="false" MaxLength="20" FixedLength="false" />
+      <Column Name="FirstName" DataType="nvarchar" Nullable="false" MaxLength="10" FixedLength="false" />
+      <Column Name="Title" DataType="nvarchar" Nullable="true" MaxLength="30" FixedLength="false" />
+      <Column Name="TitleOfCourtesy" DataType="nvarchar" Nullable="true" MaxLength="25" FixedLength="false" />
+      <Column Name="BirthDate" DataType="datetime" Nullable="true" FixedLength="true" Precision="3" />
+      <Column Name="HireDate" DataType="datetime" Nullable="true" FixedLength="true" Precision="3" />
+      <Column Name="Address" DataType="nvarchar" Nullable="true" MaxLength="60" FixedLength="false" />
+      <Column Name="City" DataType="nvarchar" Nullable="true" MaxLength="15" FixedLength="false" />
+      <Column Name="Region" DataType="nvarchar" Nullable="true" MaxLength="15" FixedLength="false" />
+      <Column Name="PostalCode" DataType="nvarchar" Nullable="true" MaxLength="10" FixedLength="false" />
+      <Column Name="Country" DataType="nvarchar" Nullable="true" MaxLength="15" FixedLength="false" />
+      <Column Name="HomePhone" DataType="nvarchar" Nullable="true" MaxLength="24" FixedLength="false" />
+      <Column Name="Extension" DataType="nvarchar" Nullable="true" MaxLength="4" FixedLength="false" />
+      <Column Name="Photo" DataType="image" Nullable="true" MaxLength="2147483647" FixedLength="false" />
+      <Column Name="Notes" DataType="ntext" Nullable="true" MaxLength="1073741823" FixedLength="false" />
+      <Column Name="ReportsTo" DataType="int" Nullable="true" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="PhotoPath" DataType="nvarchar" Nullable="true" MaxLength="255" FixedLength="false" />
+      <CheckConstraint Name="CK_Birthdate" BooleanExpression="([BirthDate]&lt;getdate())">
+        <ColumnRef Name="BirthDate" />
+      </CheckConstraint>
+      <ForeignKeyConstraint Name="FK_Employees_Employees" Related="Employees">
+        <ColumnRef Name="ReportsTo" Related="EmployeeID" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="Categories" Type="Table">
+      <Key Name="PK_Categories">
+        <ColumnRef Name="CategoryID" />
+      </Key>
+      <Column Name="CategoryID" DataType="int" Nullable="false" AutoIncrement="true" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="CategoryName" DataType="nvarchar" Nullable="false" MaxLength="15" FixedLength="false" />
+      <Column Name="Description" DataType="ntext" Nullable="true" MaxLength="1073741823" FixedLength="false" />
+      <Column Name="Picture" DataType="image" Nullable="true" MaxLength="2147483647" FixedLength="false" />
+    </Table>
+    <Table Name="Customers" Type="Table">
+      <Key Name="PK_Customers">
+        <ColumnRef Name="CustomerID" />
+      </Key>
+      <Column Name="CustomerID" DataType="nchar" Nullable="false" MaxLength="5" FixedLength="true" />
+      <Column Name="CompanyName" DataType="nvarchar" Nullable="false" MaxLength="40" FixedLength="false" />
+      <Column Name="ContactName" DataType="nvarchar" Nullable="true" MaxLength="30" FixedLength="false" />
+      <Column Name="ContactTitle" DataType="nvarchar" Nullable="true" MaxLength="30" FixedLength="false" />
+      <Column Name="Address" DataType="nvarchar" Nullable="true" MaxLength="60" FixedLength="false" />
+      <Column Name="City" DataType="nvarchar" Nullable="true" MaxLength="15" FixedLength="false" />
+      <Column Name="Region" DataType="nvarchar" Nullable="true" MaxLength="15" FixedLength="false" />
+      <Column Name="PostalCode" DataType="nvarchar" Nullable="true" MaxLength="10" FixedLength="false" />
+      <Column Name="Country" DataType="nvarchar" Nullable="true" MaxLength="15" FixedLength="false" />
+      <Column Name="Phone" DataType="nvarchar" Nullable="true" MaxLength="24" FixedLength="false" />
+      <Column Name="Fax" DataType="nvarchar" Nullable="true" MaxLength="24" FixedLength="false" />
+    </Table>
+    <Table Name="Shippers" Type="Table">
+      <Key Name="PK_Shippers">
+        <ColumnRef Name="ShipperID" />
+      </Key>
+      <Column Name="ShipperID" DataType="int" Nullable="false" AutoIncrement="true" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="CompanyName" DataType="nvarchar" Nullable="false" MaxLength="40" FixedLength="false" />
+      <Column Name="Phone" DataType="nvarchar" Nullable="true" MaxLength="24" FixedLength="false" />
+    </Table>
+    <Table Name="Suppliers" Type="Table">
+      <Key Name="PK_Suppliers">
+        <ColumnRef Name="SupplierID" />
+      </Key>
+      <Column Name="SupplierID" DataType="int" Nullable="false" AutoIncrement="true" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="CompanyName" DataType="nvarchar" Nullable="false" MaxLength="40" FixedLength="false" />
+      <Column Name="ContactName" DataType="nvarchar" Nullable="true" MaxLength="30" FixedLength="false" />
+      <Column Name="ContactTitle" DataType="nvarchar" Nullable="true" MaxLength="30" FixedLength="false" />
+      <Column Name="Address" DataType="nvarchar" Nullable="true" MaxLength="60" FixedLength="false" />
+      <Column Name="City" DataType="nvarchar" Nullable="true" MaxLength="15" FixedLength="false" />
+      <Column Name="Region" DataType="nvarchar" Nullable="true" MaxLength="15" FixedLength="false" />
+      <Column Name="PostalCode" DataType="nvarchar" Nullable="true" MaxLength="10" FixedLength="false" />
+      <Column Name="Country" DataType="nvarchar" Nullable="true" MaxLength="15" FixedLength="false" />
+      <Column Name="Phone" DataType="nvarchar" Nullable="true" MaxLength="24" FixedLength="false" />
+      <Column Name="Fax" DataType="nvarchar" Nullable="true" MaxLength="24" FixedLength="false" />
+      <Column Name="HomePage" DataType="ntext" Nullable="true" MaxLength="1073741823" FixedLength="false" />
+    </Table>
+    <Table Name="Orders" Type="Table">
+      <Key Name="PK_Orders">
+        <ColumnRef Name="OrderID" />
+      </Key>
+      <Column Name="OrderID" DataType="int" Nullable="false" AutoIncrement="true" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="CustomerID" DataType="nchar" Nullable="true" MaxLength="5" FixedLength="true" />
+      <Column Name="EmployeeID" DataType="int" Nullable="true" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="OrderDate" DataType="datetime" Nullable="true" FixedLength="true" Precision="3" />
+      <Column Name="RequiredDate" DataType="datetime" Nullable="true" FixedLength="true" Precision="3" />
+      <Column Name="ShippedDate" DataType="datetime" Nullable="true" FixedLength="true" Precision="3" />
+      <Column Name="ShipVia" DataType="int" Nullable="true" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="Freight" DataType="money" Nullable="true" DefaultValue="0" FixedLength="true" Precision="19" Scale="4" />
+      <Column Name="ShipName" DataType="nvarchar" Nullable="true" MaxLength="40" FixedLength="false" />
+      <Column Name="ShipAddress" DataType="nvarchar" Nullable="true" MaxLength="60" FixedLength="false" />
+      <Column Name="ShipCity" DataType="nvarchar" Nullable="true" MaxLength="15" FixedLength="false" />
+      <Column Name="ShipRegion" DataType="nvarchar" Nullable="true" MaxLength="15" FixedLength="false" />
+      <Column Name="ShipPostalCode" DataType="nvarchar" Nullable="true" MaxLength="10" FixedLength="false" />
+      <Column Name="ShipCountry" DataType="nvarchar" Nullable="true" MaxLength="15" FixedLength="false" />
+      <ForeignKeyConstraint Name="FK_Orders_Customers" Related="Customers">
+        <ColumnRef Name="CustomerID" Related="CustomerID" />
+      </ForeignKeyConstraint>
+      <ForeignKeyConstraint Name="FK_Orders_Employees" Related="Employees">
+        <ColumnRef Name="EmployeeID" Related="EmployeeID" />
+      </ForeignKeyConstraint>
+      <ForeignKeyConstraint Name="FK_Orders_Shippers" Related="Shippers">
+        <ColumnRef Name="ShipVia" Related="ShipperID" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="Products" Type="Table">
+      <Key Name="PK_Products">
+        <ColumnRef Name="ProductID" />
+      </Key>
+      <Column Name="ProductID" DataType="int" Nullable="false" AutoIncrement="true" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="ProductName" DataType="nvarchar" Nullable="false" MaxLength="40" FixedLength="false" />
+      <Column Name="SupplierID" DataType="int" Nullable="true" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="CategoryID" DataType="int" Nullable="true" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="QuantityPerUnit" DataType="nvarchar" Nullable="true" MaxLength="20" FixedLength="false" />
+      <Column Name="UnitPrice" DataType="money" Nullable="true" DefaultValue="0" FixedLength="true" Precision="19" Scale="4" />
+      <Column Name="UnitsInStock" DataType="smallint" Nullable="true" DefaultValue="0" FixedLength="true" Precision="5" Scale="0" />
+      <Column Name="UnitsOnOrder" DataType="smallint" Nullable="true" DefaultValue="0" FixedLength="true" Precision="5" Scale="0" />
+      <Column Name="ReorderLevel" DataType="smallint" Nullable="true" DefaultValue="0" FixedLength="true" Precision="5" Scale="0" />
+      <Column Name="Discontinued" DataType="bit" Nullable="false" DefaultValue="0" FixedLength="true" />
+      <CheckConstraint Name="CK_Products_UnitPrice" BooleanExpression="([UnitPrice]&gt;=(0))">
+        <ColumnRef Name="UnitPrice" />
+      </CheckConstraint>
+      <CheckConstraint Name="CK_ReorderLevel" BooleanExpression="([ReorderLevel]&gt;=(0))">
+        <ColumnRef Name="ReorderLevel" />
+      </CheckConstraint>
+      <CheckConstraint Name="CK_UnitsInStock" BooleanExpression="([UnitsInStock]&gt;=(0))">
+        <ColumnRef Name="UnitsInStock" />
+      </CheckConstraint>
+      <CheckConstraint Name="CK_UnitsOnOrder" BooleanExpression="([UnitsOnOrder]&gt;=(0))">
+        <ColumnRef Name="UnitsOnOrder" />
+      </CheckConstraint>
+      <ForeignKeyConstraint Name="FK_Products_Categories" Related="Categories">
+        <ColumnRef Name="CategoryID" Related="CategoryID" />
+      </ForeignKeyConstraint>
+      <ForeignKeyConstraint Name="FK_Products_Suppliers" Related="Suppliers">
+        <ColumnRef Name="SupplierID" Related="SupplierID" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="Order Details" Type="Table">
+      <Key Name="PK_Order_Details">
+        <ColumnRef Name="OrderID" />
+        <ColumnRef Name="ProductID" />
+      </Key>
+      <Column Name="OrderID" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="ProductID" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="UnitPrice" DataType="money" Nullable="false" DefaultValue="0" FixedLength="true" Precision="19" Scale="4" />
+      <Column Name="Quantity" DataType="smallint" Nullable="false" DefaultValue="1" FixedLength="true" Precision="5" Scale="0" />
+      <Column Name="Discount" DataType="real" Nullable="false" DefaultValue="0" FixedLength="true" Precision="24" />
+      <CheckConstraint Name="CK_Discount" BooleanExpression="([Discount]&gt;=(0) AND [Discount]&lt;=(1))">
+        <ColumnRef Name="Discount" />
+      </CheckConstraint>
+      <CheckConstraint Name="CK_Quantity" BooleanExpression="([Quantity]&gt;(0))">
+        <ColumnRef Name="Quantity" />
+      </CheckConstraint>
+      <CheckConstraint Name="CK_UnitPrice" BooleanExpression="([UnitPrice]&gt;=(0))">
+        <ColumnRef Name="UnitPrice" />
+      </CheckConstraint>
+      <ForeignKeyConstraint Name="FK_Order_Details_Orders" Related="Orders">
+        <ColumnRef Name="OrderID" Related="OrderID" />
+      </ForeignKeyConstraint>
+      <ForeignKeyConstraint Name="FK_Order_Details_Products" Related="Products">
+        <ColumnRef Name="ProductID" Related="ProductID" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="CustomerCustomerDemo" Type="Table">
+      <Key Name="PK_CustomerCustomerDemo">
+        <ColumnRef Name="CustomerID" />
+        <ColumnRef Name="CustomerTypeID" />
+      </Key>
+      <Column Name="CustomerID" DataType="nchar" Nullable="false" MaxLength="5" FixedLength="true" />
+      <Column Name="CustomerTypeID" DataType="nchar" Nullable="false" MaxLength="10" FixedLength="true" />
+      <ForeignKeyConstraint Name="FK_CustomerCustomerDemo" Related="CustomerDemographics">
+        <ColumnRef Name="CustomerTypeID" Related="CustomerTypeID" />
+      </ForeignKeyConstraint>
+      <ForeignKeyConstraint Name="FK_CustomerCustomerDemo_Customers" Related="Customers">
+        <ColumnRef Name="CustomerID" Related="CustomerID" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="CustomerDemographics" Type="Table">
+      <Key Name="PK_CustomerDemographics">
+        <ColumnRef Name="CustomerTypeID" />
+      </Key>
+      <Column Name="CustomerTypeID" DataType="nchar" Nullable="false" MaxLength="10" FixedLength="true" />
+      <Column Name="CustomerDesc" DataType="ntext" Nullable="true" MaxLength="1073741823" FixedLength="false" />
+    </Table>
+    <Table Name="Region" Type="Table">
+      <Key Name="PK_Region">
+        <ColumnRef Name="RegionID" />
+      </Key>
+      <Column Name="RegionID" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="RegionDescription" DataType="nchar" Nullable="false" MaxLength="50" FixedLength="true" />
+    </Table>
+    <Table Name="Territories" Type="Table">
+      <Key Name="PK_Territories">
+        <ColumnRef Name="TerritoryID" />
+      </Key>
+      <Column Name="TerritoryID" DataType="nvarchar" Nullable="false" MaxLength="20" FixedLength="false" />
+      <Column Name="TerritoryDescription" DataType="nchar" Nullable="false" MaxLength="50" FixedLength="true" />
+      <Column Name="RegionID" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <ForeignKeyConstraint Name="FK_Territories_Region" Related="Region">
+        <ColumnRef Name="RegionID" Related="RegionID" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="EmployeeTerritories" Type="Table">
+      <Key Name="PK_EmployeeTerritories">
+        <ColumnRef Name="EmployeeID" />
+        <ColumnRef Name="TerritoryID" />
+      </Key>
+      <Column Name="EmployeeID" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="TerritoryID" DataType="nvarchar" Nullable="false" MaxLength="20" FixedLength="false" />
+      <ForeignKeyConstraint Name="FK_EmployeeTerritories_Employees" Related="Employees">
+        <ColumnRef Name="EmployeeID" Related="EmployeeID" />
+      </ForeignKeyConstraint>
+      <ForeignKeyConstraint Name="FK_EmployeeTerritories_Territories" Related="Territories">
+        <ColumnRef Name="TerritoryID" Related="TerritoryID" />
+      </ForeignKeyConstraint>
+    </Table>
+    <Table Name="Customer and Suppliers by City" Type="View" Updatable="false">
+      <Column Name="City" DataType="nvarchar" Nullable="true" MaxLength="15" FixedLength="false" />
+      <Column Name="CompanyName" DataType="nvarchar" Nullable="false" MaxLength="40" FixedLength="false" />
+      <Column Name="ContactName" DataType="nvarchar" Nullable="true" MaxLength="30" FixedLength="false" />
+      <Column Name="Relationship" DataType="varchar" Nullable="false" MaxLength="9" FixedLength="false" />
+    </Table>
+    <Table Name="Alphabetical list of products" Type="View" Updatable="false">
+      <Column Name="ProductID" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="ProductName" DataType="nvarchar" Nullable="false" MaxLength="40" FixedLength="false" />
+      <Column Name="SupplierID" DataType="int" Nullable="true" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="CategoryID" DataType="int" Nullable="true" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="QuantityPerUnit" DataType="nvarchar" Nullable="true" MaxLength="20" FixedLength="false" />
+      <Column Name="UnitPrice" DataType="money" Nullable="true" FixedLength="true" Precision="19" Scale="4" />
+      <Column Name="UnitsInStock" DataType="smallint" Nullable="true" FixedLength="true" Precision="5" Scale="0" />
+      <Column Name="UnitsOnOrder" DataType="smallint" Nullable="true" FixedLength="true" Precision="5" Scale="0" />
+      <Column Name="ReorderLevel" DataType="smallint" Nullable="true" FixedLength="true" Precision="5" Scale="0" />
+      <Column Name="Discontinued" DataType="bit" Nullable="false" FixedLength="true" />
+      <Column Name="CategoryName" DataType="nvarchar" Nullable="false" MaxLength="15" FixedLength="false" />
+    </Table>
+    <Table Name="Current Product List" Type="View" Updatable="false">
+      <Column Name="ProductID" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="ProductName" DataType="nvarchar" Nullable="false" MaxLength="40" FixedLength="false" />
+    </Table>
+    <Table Name="Orders Qry" Type="View" Updatable="false">
+      <Column Name="OrderID" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="CustomerID" DataType="nchar" Nullable="true" MaxLength="5" FixedLength="true" />
+      <Column Name="EmployeeID" DataType="int" Nullable="true" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="OrderDate" DataType="datetime" Nullable="true" FixedLength="true" Precision="3" />
+      <Column Name="RequiredDate" DataType="datetime" Nullable="true" FixedLength="true" Precision="3" />
+      <Column Name="ShippedDate" DataType="datetime" Nullable="true" FixedLength="true" Precision="3" />
+      <Column Name="ShipVia" DataType="int" Nullable="true" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="Freight" DataType="money" Nullable="true" FixedLength="true" Precision="19" Scale="4" />
+      <Column Name="ShipName" DataType="nvarchar" Nullable="true" MaxLength="40" FixedLength="false" />
+      <Column Name="ShipAddress" DataType="nvarchar" Nullable="true" MaxLength="60" FixedLength="false" />
+      <Column Name="ShipCity" DataType="nvarchar" Nullable="true" MaxLength="15" FixedLength="false" />
+      <Column Name="ShipRegion" DataType="nvarchar" Nullable="true" MaxLength="15" FixedLength="false" />
+      <Column Name="ShipPostalCode" DataType="nvarchar" Nullable="true" MaxLength="10" FixedLength="false" />
+      <Column Name="ShipCountry" DataType="nvarchar" Nullable="true" MaxLength="15" FixedLength="false" />
+      <Column Name="CompanyName" DataType="nvarchar" Nullable="false" MaxLength="40" FixedLength="false" />
+      <Column Name="Address" DataType="nvarchar" Nullable="true" MaxLength="60" FixedLength="false" />
+      <Column Name="City" DataType="nvarchar" Nullable="true" MaxLength="15" FixedLength="false" />
+      <Column Name="Region" DataType="nvarchar" Nullable="true" MaxLength="15" FixedLength="false" />
+      <Column Name="PostalCode" DataType="nvarchar" Nullable="true" MaxLength="10" FixedLength="false" />
+      <Column Name="Country" DataType="nvarchar" Nullable="true" MaxLength="15" FixedLength="false" />
+    </Table>
+    <Table Name="Products Above Average Price" Type="View" Updatable="false">
+      <Column Name="ProductName" DataType="nvarchar" Nullable="false" MaxLength="40" FixedLength="false" />
+      <Column Name="UnitPrice" DataType="money" Nullable="true" FixedLength="true" Precision="19" Scale="4" />
+    </Table>
+    <Table Name="Products by Category" Type="View" Updatable="false">
+      <Column Name="CategoryName" DataType="nvarchar" Nullable="false" MaxLength="15" FixedLength="false" />
+      <Column Name="ProductName" DataType="nvarchar" Nullable="false" MaxLength="40" FixedLength="false" />
+      <Column Name="QuantityPerUnit" DataType="nvarchar" Nullable="true" MaxLength="20" FixedLength="false" />
+      <Column Name="UnitsInStock" DataType="smallint" Nullable="true" FixedLength="true" Precision="5" Scale="0" />
+      <Column Name="Discontinued" DataType="bit" Nullable="false" FixedLength="true" />
+    </Table>
+    <Table Name="Quarterly Orders" Type="View" Updatable="false">
+      <Column Name="CustomerID" DataType="nchar" Nullable="true" MaxLength="5" FixedLength="true" />
+      <Column Name="CompanyName" DataType="nvarchar" Nullable="true" MaxLength="40" FixedLength="false" />
+      <Column Name="City" DataType="nvarchar" Nullable="true" MaxLength="15" FixedLength="false" />
+      <Column Name="Country" DataType="nvarchar" Nullable="true" MaxLength="15" FixedLength="false" />
+    </Table>
+    <Table Name="Invoices" Type="View" Updatable="false">
+      <Column Name="ShipName" DataType="nvarchar" Nullable="true" MaxLength="40" FixedLength="false" />
+      <Column Name="ShipAddress" DataType="nvarchar" Nullable="true" MaxLength="60" FixedLength="false" />
+      <Column Name="ShipCity" DataType="nvarchar" Nullable="true" MaxLength="15" FixedLength="false" />
+      <Column Name="ShipRegion" DataType="nvarchar" Nullable="true" MaxLength="15" FixedLength="false" />
+      <Column Name="ShipPostalCode" DataType="nvarchar" Nullable="true" MaxLength="10" FixedLength="false" />
+      <Column Name="ShipCountry" DataType="nvarchar" Nullable="true" MaxLength="15" FixedLength="false" />
+      <Column Name="CustomerID" DataType="nchar" Nullable="true" MaxLength="5" FixedLength="true" />
+      <Column Name="CustomerName" DataType="nvarchar" Nullable="false" MaxLength="40" FixedLength="false" />
+      <Column Name="Address" DataType="nvarchar" Nullable="true" MaxLength="60" FixedLength="false" />
+      <Column Name="City" DataType="nvarchar" Nullable="true" MaxLength="15" FixedLength="false" />
+      <Column Name="Region" DataType="nvarchar" Nullable="true" MaxLength="15" FixedLength="false" />
+      <Column Name="PostalCode" DataType="nvarchar" Nullable="true" MaxLength="10" FixedLength="false" />
+      <Column Name="Country" DataType="nvarchar" Nullable="true" MaxLength="15" FixedLength="false" />
+      <Column Name="Salesperson" DataType="nvarchar" Nullable="false" MaxLength="31" FixedLength="false" />
+      <Column Name="OrderID" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="OrderDate" DataType="datetime" Nullable="true" FixedLength="true" Precision="3" />
+      <Column Name="RequiredDate" DataType="datetime" Nullable="true" FixedLength="true" Precision="3" />
+      <Column Name="ShippedDate" DataType="datetime" Nullable="true" FixedLength="true" Precision="3" />
+      <Column Name="ShipperName" DataType="nvarchar" Nullable="false" MaxLength="40" FixedLength="false" />
+      <Column Name="ProductID" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="ProductName" DataType="nvarchar" Nullable="false" MaxLength="40" FixedLength="false" />
+      <Column Name="UnitPrice" DataType="money" Nullable="false" FixedLength="true" Precision="19" Scale="4" />
+      <Column Name="Quantity" DataType="smallint" Nullable="false" FixedLength="true" Precision="5" Scale="0" />
+      <Column Name="Discount" DataType="real" Nullable="false" FixedLength="true" Precision="24" />
+      <Column Name="ExtendedPrice" DataType="money" Nullable="true" FixedLength="true" Precision="19" Scale="4" />
+      <Column Name="Freight" DataType="money" Nullable="true" FixedLength="true" Precision="19" Scale="4" />
+    </Table>
+    <Table Name="Order Details Extended" Type="View" Updatable="false">
+      <Column Name="OrderID" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="ProductID" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="ProductName" DataType="nvarchar" Nullable="false" MaxLength="40" FixedLength="false" />
+      <Column Name="UnitPrice" DataType="money" Nullable="false" FixedLength="true" Precision="19" Scale="4" />
+      <Column Name="Quantity" DataType="smallint" Nullable="false" FixedLength="true" Precision="5" Scale="0" />
+      <Column Name="Discount" DataType="real" Nullable="false" FixedLength="true" Precision="24" />
+      <Column Name="ExtendedPrice" DataType="money" Nullable="true" FixedLength="true" Precision="19" Scale="4" />
+    </Table>
+    <Table Name="Order Subtotals" Type="View" Updatable="false">
+      <Column Name="OrderID" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="Subtotal" DataType="money" Nullable="true" FixedLength="true" Precision="19" Scale="4" />
+    </Table>
+    <Table Name="Product Sales for 1997" Type="View" Updatable="false">
+      <Column Name="CategoryName" DataType="nvarchar" Nullable="false" MaxLength="15" FixedLength="false" />
+      <Column Name="ProductName" DataType="nvarchar" Nullable="false" MaxLength="40" FixedLength="false" />
+      <Column Name="ProductSales" DataType="money" Nullable="true" FixedLength="true" Precision="19" Scale="4" />
+    </Table>
+    <Table Name="Category Sales for 1997" Type="View" Updatable="false">
+      <Column Name="CategoryName" DataType="nvarchar" Nullable="false" MaxLength="15" FixedLength="false" />
+      <Column Name="CategorySales" DataType="money" Nullable="true" FixedLength="true" Precision="19" Scale="4" />
+    </Table>
+    <Table Name="Sales by Category" Type="View" Updatable="false">
+      <Column Name="CategoryID" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="CategoryName" DataType="nvarchar" Nullable="false" MaxLength="15" FixedLength="false" />
+      <Column Name="ProductName" DataType="nvarchar" Nullable="false" MaxLength="40" FixedLength="false" />
+      <Column Name="ProductSales" DataType="money" Nullable="true" FixedLength="true" Precision="19" Scale="4" />
+    </Table>
+    <Table Name="Sales Totals by Amount" Type="View" Updatable="false">
+      <Column Name="SaleAmount" DataType="money" Nullable="true" FixedLength="true" Precision="19" Scale="4" />
+      <Column Name="OrderID" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="CompanyName" DataType="nvarchar" Nullable="false" MaxLength="40" FixedLength="false" />
+      <Column Name="ShippedDate" DataType="datetime" Nullable="true" FixedLength="true" Precision="3" />
+    </Table>
+    <Table Name="Summary of Sales by Quarter" Type="View" Updatable="false">
+      <Column Name="ShippedDate" DataType="datetime" Nullable="true" FixedLength="true" Precision="3" />
+      <Column Name="OrderID" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="Subtotal" DataType="money" Nullable="true" FixedLength="true" Precision="19" Scale="4" />
+    </Table>
+    <Table Name="Summary of Sales by Year" Type="View" Updatable="false">
+      <Column Name="ShippedDate" DataType="datetime" Nullable="true" FixedLength="true" Precision="3" />
+      <Column Name="OrderID" DataType="int" Nullable="false" FixedLength="true" Precision="10" Scale="0" />
+      <Column Name="Subtotal" DataType="money" Nullable="true" FixedLength="true" Precision="19" Scale="4" />
+    </Table>
+  </Schema>
+  <!-- DataSet schema -->
+  <xs:schema id="Northwind" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="Northwind" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Employees">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="EmployeeID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="LastName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="20" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="FirstName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="10" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Title" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="30" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="TitleOfCourtesy" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="25" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="BirthDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="HireDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="Address" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="60" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="City" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Region" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="PostalCode" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="10" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Country" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="HomePhone" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="24" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Extension" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="4" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Photo" type="xs:base64Binary" minOccurs="0" />
+                <xs:element name="Notes" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="1073741823" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ReportsTo" type="xs:int" minOccurs="0" />
+                <xs:element name="PhotoPath" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="255" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Categories">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="CategoryID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="CategoryName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Description" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="1073741823" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Picture" type="xs:base64Binary" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Customers">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="CustomerID">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="5" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="CompanyName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ContactName" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="30" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ContactTitle" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="30" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Address" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="60" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="City" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Region" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="PostalCode" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="10" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Country" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Phone" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="24" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Fax" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="24" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Shippers">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ShipperID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="CompanyName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Phone" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="24" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Suppliers">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="SupplierID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="CompanyName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ContactName" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="30" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ContactTitle" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="30" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Address" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="60" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="City" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Region" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="PostalCode" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="10" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Country" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Phone" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="24" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Fax" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="24" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="HomePage" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="1073741823" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Orders">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="OrderID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="CustomerID" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="5" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="EmployeeID" type="xs:int" minOccurs="0" />
+                <xs:element name="OrderDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="RequiredDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="ShippedDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="ShipVia" type="xs:int" minOccurs="0" />
+                <xs:element name="Freight" type="xs:decimal" default="0" minOccurs="0" />
+                <xs:element name="ShipName" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ShipAddress" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="60" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ShipCity" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ShipRegion" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ShipPostalCode" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="10" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ShipCountry" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Products">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ProductID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="ProductName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="SupplierID" type="xs:int" minOccurs="0" />
+                <xs:element name="CategoryID" type="xs:int" minOccurs="0" />
+                <xs:element name="QuantityPerUnit" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="20" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="UnitPrice" type="xs:decimal" default="0" minOccurs="0" />
+                <xs:element name="UnitsInStock" type="xs:short" default="0" minOccurs="0" />
+                <xs:element name="UnitsOnOrder" type="xs:short" default="0" minOccurs="0" />
+                <xs:element name="ReorderLevel" type="xs:short" default="0" minOccurs="0" />
+                <xs:element name="Discontinued" type="xs:boolean" default="false" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Order_x0020_Details">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="OrderID" type="xs:int" />
+                <xs:element name="ProductID" type="xs:int" />
+                <xs:element name="UnitPrice" type="xs:decimal" default="0" />
+                <xs:element name="Quantity" type="xs:short" default="1" />
+                <xs:element name="Discount" type="xs:float" default="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Customer_x0020_and_x0020_Suppliers_x0020_by_x0020_City">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="City" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="CompanyName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ContactName" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="30" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Relationship">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="9" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Alphabetical_x0020_list_x0020_of_x0020_products">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ProductID" type="xs:int" />
+                <xs:element name="ProductName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="SupplierID" type="xs:int" minOccurs="0" />
+                <xs:element name="CategoryID" type="xs:int" minOccurs="0" />
+                <xs:element name="QuantityPerUnit" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="20" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="UnitPrice" type="xs:decimal" minOccurs="0" />
+                <xs:element name="UnitsInStock" type="xs:short" minOccurs="0" />
+                <xs:element name="UnitsOnOrder" type="xs:short" minOccurs="0" />
+                <xs:element name="ReorderLevel" type="xs:short" minOccurs="0" />
+                <xs:element name="Discontinued" type="xs:boolean" />
+                <xs:element name="CategoryName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Current_x0020_Product_x0020_List">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ProductID" msdata:ReadOnly="true" msdata:AutoIncrement="true" type="xs:int" />
+                <xs:element name="ProductName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Orders_x0020_Qry">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="OrderID" type="xs:int" />
+                <xs:element name="CustomerID" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="5" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="EmployeeID" type="xs:int" minOccurs="0" />
+                <xs:element name="OrderDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="RequiredDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="ShippedDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="ShipVia" type="xs:int" minOccurs="0" />
+                <xs:element name="Freight" type="xs:decimal" minOccurs="0" />
+                <xs:element name="ShipName" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ShipAddress" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="60" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ShipCity" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ShipRegion" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ShipPostalCode" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="10" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ShipCountry" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="CompanyName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Address" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="60" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="City" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Region" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="PostalCode" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="10" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Country" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Products_x0020_Above_x0020_Average_x0020_Price">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ProductName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="UnitPrice" type="xs:decimal" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Products_x0020_by_x0020_Category">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="CategoryName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ProductName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="QuantityPerUnit" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="20" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="UnitsInStock" type="xs:short" minOccurs="0" />
+                <xs:element name="Discontinued" type="xs:boolean" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Quarterly_x0020_Orders">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="CustomerID" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="5" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="CompanyName" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="City" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Country" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Invoices">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ShipName" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ShipAddress" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="60" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ShipCity" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ShipRegion" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ShipPostalCode" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="10" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ShipCountry" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="CustomerID" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="5" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="CustomerName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Address" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="60" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="City" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Region" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="PostalCode" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="10" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Country" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="Salesperson" msdata:ReadOnly="true" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="31" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="OrderID" type="xs:int" />
+                <xs:element name="OrderDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="RequiredDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="ShippedDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="ShipperName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ProductID" type="xs:int" />
+                <xs:element name="ProductName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="UnitPrice" type="xs:decimal" />
+                <xs:element name="Quantity" type="xs:short" />
+                <xs:element name="Discount" type="xs:float" />
+                <xs:element name="ExtendedPrice" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+                <xs:element name="Freight" type="xs:decimal" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Order_x0020_Details_x0020_Extended">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="OrderID" type="xs:int" />
+                <xs:element name="ProductID" type="xs:int" />
+                <xs:element name="ProductName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="UnitPrice" type="xs:decimal" />
+                <xs:element name="Quantity" type="xs:short" />
+                <xs:element name="Discount" type="xs:float" />
+                <xs:element name="ExtendedPrice" msdata:ReadOnly="true" type="xs:decimal" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Order_x0020_Subtotals">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="OrderID" type="xs:int" />
+                <xs:element name="Subtotal" type="xs:decimal" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Product_x0020_Sales_x0020_for_x0020_1997">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="CategoryName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ProductName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ProductSales" type="xs:decimal" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Category_x0020_Sales_x0020_for_x0020_1997">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="CategoryName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="CategorySales" type="xs:decimal" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Sales_x0020_by_x0020_Category">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="CategoryID" type="xs:int" />
+                <xs:element name="CategoryName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="15" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ProductName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ProductSales" type="xs:decimal" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Sales_x0020_Totals_x0020_by_x0020_Amount">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="SaleAmount" type="xs:decimal" minOccurs="0" />
+                <xs:element name="OrderID" type="xs:int" />
+                <xs:element name="CompanyName">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="ShippedDate" type="xs:dateTime" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Summary_x0020_of_x0020_Sales_x0020_by_x0020_Quarter">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ShippedDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="OrderID" type="xs:int" />
+                <xs:element name="Subtotal" type="xs:decimal" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Summary_x0020_of_x0020_Sales_x0020_by_x0020_Year">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ShippedDate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="OrderID" type="xs:int" />
+                <xs:element name="Subtotal" type="xs:decimal" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="CustomerCustomerDemo">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="CustomerID">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="5" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="CustomerTypeID">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="10" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="CustomerDemographics">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="CustomerTypeID">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="10" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="CustomerDesc" minOccurs="0">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="1073741823" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Region">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="RegionID" type="xs:int" />
+                <xs:element name="RegionDescription">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="50" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Territories">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="TerritoryID">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="20" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="TerritoryDescription">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="50" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+                <xs:element name="RegionID" type="xs:int" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="EmployeeTerritories">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="EmployeeID" type="xs:int" />
+                <xs:element name="TerritoryID">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="20" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+      <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Employees" />
+        <xs:field xpath="EmployeeID" />
+      </xs:unique>
+      <xs:unique name="Categories_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Categories" />
+        <xs:field xpath="CategoryID" />
+      </xs:unique>
+      <xs:unique name="Customers_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Customers" />
+        <xs:field xpath="CustomerID" />
+      </xs:unique>
+      <xs:unique name="Shippers_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Shippers" />
+        <xs:field xpath="ShipperID" />
+      </xs:unique>
+      <xs:unique name="Suppliers_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Suppliers" />
+        <xs:field xpath="SupplierID" />
+      </xs:unique>
+      <xs:unique name="Orders_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Orders" />
+        <xs:field xpath="OrderID" />
+      </xs:unique>
+      <xs:unique name="Products_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Products" />
+        <xs:field xpath="ProductID" />
+      </xs:unique>
+      <xs:unique name="Order_x0020_Details_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Order_x0020_Details" />
+        <xs:field xpath="OrderID" />
+        <xs:field xpath="ProductID" />
+      </xs:unique>
+      <xs:unique name="Alphabetical_x0020_list_x0020_of_x0020_products_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Alphabetical_x0020_list_x0020_of_x0020_products" />
+        <xs:field xpath="ProductID" />
+      </xs:unique>
+      <xs:unique name="Current_x0020_Product_x0020_List_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Current_x0020_Product_x0020_List" />
+        <xs:field xpath="ProductID" />
+      </xs:unique>
+      <xs:unique name="Orders_x0020_Qry_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Orders_x0020_Qry" />
+        <xs:field xpath="OrderID" />
+      </xs:unique>
+      <xs:unique name="Quarterly_x0020_Orders_Constraint1" msdata:ConstraintName="Constraint1">
+        <xs:selector xpath=".//Quarterly_x0020_Orders" />
+        <xs:field xpath="CustomerID" />
+      </xs:unique>
+      <xs:unique name="Order_x0020_Details_x0020_Extended_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Order_x0020_Details_x0020_Extended" />
+        <xs:field xpath="OrderID" />
+        <xs:field xpath="ProductID" />
+      </xs:unique>
+      <xs:unique name="Sales_x0020_by_x0020_Category_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Sales_x0020_by_x0020_Category" />
+        <xs:field xpath="CategoryID" />
+      </xs:unique>
+      <xs:unique name="Sales_x0020_Totals_x0020_by_x0020_Amount_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Sales_x0020_Totals_x0020_by_x0020_Amount" />
+        <xs:field xpath="OrderID" />
+      </xs:unique>
+      <xs:unique name="Summary_x0020_of_x0020_Sales_x0020_by_x0020_Quarter_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Summary_x0020_of_x0020_Sales_x0020_by_x0020_Quarter" />
+        <xs:field xpath="OrderID" />
+      </xs:unique>
+      <xs:unique name="Summary_x0020_of_x0020_Sales_x0020_by_x0020_Year_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Summary_x0020_of_x0020_Sales_x0020_by_x0020_Year" />
+        <xs:field xpath="OrderID" />
+      </xs:unique>
+      <xs:unique name="CustomerCustomerDemo_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//CustomerCustomerDemo" />
+        <xs:field xpath="CustomerID" />
+        <xs:field xpath="CustomerTypeID" />
+      </xs:unique>
+      <xs:unique name="CustomerDemographics_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//CustomerDemographics" />
+        <xs:field xpath="CustomerTypeID" />
+      </xs:unique>
+      <xs:unique name="Region_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Region" />
+        <xs:field xpath="RegionID" />
+      </xs:unique>
+      <xs:unique name="Territories_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Territories" />
+        <xs:field xpath="TerritoryID" />
+      </xs:unique>
+      <xs:unique name="EmployeeTerritories_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//EmployeeTerritories" />
+        <xs:field xpath="EmployeeID" />
+        <xs:field xpath="TerritoryID" />
+      </xs:unique>
+    </xs:element>
+  </xs:schema>
+</StoreSchema>

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <!-- optional-: inherits from Shantiw.Data.Schema.Mapper -->
-<Mapping optional-File=".xml/.json/.csv]"> 
+<Mapping optional-File=".xml/.json/.csv"> 
 	<Mapper Type="{Type.FullName}" Assembly="{DllFileName}" >
 		<optional-EntityTypeMapping optional-DisplayName="{Comment}" />
 		<optional-PropertyMapping optional-DisplayName="{Comment}" />

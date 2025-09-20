@@ -1,0 +1,23 @@
+
+// https://github.com/microsoft/sql-server-samples/blob/master/samples/databases/northwind-pubs/instnwnd.sql
+SqlSchemaExtractor "Data Source=LOCALHOST\SQLEXPRESS;Initial Catalog=Northwind;User ID=sa;Password=123456;Encrypt=False" Northwind_db.xml
+
+// https://github.com/microsoft/sql-server-samples/blob/master/samples/databases/northwind-pubs/instpubs.sql
+SqlSchemaExtractor "Data Source=LOCALHOST\SQLEXPRESS;Initial Catalog=Pubs;User ID=sa;Password=123456;Encrypt=False" Pubs_db.xml
+
+// https://learn.microsoft.com/en-au/ef/ef6/resources/school-database?redirectedfrom=MSDN
+SqlSchemaExtractor "Data Source=LOCALHOST\SQLEXPRESS;Initial Catalog=School;User ID=sa;Password=123456;Encrypt=False" School_db.xml
+
+// https://neon.com/postgresql/postgresql-getting-started/postgresql-sample-database
+PostgreSQLSchemaExtractor "Host=localhost;Username=postgres;Password=123456;Database=dvdrental" dvdrental_db.xml
+
+
+//
+SchemaGenerator School_db.xml School_mapping.xml School.xml
+
+SchemaGenerator Northwind_db.xml Northwind_mapping.xml Northwind.xml
+
+SchemaGenerator Pubs_db.xml Pubs_mapping.xml Pubs.xml
+
+// Error
+SchemaGenerator dvdrental_db.xml dvdrental_mapping.xml dvdrental.xml // System.ArgumentException: 'Column requires a valid DataType.'

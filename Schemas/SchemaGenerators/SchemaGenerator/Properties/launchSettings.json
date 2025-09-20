@@ -2,7 +2,7 @@
   "profiles": {
     "SchemaGenerator": {
       "commandName": "Project",
-      "commandLineArgs": "northwind_db.xml northwind_mapping.xml northwind.xml"
+      "commandLineArgs": "Pubs_db.xml Pubs_mapping.xml Pubs.xml"
     }
   }
 }
