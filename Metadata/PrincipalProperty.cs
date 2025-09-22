@@ -11,7 +11,7 @@ using System.Xml.Linq;
 
 namespace Shantiw.Data.Meta
 {
-    public partial class PrincipalProperty
+    public class PrincipalProperty
     {
         public EntityType EntityType { get; private set; }
 
@@ -43,7 +43,7 @@ namespace Shantiw.Data.Meta
             Name = xPrincipalProperty.GetAttributeValue(SchemaVocab.Name);
 
             //
-            string route = xPrincipalProperty.GetAttributeValue(MetaVocab.Route);
+            string route = xPrincipalProperty.GetAttributeValue(nameof(RouteNavigationProperty.Route));
             string nameOfPropertyRef = xPrincipalProperty.GetAttributeValue(MetaVocab.NameOfPropertyRef);
 
             List<VectorialAssociation> routeList = [];

@@ -49,25 +49,45 @@ namespace Shantiw.Data.Meta
 
         private static void Add(XElement schema, XElement xAdd)
         {
-            foreach (XElement mEntityType in xAdd.Elements(SchemaVocab.EntityType))
+            foreach (XElement mEntityType in xAdd.Elements(nameof(EntityType)))
             {
                 XElement xEntityType = FindXEntityType(mEntityType, schema);
 
-                foreach (XElement mProperty in mEntityType.Elements(SchemaVocab.Property))
+                //
+                foreach (XElement mProperty in mEntityType.Elements(nameof(Property)))
                 {
-                    string name = mProperty.GetAttributeValue(SchemaVocab.Name);
+                    string name = mProperty.GetAttributeValue(nameof(Property.Name));
                     XElement? xProperty = FindXProperty(name, xEntityType)
                         ?? throw new ArgumentException($"The named \"{name}\" property is not found in Schema.");
 
-                    if (xProperty.Name.LocalName != SchemaVocab.Property)
+                    if (xProperty.Name.LocalName != nameof(Property))
                         throw new ArgumentException($"The named \"{name}\" Xproperty is not a Property.");
 
                     AddAnnotations(xProperty, mProperty);
                 }
 
-                foreach (XElement mPrincipalProperty in mEntityType.Elements(MetaVocab.PrincipalProperty))
+                //
+                foreach (XElement mCalculatedProperty in mEntityType.Elements(nameof(CalculatedProperty)))
                 {
-                    string name = mPrincipalProperty.GetAttributeValue(SchemaVocab.Name);
+                    string name = mCalculatedProperty.GetAttributeValue(nameof(CalculatedProperty.Name));
+                    XElement? xProperty = FindXProperty(name, xEntityType);
+                    if (xProperty == null)
+                    {
+                        xEntityType.Add(mCalculatedProperty);
+                    }
+                    else
+                    {
+                        if (xProperty.Name.LocalName != nameof(CalculatedProperty))
+                            throw new ArgumentException($"The named \"{name}\" Xproperty is not a CalculatedProperty.");
+
+                        AddAnnotations(xProperty, mCalculatedProperty);
+                    }
+                }
+
+                //
+                foreach (XElement mPrincipalProperty in mEntityType.Elements(nameof(PrincipalProperty)))
+                {
+                    string name = mPrincipalProperty.GetAttributeValue(nameof(PrincipalProperty.Name));
                     XElement? xProperty = FindXProperty(name, xEntityType);
                     if (xProperty == null)
                     {
@@ -75,62 +95,86 @@ namespace Shantiw.Data.Meta
                     }
                     else
                     {
-                        if (xProperty.Name.LocalName != MetaVocab.PrincipalProperty)
+                        if (xProperty.Name.LocalName != nameof(PrincipalProperty))
                             throw new ArgumentException($"The named \"{name}\" Xproperty is not a PrincipalProperty.");
 
                         AddAnnotations(xProperty, mPrincipalProperty);
                     }
                 }
 
+                //
                 foreach (XElement mNavigationProperty in mEntityType.Elements(SchemaVocab.NavigationProperty))
                 {
-                    string name = mNavigationProperty.GetAttributeValue(SchemaVocab.Name);
+                    string name = mNavigationProperty.GetAttributeValue(nameof(NavigationProperty.Name));
                     XElement? xProperty = FindXProperty(name, xEntityType);
                     if (xProperty == null)
                     {
-                        if (mNavigationProperty.GetNullableAttributeValue(MetaVocab.Route) == null)
+                        if (mNavigationProperty.GetNullableAttributeValue(nameof(RouteNavigationProperty.Route)) == null)
                             throw new ArgumentException($"The \"Route\" attribute is not found in {mNavigationProperty}.");
 
                         xEntityType.Add(mNavigationProperty);
                     }
                     else
                     {
-                        if (xProperty.Name.LocalName != SchemaVocab.NavigationProperty)
+                        if (xProperty.Name.LocalName != nameof(NavigationProperty))
                             throw new ArgumentException($"The named \"{name}\" Xproperty is not a NavigationProperty.");
 
                         AddAnnotations(xProperty, mNavigationProperty);
                     }
                 }
 
+                //
                 AddAnnotations(xEntityType, mEntityType);
             }
         }
 
         private static void Remove(XElement schema, XElement xRemove)
         {
-            foreach (XElement mEntityType in xRemove.Elements(SchemaVocab.EntityType))
+            foreach (XElement mEntityType in xRemove.Elements(nameof(EntityType)))
             {
                 XElement xEntityType = FindXEntityType(mEntityType, schema);
 
-                foreach (XElement mProperty in mEntityType.Elements(SchemaVocab.Property))
+                //
+                foreach (XElement mProperty in mEntityType.Elements(nameof(Property)))
                 {
-                    string name = mProperty.GetAttributeValue(SchemaVocab.Name);
+                    string name = mProperty.GetAttributeValue(nameof(Property.Name));
                     XElement? xProperty = FindXProperty(name, xEntityType)
                         ?? throw new ArgumentException($"The named \"{name}\" property is not found in Schema.");
 
-                    if (xProperty.Name.LocalName != SchemaVocab.Property)
+                    if (xProperty.Name.LocalName != nameof(Property))
                         throw new ArgumentException($"The named \"{name}\" Xproperty is not a Property.");
 
                     RemoveAnnotations(xProperty, mProperty);
                 }
 
-                foreach (XElement mPrincipalProperty in mEntityType.Elements(MetaVocab.PrincipalProperty))
+                //
+                foreach (XElement mCalculatedProperty in mEntityType.Elements(nameof(CalculatedProperty)))
                 {
-                    string name = mPrincipalProperty.GetAttributeValue(SchemaVocab.Name);
+                    string name = mCalculatedProperty.GetAttributeValue(nameof(CalculatedProperty.Name));
+                    XElement? xProperty = FindXProperty(name, xEntityType)
+                        ?? throw new ArgumentException($"The named \"{name}\" calculatedProperty is not found in Schema.");
+
+                    if (xProperty.Name.LocalName != nameof(CalculatedProperty))
+                        throw new ArgumentException($"The named \"{name}\" Xproperty is not a CalculatedProperty.");
+
+                    if (mCalculatedProperty.HasElements)
+                    {
+                        RemoveAnnotations(xProperty, mCalculatedProperty);
+                    }
+                    else
+                    {
+                        xProperty.Remove();
+                    }
+                }
+
+                //
+                foreach (XElement mPrincipalProperty in mEntityType.Elements(nameof(PrincipalProperty)))
+                {
+                    string name = mPrincipalProperty.GetAttributeValue(nameof(PrincipalProperty.Name));
                     XElement? xProperty = FindXProperty(name, xEntityType)
                         ?? throw new ArgumentException($"The named \"{name}\" principalProperty is not found in Schema.");
 
-                    if (xProperty.Name.LocalName != MetaVocab.PrincipalProperty)
+                    if (xProperty.Name.LocalName != nameof(PrincipalProperty))
                         throw new ArgumentException($"The named \"{name}\" Xproperty is not a PrincipalProperty.");
 
                     if (mPrincipalProperty.HasElements)
@@ -143,13 +187,14 @@ namespace Shantiw.Data.Meta
                     }
                 }
 
+                //
                 foreach (XElement mNavigationProperty in mEntityType.Elements(SchemaVocab.NavigationProperty))
                 {
-                    string name = mNavigationProperty.GetAttributeValue(SchemaVocab.Name);
+                    string name = mNavigationProperty.GetAttributeValue(nameof(NavigationProperty.Name));
                     XElement? xProperty = FindXProperty(name, xEntityType)
                         ?? throw new ArgumentException($"The named \"{name}\" NavigationProperty is not found in Schema.");
 
-                    if (xProperty.Name.LocalName != MetaVocab.PrincipalProperty)
+                    if (xProperty.Name.LocalName != nameof(PrincipalProperty))
                         throw new ArgumentException($"The named \"{name}\" xProperty is not a NavigationProperty.");
 
                     if (mNavigationProperty.HasElements)
@@ -158,21 +203,22 @@ namespace Shantiw.Data.Meta
                     }
                     else
                     {
-                        if (mNavigationProperty.GetNullableAttributeValue(MetaVocab.Route) == null)
+                        if (mNavigationProperty.GetNullableAttributeValue(nameof(RouteNavigationProperty.Route)) == null)
                             throw new ArgumentException($"Only RouteNavigationProperty can be removed.");
 
                         xProperty.Remove();
                     }
                 }
 
+                //
                 RemoveAnnotations(xEntityType, mEntityType);
             }
         }
 
         private static XElement FindXEntityType(XElement mEntityType, XElement schema)
         {
-            string name = mEntityType.GetAttributeValue(SchemaVocab.Name);
-            return schema.Elements(SchemaVocab.EntityType).Single(e => e.GetAttributeValue(SchemaVocab.Name) == name);
+            string name = mEntityType.GetAttributeValue(nameof(EntityType.Name));
+            return schema.Elements(SchemaVocab.EntityType).Single(e => e.GetAttributeValue(nameof(EntityType.Name)) == name);
         }
 
         /// <param name="mProperty">mProperty, mPrincipalProperty or mNavigationProperty</param>
@@ -180,13 +226,16 @@ namespace Shantiw.Data.Meta
         /// <returns>xProperty, xPrincipalProperty or xNavigationProperty</returns>
         private static XElement? FindXProperty(string name, XElement xEntityType)
         {
-            XElement? xProperty = xEntityType.Elements(SchemaVocab.Property).SingleOrDefault(e => e.GetAttributeValue(SchemaVocab.Name) == name);
+            XElement? xProperty = xEntityType.Elements(nameof(Property)).SingleOrDefault(e => e.GetAttributeValue(nameof(Property.Name)) == name);
             if (xProperty != null) return xProperty;
 
-            XElement? xPrincipalProperty = xEntityType.Elements(MetaVocab.PrincipalProperty).SingleOrDefault(e => e.GetAttributeValue(SchemaVocab.Name) == name);
+            XElement? xCalculatedProperty = xEntityType.Elements(nameof(CalculatedProperty)).SingleOrDefault(e => e.GetAttributeValue(nameof(CalculatedProperty.Name)) == name);
+            if (xCalculatedProperty != null) return xCalculatedProperty;
+
+            XElement? xPrincipalProperty = xEntityType.Elements(nameof(PrincipalProperty)).SingleOrDefault(e => e.GetAttributeValue(nameof(PrincipalProperty.Name)) == name);
             if (xPrincipalProperty != null) return xPrincipalProperty;
 
-            XElement? xNavigationProperty = xEntityType.Elements(SchemaVocab.NavigationProperty).SingleOrDefault(e => e.GetAttributeValue(SchemaVocab.Name) == name);
+            XElement? xNavigationProperty = xEntityType.Elements(nameof(NavigationProperty)).SingleOrDefault(e => e.GetAttributeValue(nameof(NavigationProperty.Name)) == name);
 
             return xNavigationProperty;
         }

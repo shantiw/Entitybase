@@ -11,6 +11,9 @@
 			<NavigationProperty Name="...">
 				<Annotation Type="..." />
 			</NavigationProperty>
+			<CalculatedProperty Name="..." Type="..." Expression="...">
+				<Annotation Type="..." />			
+			</CalculatedProperty>
 			<Annotation Type="..." />
 		</EntityType>
 	</Remove>

@@ -17,7 +17,7 @@ namespace Shantiw.Data.Meta
         internal RouteNavigationProperty(EntityType entityType, XElement xNavigationProperty)
             : base(entityType, xNavigationProperty) // <NavigationProperty Name="..." Route="..." />
         {
-            string route = xNavigationProperty.GetAttributeValue(MetaVocab.Route);
+            string route = xNavigationProperty.GetAttributeValue(nameof(RouteNavigationProperty.Route));
             List<VectorialAssociation> routeList = [];
             EntityType current = EntityType;
             foreach (string navigationPropertyName in route.Split('.'))

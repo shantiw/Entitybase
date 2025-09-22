@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace Shantiw.Data.Meta
 {
-    internal static class MetaVocab
+    public class ComputedProperty
     {
-        public const string TypePrefix = "System.";
-
-        public const string NameOfPropertyRef = "NameOfPropertyRef";
 
     }
 }

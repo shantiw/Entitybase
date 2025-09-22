@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace Shantiw.Data.Meta
 {
-    public partial class EntityDataModel
+    public class EntityDataModel
     {
         public IReadOnlyDictionary<string, EntityType> EntityTypes { get; private set; }
 

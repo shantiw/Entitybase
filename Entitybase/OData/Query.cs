@@ -11,14 +11,14 @@ namespace Shantiw.Data.OData
 {
     public class Query
     {
-        public EntityType EntityType { get; set; }
+
+
+        public EntityType EntityType { get; private set; }
         public string Select;
         public string Filter;
         public string OrderBy;
-
-        public long Skip { get; private set; }
         public long Top { get; private set; }
-
+        public long Skip { get; private set; }
         public Query Expand { get; private set; }
 
         public Query()

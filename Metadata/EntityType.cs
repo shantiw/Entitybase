@@ -12,7 +12,7 @@ using System.Xml.Linq;
 
 namespace Shantiw.Data.Meta
 {
-    public partial class EntityType
+    public class EntityType
     {
         public EntityDataModel EntityDataModel { get; private set; }
 
@@ -25,6 +25,8 @@ namespace Shantiw.Data.Meta
         public IReadOnlyDictionary<string, Property>? Key { get; private set; }
 
         public IReadOnlyDictionary<string, Property> Properties { get; private set; }
+
+        public IReadOnlyDictionary<string, CalculatedProperty> CalculatedProperties { get; private set; }
 
         public IReadOnlyDictionary<string, PrincipalProperty> PrincipalProperties { get; private set; } = new Dictionary<string, PrincipalProperty>();
 
@@ -61,22 +63,30 @@ namespace Shantiw.Data.Meta
 
             //
             Dictionary<string, Property> properties = [];
-            foreach (XElement xProperty in xEntityType.Elements(SchemaVocab.Property))
+            foreach (XElement xProperty in xEntityType.Elements(nameof(Property)))
             {
                 Property property = new(this, xProperty);
                 properties.Add(property.Name, property);
             }
-
             Properties = properties;
 
             //
-            XElement? xKey = xEntityType.Element(SchemaVocab.Key);
+            Dictionary<string, CalculatedProperty> calculatedProperties = [];
+            foreach (XElement xCalculatedProperty in xEntityType.Elements(nameof(CalculatedProperty)))
+            {
+                CalculatedProperty calculatedProperty = new(this, xCalculatedProperty);
+                calculatedProperties.Add(calculatedProperty.Name, calculatedProperty);
+            }
+            CalculatedProperties = calculatedProperties;
+
+            //
+            XElement? xKey = xEntityType.Element(nameof(Key));
             if (xKey != null)
             {
                 Dictionary<string, Property> key = [];
                 foreach (XElement xPropertyRef in xKey.Elements(SchemaVocab.PropertyRef))
                 {
-                    string name = xPropertyRef.GetAttributeValue(SchemaVocab.Name);
+                    string name = xPropertyRef.GetAttributeValue(nameof(Property.Name));
                     key.Add(name, Properties[name]);
                 }
                 Key = key;
@@ -90,7 +100,7 @@ namespace Shantiw.Data.Meta
         internal void BuildRelationshipNavigationProperties()
         {
             Dictionary<string, NavigationProperty> navigationProperties = (Dictionary<string, NavigationProperty>)NavigationProperties;
-            foreach (XElement xNavigationProperty in _xEntityType.Elements(SchemaVocab.NavigationProperty)
+            foreach (XElement xNavigationProperty in _xEntityType.Elements(nameof(NavigationProperty))
                     .Where(p => p.Attribute(SchemaVocab.Relationship) != null))
             {
                 NavigationProperty navigationProperty = new RelationshipNavigationProperty(this, xNavigationProperty);
@@ -101,7 +111,7 @@ namespace Shantiw.Data.Meta
         internal void BuildPrincipalAndRouteNavigationProperties()
         {
             Dictionary<string, PrincipalProperty> principalProperties = (Dictionary<string, PrincipalProperty>)PrincipalProperties;
-            foreach (XElement xNavigationProperty in _xEntityType.Elements(MetaVocab.PrincipalProperty))
+            foreach (XElement xNavigationProperty in _xEntityType.Elements(nameof(PrincipalProperty)))
             {
                 PrincipalProperty principalProperty = new(this, xNavigationProperty);
                 principalProperties.Add(principalProperty.Name, principalProperty);
@@ -109,8 +119,8 @@ namespace Shantiw.Data.Meta
 
             //
             Dictionary<string, NavigationProperty> navigationProperties = (Dictionary<string, NavigationProperty>)NavigationProperties;
-            foreach (XElement xNavigationProperty in _xEntityType.Elements(SchemaVocab.NavigationProperty)
-                .Where(p => p.Attribute(MetaVocab.Route) != null))
+            foreach (XElement xNavigationProperty in _xEntityType.Elements(nameof(NavigationProperty))
+                .Where(p => p.Attribute(nameof(RouteNavigationProperty.Route)) != null))
             {
                 NavigationProperty navigationProperty = new RouteNavigationProperty(this, xNavigationProperty);
                 navigationProperties.Add(navigationProperty.Name, navigationProperty);
