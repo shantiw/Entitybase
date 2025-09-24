@@ -20,6 +20,10 @@ namespace Shantiw.Data.Meta
 
         public abstract VectorialAssociation[] Route { get; }
 
+        public abstract string FromMultiplicity { get; }
+
+        public abstract string ToMultiplicity { get; }
+
         private string? _displayName = null;
         public string DisplayName
         {

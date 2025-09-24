@@ -1,0 +1,19 @@
+{
+  "EntityType/EntitySetName": {
+    "$select": "Property/PrincipalProperty/CalculatedProperty,...", // CalculatedProperty is only allowed for $select.
+    "optional-$filter": "{BooleanExpression}",
+    "optional-$orderby": "Property/PrincipalProperty asc/desc,...",
+    "optional-$top": "{Integer}",
+    "optional-$skip": "{Integer}",
+    "optional-$expand": {
+      "NavigationProperty": {
+        "$select": "...",
+        "optional-$filter": "..",
+        "optional-$orderby": "...",
+        "optional-$top": "...",
+        "optional-$skip": "..."
+        // Nested $expand for related entity
+      }
+    }
+  }
+}

@@ -1,4 +1,5 @@
-﻿using Shantiw.Data.OData;
+﻿using Shantiw.Data.Meta;
+using System.Xml.Linq;
 
 namespace Shantiw.Services
 {
@@ -6,7 +7,8 @@ namespace Shantiw.Services
     {
         public ODataService()
         {
-            var query = new Query();
+            var factory = new EntityDataModelFactory(XElement.Load("northwind.xml"));
+            var mode = factory.GetInstance();
         }
     }
 }

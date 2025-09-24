@@ -11,7 +11,7 @@
 			<NavigationProperty Name="...">
 				<Annotation Type="..." />
 			</NavigationProperty>
-			<CalculatedProperty Name="..." Type="..." Expression="...">
+			<CalculatedProperty Name="...">
 				<Annotation Type="..." />			
 			</CalculatedProperty>
 			<Annotation Type="..." />
@@ -22,12 +22,15 @@
 			<Property Name="...">
 				<Annotation Type="..." />
 			</Property>
-			<PrincipalProperty Name="..." Route="..." NameOfPropertyRef="...">
+			<PrincipalProperty Name="..." NameOfNavigationPropertyRef="..." NameOfPropertyRef="...">
 				<Annotation Type="DisplayAttribute"  Name="..." />
 			</PrincipalProperty>
 			<NavigationProperty Name="..." Route="...">
 				<Annotation Type="DisplayAttribute" Name="..." />
 			</NavigationProperty>
+			<CalculatedProperty Name="..." Type="..." Expression="...">
+				<Annotation Type="..." />			
+			</CalculatedProperty>			
 			<Annotation Type="..." />
 		</EntityType>
 	</Add>

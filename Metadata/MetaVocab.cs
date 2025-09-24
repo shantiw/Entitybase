@@ -10,6 +10,7 @@ namespace Shantiw.Data.Meta
     {
         public const string TypePrefix = "System.";
 
+        public const string NameOfNavigationPropertyRef = "NameOfNavigationPropertyRef";
         public const string NameOfPropertyRef = "NameOfPropertyRef";
 
     }

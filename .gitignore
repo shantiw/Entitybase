@@ -1,4 +1,5 @@
 
+/WebAPI.sln
 /WebAPI/.vs
 /WebAPI/obj
 /WebAPI/bin
@@ -6,6 +7,11 @@
 /Entitybase/.vs
 /Entitybase/obj
 /Entitybase/bin
+
+/JavaScriptUtils
+/JavaScriptUtils/.vs
+/JavaScriptUtils/obj
+/JavaScriptUtils/bin
 
 /.vs
 

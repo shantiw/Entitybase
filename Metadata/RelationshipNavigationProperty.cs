@@ -15,6 +15,12 @@ namespace Shantiw.Data.Meta
         private readonly VectorialAssociation[] _route;
         public override VectorialAssociation[] Route { get { return _route; } }
 
+        private readonly string _fromMultiplicity;
+        public override string FromMultiplicity { get { return _fromMultiplicity; } }
+
+        private readonly string _toMultiplicity;
+        public override string ToMultiplicity { get { return _toMultiplicity; } }
+
         internal RelationshipNavigationProperty(EntityType entityType, XElement xNavigationProperty)
             : base(entityType, xNavigationProperty) // <NavigationProperty Name="..." Relationship="..." FromRole="..." ToRole="..." />
         {
@@ -39,6 +45,8 @@ namespace Shantiw.Data.Meta
                 }
 
                 _route = [vectorialAssociation];
+                _fromMultiplicity = vectorialAssociation.FromEnd.Multiplicity;
+                _toMultiplicity = vectorialAssociation.ToEnd.Multiplicity;
             }
             else // ManyToMany
             {
@@ -61,6 +69,8 @@ namespace Shantiw.Data.Meta
                 }
 
                 _route = [vectorialAssociation1, vectorialAssociation2];
+                _fromMultiplicity = Multiplicity.Many;
+                _toMultiplicity = Multiplicity.Many;
             }
         }
 

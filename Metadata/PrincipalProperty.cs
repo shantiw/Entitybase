@@ -17,7 +17,7 @@ namespace Shantiw.Data.Meta
 
         public string Name { get; private set; }
 
-        public VectorialAssociation[] Route { get; private set; }
+        public NavigationProperty NavigationProperty { get; private set; }
 
         public Property PropertyRef { get; private set; }
 
@@ -42,26 +42,14 @@ namespace Shantiw.Data.Meta
             EntityType = entityType;
             Name = xPrincipalProperty.GetAttributeValue(SchemaVocab.Name);
 
-            //
-            string route = xPrincipalProperty.GetAttributeValue(nameof(RouteNavigationProperty.Route));
+            //          
+            string nameOfNavigationPropertyRef = xPrincipalProperty.GetAttributeValue(MetaVocab.NameOfNavigationPropertyRef);
             string nameOfPropertyRef = xPrincipalProperty.GetAttributeValue(MetaVocab.NameOfPropertyRef);
 
-            List<VectorialAssociation> routeList = [];
-            EntityType current = EntityType;
-            foreach (string navigationPropertyName in route.Split('.'))
-            {
-                NavigationProperty navigationProperty = current.NavigationProperties[navigationPropertyName];
-                VectorialAssociation[] oRoute = navigationProperty.Route;
+            NavigationProperty = EntityType.NavigationProperties[nameOfNavigationPropertyRef];
+            if (NavigationProperty.ToMultiplicity == Multiplicity.Many) throw new ArgumentException("The toMultiplicity of the navigationProperty must not be Many.");
 
-                if (oRoute.Length != 1) throw new ArgumentException(navigationProperty.Name);
-                if (oRoute[0].ToEnd.Multiplicity == Multiplicity.Many) throw new ArgumentException(oRoute[0].Name);
-
-                routeList.Add(oRoute[0]);
-                current = oRoute[0].ToEnd.EntityType;
-            }
-
-            Route = [.. routeList];
-            PropertyRef = current.Properties[nameOfPropertyRef];
+            PropertyRef = NavigationProperty.Route[^1].ToEnd.EntityType.Properties[nameOfPropertyRef];
 
             //
             ComponentModelAttributes = AttributeUtil.CreateComponentModelAttributes(xPrincipalProperty);

@@ -108,22 +108,24 @@ namespace Shantiw.Data.Meta
             }
         }
 
-        internal void BuildPrincipalAndRouteNavigationProperties()
+        internal void BuildRouteNavigationProperties()
         {
-            Dictionary<string, PrincipalProperty> principalProperties = (Dictionary<string, PrincipalProperty>)PrincipalProperties;
-            foreach (XElement xNavigationProperty in _xEntityType.Elements(nameof(PrincipalProperty)))
-            {
-                PrincipalProperty principalProperty = new(this, xNavigationProperty);
-                principalProperties.Add(principalProperty.Name, principalProperty);
-            }
-
-            //
             Dictionary<string, NavigationProperty> navigationProperties = (Dictionary<string, NavigationProperty>)NavigationProperties;
             foreach (XElement xNavigationProperty in _xEntityType.Elements(nameof(NavigationProperty))
                 .Where(p => p.Attribute(nameof(RouteNavigationProperty.Route)) != null))
             {
                 NavigationProperty navigationProperty = new RouteNavigationProperty(this, xNavigationProperty);
                 navigationProperties.Add(navigationProperty.Name, navigationProperty);
+            }
+        }
+
+        internal void BuildPrincipalProperties()
+        {
+            Dictionary<string, PrincipalProperty> principalProperties = (Dictionary<string, PrincipalProperty>)PrincipalProperties;
+            foreach (XElement xNavigationProperty in _xEntityType.Elements(nameof(PrincipalProperty)))
+            {
+                PrincipalProperty principalProperty = new(this, xNavigationProperty);
+                principalProperties.Add(principalProperty.Name, principalProperty);
             }
         }
 

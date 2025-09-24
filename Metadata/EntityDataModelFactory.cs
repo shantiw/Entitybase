@@ -67,20 +67,23 @@ namespace Shantiw.Data.Meta
                 }
 
                 //
-                foreach (XElement mCalculatedProperty in mEntityType.Elements(nameof(CalculatedProperty)))
+                foreach (XElement mNavigationProperty in mEntityType.Elements(SchemaVocab.NavigationProperty))
                 {
-                    string name = mCalculatedProperty.GetAttributeValue(nameof(CalculatedProperty.Name));
+                    string name = mNavigationProperty.GetAttributeValue(nameof(NavigationProperty.Name));
                     XElement? xProperty = FindXProperty(name, xEntityType);
                     if (xProperty == null)
                     {
-                        xEntityType.Add(mCalculatedProperty);
+                        if (mNavigationProperty.GetNullableAttributeValue(nameof(RouteNavigationProperty.Route)) == null)
+                            throw new ArgumentException($"The \"Route\" attribute is not found in {mNavigationProperty}.");
+
+                        xEntityType.Add(mNavigationProperty);
                     }
                     else
                     {
-                        if (xProperty.Name.LocalName != nameof(CalculatedProperty))
-                            throw new ArgumentException($"The named \"{name}\" Xproperty is not a CalculatedProperty.");
+                        if (xProperty.Name.LocalName != nameof(NavigationProperty))
+                            throw new ArgumentException($"The named \"{name}\" Xproperty is not a NavigationProperty.");
 
-                        AddAnnotations(xProperty, mCalculatedProperty);
+                        AddAnnotations(xProperty, mNavigationProperty);
                     }
                 }
 
@@ -103,23 +106,20 @@ namespace Shantiw.Data.Meta
                 }
 
                 //
-                foreach (XElement mNavigationProperty in mEntityType.Elements(SchemaVocab.NavigationProperty))
+                foreach (XElement mCalculatedProperty in mEntityType.Elements(nameof(CalculatedProperty)))
                 {
-                    string name = mNavigationProperty.GetAttributeValue(nameof(NavigationProperty.Name));
+                    string name = mCalculatedProperty.GetAttributeValue(nameof(CalculatedProperty.Name));
                     XElement? xProperty = FindXProperty(name, xEntityType);
                     if (xProperty == null)
                     {
-                        if (mNavigationProperty.GetNullableAttributeValue(nameof(RouteNavigationProperty.Route)) == null)
-                            throw new ArgumentException($"The \"Route\" attribute is not found in {mNavigationProperty}.");
-
-                        xEntityType.Add(mNavigationProperty);
+                        xEntityType.Add(mCalculatedProperty);
                     }
                     else
                     {
-                        if (xProperty.Name.LocalName != nameof(NavigationProperty))
-                            throw new ArgumentException($"The named \"{name}\" Xproperty is not a NavigationProperty.");
+                        if (xProperty.Name.LocalName != nameof(CalculatedProperty))
+                            throw new ArgumentException($"The named \"{name}\" Xproperty is not a CalculatedProperty.");
 
-                        AddAnnotations(xProperty, mNavigationProperty);
+                        AddAnnotations(xProperty, mCalculatedProperty);
                     }
                 }
 
@@ -148,21 +148,24 @@ namespace Shantiw.Data.Meta
                 }
 
                 //
-                foreach (XElement mCalculatedProperty in mEntityType.Elements(nameof(CalculatedProperty)))
+                foreach (XElement mNavigationProperty in mEntityType.Elements(SchemaVocab.NavigationProperty))
                 {
-                    string name = mCalculatedProperty.GetAttributeValue(nameof(CalculatedProperty.Name));
+                    string name = mNavigationProperty.GetAttributeValue(nameof(NavigationProperty.Name));
                     XElement? xProperty = FindXProperty(name, xEntityType)
-                        ?? throw new ArgumentException($"The named \"{name}\" calculatedProperty is not found in Schema.");
+                        ?? throw new ArgumentException($"The named \"{name}\" NavigationProperty is not found in Schema.");
 
-                    if (xProperty.Name.LocalName != nameof(CalculatedProperty))
-                        throw new ArgumentException($"The named \"{name}\" Xproperty is not a CalculatedProperty.");
+                    if (xProperty.Name.LocalName != nameof(PrincipalProperty))
+                        throw new ArgumentException($"The named \"{name}\" xProperty is not a NavigationProperty.");
 
-                    if (mCalculatedProperty.HasElements)
+                    if (mNavigationProperty.HasElements)
                     {
-                        RemoveAnnotations(xProperty, mCalculatedProperty);
+                        RemoveAnnotations(xProperty, mNavigationProperty);
                     }
                     else
                     {
+                        if (mNavigationProperty.GetNullableAttributeValue(nameof(RouteNavigationProperty.Route)) == null)
+                            throw new ArgumentException($"Only RouteNavigationProperty can be removed.");
+
                         xProperty.Remove();
                     }
                 }
@@ -188,24 +191,21 @@ namespace Shantiw.Data.Meta
                 }
 
                 //
-                foreach (XElement mNavigationProperty in mEntityType.Elements(SchemaVocab.NavigationProperty))
+                foreach (XElement mCalculatedProperty in mEntityType.Elements(nameof(CalculatedProperty)))
                 {
-                    string name = mNavigationProperty.GetAttributeValue(nameof(NavigationProperty.Name));
+                    string name = mCalculatedProperty.GetAttributeValue(nameof(CalculatedProperty.Name));
                     XElement? xProperty = FindXProperty(name, xEntityType)
-                        ?? throw new ArgumentException($"The named \"{name}\" NavigationProperty is not found in Schema.");
+                        ?? throw new ArgumentException($"The named \"{name}\" calculatedProperty is not found in Schema.");
 
-                    if (xProperty.Name.LocalName != nameof(PrincipalProperty))
-                        throw new ArgumentException($"The named \"{name}\" xProperty is not a NavigationProperty.");
+                    if (xProperty.Name.LocalName != nameof(CalculatedProperty))
+                        throw new ArgumentException($"The named \"{name}\" Xproperty is not a CalculatedProperty.");
 
-                    if (mNavigationProperty.HasElements)
+                    if (mCalculatedProperty.HasElements)
                     {
-                        RemoveAnnotations(xProperty, mNavigationProperty);
+                        RemoveAnnotations(xProperty, mCalculatedProperty);
                     }
                     else
                     {
-                        if (mNavigationProperty.GetNullableAttributeValue(nameof(RouteNavigationProperty.Route)) == null)
-                            throw new ArgumentException($"Only RouteNavigationProperty can be removed.");
-
                         xProperty.Remove();
                     }
                 }
