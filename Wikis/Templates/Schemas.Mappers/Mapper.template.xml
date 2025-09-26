@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Mapping File=".xml/.json/.csv">
 	<Mapper Type="Shantiw.Data.Schema.Mapper" >
-		<optional-EntityTypeMapping optional-DisplayName="{Comment}" />
-		<optional-PropertyMapping optional-DisplayName="{Comment}" />
+		<optional-EntityTypeMapping optional-DisplayName="{Comment}" optional-Description="{Comment}" />
+		<optional-PropertyMapping optional-DisplayName="{Comment}" optional-Description="{Comment}" />
 	</Mapper>
 </Mapping>

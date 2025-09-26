@@ -14,9 +14,9 @@ namespace Shantiw.Data.Schema
     {
         protected readonly XElement Mapping;
 
-        public virtual bool IsGeneratingDisplayAttrForEntityTypeByCommnent { get; protected set; } = false;
+        public virtual CommnentPolicy EntityTypeCommnentPolicy { get; protected set; } = CommnentPolicy.None;
 
-        public virtual bool IsGeneratingDisplayAttrForPropertyByCommnent { get; protected set; } = false;
+        public virtual CommnentPolicy PropertyCommnentPolicy { get; protected set; } = CommnentPolicy.None;
 
         public Mapper(XElement mapping)
         {
@@ -30,14 +30,18 @@ namespace Shantiw.Data.Schema
                 if (xEntityTypeMapping != null)
                 {
                     string? displayName = xEntityTypeMapping.GetNullableAttributeValue(MapperVocab.DisplayName);
-                    IsGeneratingDisplayAttrForEntityTypeByCommnent = displayName != null && displayName == "{Comment}";
+                    string? description = xEntityTypeMapping.GetNullableAttributeValue(MapperVocab.Description);
+                    if (displayName != null && displayName == "{Comment}") EntityTypeCommnentPolicy |= CommnentPolicy.DisplayName;
+                    if (description != null && description == "{Comment}") EntityTypeCommnentPolicy |= CommnentPolicy.Description;
                 }
 
                 XElement? xPropertyMapping = xMapper.Elements(MapperVocab.PropertyMapping).SingleOrDefault();
                 if (xPropertyMapping != null)
                 {
                     string? displayName = xPropertyMapping.GetNullableAttributeValue(MapperVocab.DisplayName);
-                    IsGeneratingDisplayAttrForPropertyByCommnent = displayName != null && displayName == "{Comment}";
+                    string? description = xPropertyMapping.GetNullableAttributeValue(MapperVocab.Description);
+                    if (displayName != null && displayName == "{Comment}") PropertyCommnentPolicy |= CommnentPolicy.DisplayName;
+                    if (description != null && description == "{Comment}") PropertyCommnentPolicy |= CommnentPolicy.Description;
                 }
             }
 

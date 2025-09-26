@@ -6,10 +6,18 @@ using System.Threading.Tasks;
 
 namespace Shantiw.Data.Schema
 {
+    [Flags]
+    public enum CommnentPolicy
+    {
+        None = 0,
+        DisplayName = 1,
+        Description = 2
+    }
+
     public interface IMapper
     {
-        public abstract bool IsGeneratingDisplayAttrForEntityTypeByCommnent { get; }
-        public abstract bool IsGeneratingDisplayAttrForPropertyByCommnent { get; }
+        public abstract CommnentPolicy EntityTypeCommnentPolicy { get; }
+        public abstract CommnentPolicy PropertyCommnentPolicy { get; }
 
         public abstract (string entityTypeName, string entitySetName) GetEntityTypeName(string tableName);
 

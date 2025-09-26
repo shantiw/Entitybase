@@ -18,6 +18,7 @@ namespace Shantiw.Data.Schema
         public const string PropertyMapping = "PropertyMapping";
 
         public const string DisplayName = "DisplayName";
+        public const string Description = "Description";
 
         public const string SequenceAttaching = "SequenceAttaching";
 

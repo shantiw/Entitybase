@@ -2,7 +2,7 @@
 <!-- optional-: inherits from Shantiw.Data.Schema.Mapper -->
 <Mapping optional-File=".xml/.json/.csv"> 
 	<Mapper Type="{Type.FullName}" Assembly="{DllFileName}" >
-		<optional-EntityTypeMapping optional-DisplayName="{Comment}" />
-		<optional-PropertyMapping optional-DisplayName="{Comment}" />
+		<optional-EntityTypeMapping optional-DisplayName="{Comment}" optional-Description="{Comment}" />
+		<optional-PropertyMapping optional-DisplayName="{Comment}" optional-Description="{Comment}" />
 	</Mapper>
 </Mapping>

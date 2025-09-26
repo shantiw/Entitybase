@@ -11,7 +11,7 @@
 				<Function Name="FunctionNamen" Order ="n" />
 			</Functions>
 		</EntitySetMapping>
-		<EntityTypeMapping Format="[Prefix]{Funcs(TableName)}/{TableName}[Suffix]" optional-DisplayName="{Comment}" >
+		<EntityTypeMapping Format="[Prefix]{Funcs(TableName)}/{TableName}[Suffix]" optional-DisplayName="{Comment}" optional-Description="{Comment}">
 			<!-- Default parameter="TableName" -->
 			<Function Name="FunctionName1" Order ="1" />
 			<Function Name="FunctionName2" Order ="2" />
@@ -20,7 +20,7 @@
 		</EntityTypeMapping>
 		<PropertyMapping
 			Format="[Prefix]{Funcs(TableName)}/{TableName}[*]{Funcs(ColumnName)/{ColumnName}/{Funcs(ColumnName)/{ColumnName}[*]{Funcs(TableName)}/{TableName}[Suffix]"
-			optional-DisplayName="{Comment}">
+			optional-DisplayName="{Comment}" optional-Description="{Comment}>
 			<Functions>
 				<Function Name="FunctionName1" Parameter="ColumnName" Order ="1" />
 				<Function Name="FunctionName2" Parameter="ColumnName" Order ="2" />
