@@ -26,11 +26,13 @@ namespace Shantiw.Data.Meta
 
         public IReadOnlyDictionary<string, Property> Properties { get; private set; }
 
-        public IReadOnlyDictionary<string, CalculatedProperty> CalculatedProperties { get; private set; }
+        public IReadOnlyDictionary<string, NavigationProperty> NavigationProperties { get; private set; } = new Dictionary<string, NavigationProperty>();
 
         public IReadOnlyDictionary<string, PrincipalProperty> PrincipalProperties { get; private set; } = new Dictionary<string, PrincipalProperty>();
 
-        public IReadOnlyDictionary<string, NavigationProperty> NavigationProperties { get; private set; } = new Dictionary<string, NavigationProperty>();
+        public IReadOnlyDictionary<string, ComputedProperty> ComputedProperties { get; private set; } = new Dictionary<string, ComputedProperty>();
+
+        public IReadOnlyDictionary<string, CalculatedProperty> CalculatedProperties { get; private set; } = new Dictionary<string, CalculatedProperty>();
 
         private string? _displayName = null;
         public string DisplayName
@@ -46,7 +48,7 @@ namespace Shantiw.Data.Meta
             }
         }
 
-        public IReadOnlyDictionary<string, Attribute> ComponentModelAttributes { get; private set; } // DisplayAttribute
+        public IReadOnlyDictionary<string, Attribute> ComponentModelAttributes { get; private set; }
 
         public IReadOnlyDictionary<string, ValidationAttribute> ValidationAttributes { get; private set; }
 
@@ -69,15 +71,6 @@ namespace Shantiw.Data.Meta
                 properties.Add(property.Name, property);
             }
             Properties = properties;
-
-            //
-            Dictionary<string, CalculatedProperty> calculatedProperties = [];
-            foreach (XElement xCalculatedProperty in xEntityType.Elements(nameof(CalculatedProperty)))
-            {
-                CalculatedProperty calculatedProperty = new(this, xCalculatedProperty);
-                calculatedProperties.Add(calculatedProperty.Name, calculatedProperty);
-            }
-            CalculatedProperties = calculatedProperties;
 
             //
             XElement? xKey = xEntityType.Element(nameof(Key));
@@ -126,6 +119,26 @@ namespace Shantiw.Data.Meta
             {
                 PrincipalProperty principalProperty = new(this, xNavigationProperty);
                 principalProperties.Add(principalProperty.Name, principalProperty);
+            }
+        }
+
+        internal void BuildComputedProperties()
+        {
+            Dictionary<string, ComputedProperty> computedProperties = (Dictionary<string, ComputedProperty>)ComputedProperties;
+            foreach (XElement xComputedProperty in _xEntityType.Elements(nameof(ComputedProperty)))
+            {
+                ComputedProperty computedProperty = new(this, xComputedProperty);
+                computedProperties.Add(computedProperty.Name, computedProperty);
+            }
+        }
+
+        internal void BuildCalculatedProperties()
+        {
+            Dictionary<string, CalculatedProperty> calculatedProperties = (Dictionary<string, CalculatedProperty>)CalculatedProperties;
+            foreach (XElement xCalculatedProperty in _xEntityType.Elements(nameof(CalculatedProperty)))
+            {
+                CalculatedProperty calculatedProperty = new(this, xCalculatedProperty);
+                calculatedProperties.Add(calculatedProperty.Name, calculatedProperty);
             }
         }
 

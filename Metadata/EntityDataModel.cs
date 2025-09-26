@@ -53,11 +53,15 @@ namespace Shantiw.Data.Meta
             }
 
             // <NavigationProperty Name="..." Path="..." />
-            // <PrincipalProperty... />
+            // <PrincipalProperty ... />
+            // <ComputedProperty ... />
+            // <CalculatedProperty ... />
             foreach (EntityType entityType in EntityTypes.Values)
             {
                 entityType.BuildPathNavigationProperties();
                 entityType.BuildPrincipalProperties();
+                entityType.BuildComputedProperties();
+                entityType.BuildCalculatedProperties();
             }
         }
 

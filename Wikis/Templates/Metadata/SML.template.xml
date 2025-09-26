@@ -11,8 +11,11 @@
 			<NavigationProperty Name="...">
 				<Annotation Type="..." />
 			</NavigationProperty>
+			<ComputedProperty Name="...">
+				<Annotation Type="..." />		
+			</ComputedProperty>
 			<CalculatedProperty Name="...">
-				<Annotation Type="..." />			
+				<Annotation Type="..." />
 			</CalculatedProperty>
 			<Annotation Type="..." />
 		</EntityType>
@@ -28,9 +31,12 @@
 			<NavigationProperty Name="..." Path="...">
 				<Annotation Type="DisplayAttribute" Name="..." />
 			</NavigationProperty>
+			<ComputedProperty Name="..." Expression="...">
+				<Annotation Type="..." />
+			</ComputedProperty>
 			<CalculatedProperty Name="..." Type="..." Expression="...">
-				<Annotation Type="..." />			
-			</CalculatedProperty>			
+				<Annotation Type="..." />
+			</CalculatedProperty>
 			<Annotation Type="..." />
 		</EntityType>
 	</Add>
