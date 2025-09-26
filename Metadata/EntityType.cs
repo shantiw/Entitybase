@@ -94,7 +94,7 @@ namespace Shantiw.Data.Meta
 
             //
             ComponentModelAttributes = AttributeUtil.CreateComponentModelAttributes(xEntityType);
-            ValidationAttributes = AttributeUtil.CreateEntityValidationAttributes(xEntityType);
+            ValidationAttributes = AttributeUtil.CreateEntityValidations(xEntityType);
         }
 
         internal void BuildRelationshipNavigationProperties()

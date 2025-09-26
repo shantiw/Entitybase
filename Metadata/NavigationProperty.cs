@@ -12,40 +12,16 @@ using System.Xml.Linq;
 
 namespace Shantiw.Data.Meta
 {
-    public abstract class NavigationProperty
+    public abstract class NavigationProperty : PropertyBase
     {
-        public EntityType EntityType { get; private set; }
-
-        public string Name { get; private set; }
-
         public abstract VectorialAssociation[] Path { get; }
 
         public abstract string FromMultiplicity { get; }
 
         public abstract string ToMultiplicity { get; }
 
-        private string? _displayName = null;
-        public string DisplayName
+        internal NavigationProperty(EntityType entityType, XElement xNavigationProperty) : base(entityType, xNavigationProperty)
         {
-            get
-            {
-                if (_displayName == null)
-                {
-                    string? displayName = AttributeUtil.GetDisplayName(ComponentModelAttributes);
-                    _displayName = displayName ?? Name;
-                }
-                return _displayName;
-            }
-        }
-
-        public IReadOnlyDictionary<string, Attribute> ComponentModelAttributes { get; private set; } // DisplayAttribute
-
-        internal NavigationProperty(EntityType entityType, XElement xNavigationProperty)
-        {
-            EntityType = entityType;
-            Name = xNavigationProperty.GetAttributeValue(SchemaVocab.Name);
-
-            ComponentModelAttributes = AttributeUtil.CreateComponentModelAttributes(xNavigationProperty);
         }
 
     }
