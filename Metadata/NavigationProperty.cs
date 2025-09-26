@@ -18,7 +18,7 @@ namespace Shantiw.Data.Meta
 
         public string Name { get; private set; }
 
-        public abstract VectorialAssociation[] Route { get; }
+        public abstract VectorialAssociation[] Path { get; }
 
         public abstract string FromMultiplicity { get; }
 

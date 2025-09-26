@@ -49,7 +49,7 @@ namespace Shantiw.Data.Meta
             NavigationProperty = EntityType.NavigationProperties[nameOfNavigationPropertyRef];
             if (NavigationProperty.ToMultiplicity == Multiplicity.Many) throw new ArgumentException("The toMultiplicity of the navigationProperty must not be Many.");
 
-            PropertyRef = NavigationProperty.Route[^1].ToEnd.EntityType.Properties[nameOfPropertyRef];
+            PropertyRef = NavigationProperty.Path[^1].ToEnd.EntityType.Properties[nameOfPropertyRef];
 
             //
             ComponentModelAttributes = AttributeUtil.CreateComponentModelAttributes(xPrincipalProperty);

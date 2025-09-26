@@ -9,10 +9,10 @@ using System.Xml.Linq;
 
 namespace Shantiw.Data.Meta
 {
-    internal class RouteNavigationProperty : NavigationProperty
+    internal class PathNavigationProperty : NavigationProperty
     {
-        private readonly VectorialAssociation[] _route;
-        public override VectorialAssociation[] Route { get { return _route; } }
+        private readonly VectorialAssociation[] _path;
+        public override VectorialAssociation[] Path { get { return _path; } }
 
         private readonly string _fromMultiplicity;
         public override string FromMultiplicity { get { return _fromMultiplicity; } }
@@ -20,14 +20,14 @@ namespace Shantiw.Data.Meta
         private readonly string _toMultiplicity;
         public override string ToMultiplicity { get { return _toMultiplicity; } }
 
-        internal RouteNavigationProperty(EntityType entityType, XElement xNavigationProperty)
-            : base(entityType, xNavigationProperty) // <NavigationProperty Name="..." Route="..." />
+        internal PathNavigationProperty(EntityType entityType, XElement xNavigationProperty)
+            : base(entityType, xNavigationProperty) // <NavigationProperty Name="..." Path="..." />
         {
-            string route = xNavigationProperty.GetAttributeValue(nameof(RouteNavigationProperty.Route));
-            List<VectorialAssociation> routeList = [];
+            string path = xNavigationProperty.GetAttributeValue(nameof(PathNavigationProperty.Path));
+            List<VectorialAssociation> pathList = [];
             string toMultiplicity = Multiplicity.One;
             EntityType current = EntityType;
-            foreach (string navigationPropertyName in route.Split('.'))
+            foreach (string navigationPropertyName in path.Split('.'))
             {
                 NavigationProperty navigationProperty = current.NavigationProperties[navigationPropertyName];
 
@@ -43,13 +43,13 @@ namespace Shantiw.Data.Meta
                     }
                 }
 
-                VectorialAssociation[] oRoute = navigationProperty.Route;
-                routeList.AddRange(oRoute);
-                current = oRoute[^1].ToEnd.EntityType;
+                VectorialAssociation[] oPath = navigationProperty.Path;
+                pathList.AddRange(oPath);
+                current = oPath[^1].ToEnd.EntityType;
             }
 
-            _route = [.. routeList];
-            _fromMultiplicity = _route[0].FromEnd.Multiplicity;
+            _path = [.. pathList];
+            _fromMultiplicity = _path[0].FromEnd.Multiplicity;
             _toMultiplicity = toMultiplicity;
         }
 

@@ -40,7 +40,7 @@ namespace Shantiw.Data.Schema
         public const string Unique = "UniqueConstraint";
 
         public const string Check = "CheckConstraint";
-        public const string Expression = "BooleanExpression";
+        public const string Clause = "Clause";
 
         public const string ForeignKey = "ForeignKeyConstraint";
         public const string RelatedTable = "Related";

@@ -67,7 +67,6 @@
         protected class CheckConstraint : Constraint// INFORMATION_SCHEMA.CHECK_CONSTRAINTS
         {
             public required string Clause { get; set; } // CHECK_CLAUSE
-            public string? BooleanExpression { get; set; } // boolean expression
         }
 
         protected class ForeignKeyConstraint : Constraint // INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS

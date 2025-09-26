@@ -108,13 +108,13 @@ namespace Shantiw.Data.Meta
             }
         }
 
-        internal void BuildRouteNavigationProperties()
+        internal void BuildPathNavigationProperties()
         {
             Dictionary<string, NavigationProperty> navigationProperties = (Dictionary<string, NavigationProperty>)NavigationProperties;
             foreach (XElement xNavigationProperty in _xEntityType.Elements(nameof(NavigationProperty))
-                .Where(p => p.Attribute(nameof(RouteNavigationProperty.Route)) != null))
+                .Where(p => p.Attribute(nameof(PathNavigationProperty.Path)) != null))
             {
-                NavigationProperty navigationProperty = new RouteNavigationProperty(this, xNavigationProperty);
+                NavigationProperty navigationProperty = new PathNavigationProperty(this, xNavigationProperty);
                 navigationProperties.Add(navigationProperty.Name, navigationProperty);
             }
         }

@@ -52,11 +52,11 @@ namespace Shantiw.Data.Meta
                 entityType.BuildRelationshipNavigationProperties();
             }
 
-            // <NavigationProperty Name="..." Route="..." />
+            // <NavigationProperty Name="..." Path="..." />
             // <PrincipalProperty... />
             foreach (EntityType entityType in EntityTypes.Values)
             {
-                entityType.BuildRouteNavigationProperties();
+                entityType.BuildPathNavigationProperties();
                 entityType.BuildPrincipalProperties();
             }
         }

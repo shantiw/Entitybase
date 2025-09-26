@@ -121,10 +121,10 @@ namespace Shantiw.Data.Schema
 
                     //  if (column.Collation != null)
                     //      xColumn.SetAttributeValue(nameof(column.Collation), column.Collation);
-                    
+
                     if (column.Precision != null)
                         xColumn.SetAttributeValue(nameof(column.Precision), column.Precision);
-                    
+
                     if (column.Scale != null)
                         xColumn.SetAttributeValue(nameof(column.Scale), column.Scale);
 
@@ -154,7 +154,7 @@ namespace Shantiw.Data.Schema
                 {
                     XElement xCheck = new(nameof(CheckConstraint),
                         new XAttribute(nameof(check.Name), check.Name),
-                        new XAttribute(nameof(check.BooleanExpression), check.BooleanExpression ?? check.Clause));
+                        new XAttribute(nameof(check.Clause), check.Clause));
 
                     foreach (string column in check.Columns)
                     {

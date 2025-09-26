@@ -73,8 +73,8 @@ namespace Shantiw.Data.Meta
                     XElement? xProperty = FindXProperty(name, xEntityType);
                     if (xProperty == null)
                     {
-                        if (mNavigationProperty.GetNullableAttributeValue(nameof(RouteNavigationProperty.Route)) == null)
-                            throw new ArgumentException($"The \"Route\" attribute is not found in {mNavigationProperty}.");
+                        if (mNavigationProperty.GetNullableAttributeValue(nameof(PathNavigationProperty.Path)) == null)
+                            throw new ArgumentException($"The \"Path\" attribute is not found in {mNavigationProperty}.");
 
                         xEntityType.Add(mNavigationProperty);
                     }
@@ -163,8 +163,8 @@ namespace Shantiw.Data.Meta
                     }
                     else
                     {
-                        if (mNavigationProperty.GetNullableAttributeValue(nameof(RouteNavigationProperty.Route)) == null)
-                            throw new ArgumentException($"Only RouteNavigationProperty can be removed.");
+                        if (mNavigationProperty.GetNullableAttributeValue(nameof(PathNavigationProperty.Path)) == null)
+                            throw new ArgumentException($"Only PathNavigationProperty can be removed.");
 
                         xProperty.Remove();
                     }
