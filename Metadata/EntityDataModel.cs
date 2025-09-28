@@ -11,6 +11,12 @@ namespace Shantiw.Data.Meta
 {
     public class EntityDataModel
     {
+        private readonly Dictionary<string, EntityType> _entityTypeByEntitySetNameDict = [];
+        public EntityType GetEntityTypeByEntitySetName(string entitySetName)
+        {
+            return _entityTypeByEntitySetNameDict[entitySetName];
+        }
+
         public IReadOnlyDictionary<string, EntityType> EntityTypes { get; private set; }
 
         internal IReadOnlyDictionary<string, Association> Associations { get; private set; }
@@ -24,6 +30,7 @@ namespace Shantiw.Data.Meta
             {
                 EntityType entityType = new(this, xEntityType);
                 entityTypes.Add(entityType.Name, entityType);
+                _entityTypeByEntitySetNameDict.Add(entityType.EntitySetName, entityType);
             }
             EntityTypes = entityTypes;
 

@@ -34,6 +34,9 @@ namespace Shantiw.Data.Meta
 
         public IReadOnlyDictionary<string, CalculatedProperty> CalculatedProperties { get; private set; } = new Dictionary<string, CalculatedProperty>();
 
+        private readonly Dictionary<string, PropertyBase> _scalarProperties = [];
+        public IReadOnlyDictionary<string, PropertyBase> ScalarProperties { get { return _scalarProperties; } }
+
         private string? _displayName = null;
         public string DisplayName
         {
@@ -69,6 +72,7 @@ namespace Shantiw.Data.Meta
             {
                 Property property = new(this, xProperty);
                 properties.Add(property.Name, property);
+                _scalarProperties.Add(property.Name, property);
             }
             Properties = properties;
 
@@ -119,6 +123,7 @@ namespace Shantiw.Data.Meta
             {
                 PrincipalProperty principalProperty = new(this, xNavigationProperty);
                 principalProperties.Add(principalProperty.Name, principalProperty);
+                _scalarProperties.Add(principalProperty.Name, principalProperty);
             }
         }
 
@@ -129,6 +134,7 @@ namespace Shantiw.Data.Meta
             {
                 ComputedProperty computedProperty = new(this, xComputedProperty);
                 computedProperties.Add(computedProperty.Name, computedProperty);
+                _scalarProperties.Add(computedProperty.Name, computedProperty);
             }
         }
 
@@ -139,6 +145,7 @@ namespace Shantiw.Data.Meta
             {
                 CalculatedProperty calculatedProperty = new(this, xCalculatedProperty);
                 calculatedProperties.Add(calculatedProperty.Name, calculatedProperty);
+                _scalarProperties.Add(calculatedProperty.Name, calculatedProperty);
             }
         }
 

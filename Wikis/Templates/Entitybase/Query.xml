@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Query>
+	<!-- <EntitySet>{EntitySetName}</EntitySet>/<EntityType>{EntityType}</EntityType> -->
+	<EntityType>{EntityType}</EntityType>
+	<Select>{Property}/{PrincipalProperty}/{ComputedProperty}/{CalculatedProperty},...</Select>
+	<optional-Filter>{BooleanExpression with {Property}/{PrincipalProperty},...}</optional-Filter>
+	<optional-Orderby>{Property}/{PrincipalProperty}/{ComputedProperty} Asc/Desc,...</optional-Orderby>
+	<optional-Top>{Integer}</optional-Top>
+	<optional-Skip>{Integer}</optional-Skip>
+	<optional-Expand >
+		<NavigationProperty>{NavigationProperty}</NavigationProperty>
+		<Select>...</Select>
+		<optional-Filter>...</optional-Filter>
+		<optional-Orderby>...</optional-Orderby>
+		<optional-Top>...</optional-Top>
+		<optional-Skip>...</optional-Skip>
+		<optional-Expand>
+			<Select>...</Select>
+			<optional-Filter>...</optional-Filter>
+			<optional-Orderby>...</optional-Orderby>
+			<optional-Top>...</optional-Top>
+			<optional-Skip>...</optional-Skip>
+			<!-- Nested <optional-Expand> for related entity -->
+		</optional-Expand>
+		<optional-Expand>
+			<!-- ... -->
+		</optional-Expand>
+		<!-- ... -->
+	</optional-Expand>
+	<optional-Expand >
+		<!-- ... -->
+	</optional-Expand>
+	<!-- ... -->
+</Query>

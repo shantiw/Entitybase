@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Modification\" />
     <Folder Include="OData\" />
   </ItemGroup>
 

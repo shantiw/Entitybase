@@ -1,0 +1,30 @@
+{
+  "EntityType": "{EntityType}", // or "EntitySetName": "{EntitySetName}"
+  "Select": "{Property}/{PrincipalProperty}/{ComputedProperty}/{CalculatedProperty},...",
+  "optional-Filter": "{BooleanExpression with {Property}/{PrincipalProperty},...}",
+  "optional-Orderby": "{Property}/{PrincipalProperty}/{ComputedProperty} Asc/Desc,...",
+  "optional-Top": "{Integer}",
+  "optional-Skip": "{Integer}",
+  "optional-Expand": [
+    {
+      "NavigationProperty": "{NavigationProperty}",
+      "Select": "...",
+      "optional-Filter": "...",
+      "optional-Orderby": "...",
+      "optional-Top": "...",
+      "optional-Skip": "...",
+      "optional-Expand": [
+        {
+          "Select": "...",
+          "optional-Filter": "...",
+          "optional-Orderby": "...",
+          "optional-Top": "...",
+          "optional-Skip": "...",
+          "optional-Expand": "Nested optional-Expand for related entity"
+        }
+        // Repeat for each nested related entity
+      ]
+    }
+    // Repeat for each related entity
+  ]
+}

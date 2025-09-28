@@ -1,6 +1,6 @@
 {
-  "EntityType/EntitySetName": {
-    "$select": "Property/PrincipalProperty/CalculatedProperty,...", // CalculatedProperty is only allowed for $select.
+  "EntitySetName": {
+    "$select": "Property/PrincipalProperty/CalculatedProperty,...",
     "optional-$filter": "{BooleanExpression}",
     "optional-$orderby": "Property/PrincipalProperty asc/desc,...",
     "optional-$top": "{Integer}",
