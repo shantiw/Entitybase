@@ -2,13 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace Shantiw.Data.Querying
 {
-    internal partial class QueryBase
+    public abstract partial class QueryBase
     {
         protected QueryBase(XElement xQueryOrExpand, EntityType entityType)
         {
@@ -70,48 +71,6 @@ namespace Shantiw.Data.Querying
             Expands = [.. expands];
         }
 
-        private string[] GetSelect(string? select)
-        {
-            if (string.IsNullOrWhiteSpace(select))
-                return [.. EntityType.ScalarProperties.Keys];
-
-            return [.. select.Split(',', StringSplitOptions.TrimEntries)];
-        }
-
-        private static Order[] GetOrderby(string orderby)
-        {
-            List<Order> orders = [];
-            string[] orderClauses = [.. orderby.Split(',', StringSplitOptions.TrimEntries)];
-            foreach (string orderClause in orderClauses)
-            {
-                string[] parts = [.. orderClause.Split(' ', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)];
-                if (parts.Length == 1)
-                {
-                    orders.Add(new AscendingOrder(parts[0]));
-                }
-                else if (parts.Length == 2)
-                {
-                    if (parts[1].Equals("asc", StringComparison.OrdinalIgnoreCase))
-                    {
-                        orders.Add(new AscendingOrder(parts[0]));
-                    }
-                    else if (parts[1].Equals("desc", StringComparison.OrdinalIgnoreCase))
-                    {
-                        orders.Add(new DescendingOrder(parts[0]));
-                    }
-                    else
-                    {
-                        throw new ArgumentException($"Invalid order direction '{parts[1]}'. Use 'asc' or 'desc'.");
-                    }
-                }
-                else
-                {
-                    throw new ArgumentException($"Invalid order clause '{orderClause}'.");
-                }
-            }
-            return [.. orders];
-        }
-
         private static NavigationProperty GetNavigationProperty(XElement xExpand, EntityType entityType)
         {
             XElement xNavigationProperty = xExpand.Element(nameof(NavigationProperty))
@@ -120,4 +79,37 @@ namespace Shantiw.Data.Querying
         }
 
     }
+
+    public partial class Query : QueryBase
+    {
+        public Query(XElement xQuery, EntityDataModel model) : base(xQuery, GetEntityType(xQuery, model))
+        {
+        }
+
+        private static EntityType GetEntityType(XElement xQuery, EntityDataModel model)
+        {
+            XElement? xEntitySet = xQuery.Element(QueryVocab.EntitySet);
+            if (xEntitySet == null)
+            {
+                XElement xEntityType = xQuery.Element(nameof(EntityType))
+                    ?? throw new ArgumentException($"Query must have an {QueryVocab.EntitySet} or an {nameof(EntityType)} element.");
+                return model.EntityTypes[xEntityType.Value];
+            }
+            return model.GetEntityTypeByEntitySetName(xEntitySet.Value);
+        }
+
+    }
+
+    public partial class ExpandQuery : QueryBase
+    {
+        public NavigationProperty NavigationPropertyOfParent { get; private set; }
+
+        internal ExpandQuery(XElement xExpand, NavigationProperty navigationPropertyOfParent)
+            : base(xExpand, navigationPropertyOfParent.Path[^1].ToEnd.EntityType)
+        {
+            NavigationPropertyOfParent = navigationPropertyOfParent;
+        }
+
+    }
+
 }

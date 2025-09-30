@@ -8,7 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Test_Query.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="northwind.xml" />
+    <None Remove="Test.xml" />
+    <None Remove="Test_Query.xml" />
   </ItemGroup>
 
   <ItemGroup>

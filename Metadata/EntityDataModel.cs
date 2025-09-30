@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace Shantiw.Data.Meta
 {
-    public class EntityDataModel
+    public partial class EntityDataModel
     {
         private readonly Dictionary<string, EntityType> _entityTypeByEntitySetNameDict = [];
         public EntityType GetEntityTypeByEntitySetName(string entitySetName)
@@ -23,7 +23,7 @@ namespace Shantiw.Data.Meta
 
         internal IReadOnlyDictionary<string, ManyToManyAssociation> ManyToManyAssociations { get; private set; }
 
-        internal EntityDataModel(XElement schema)
+        public EntityDataModel(XElement schema)
         {
             Dictionary<string, EntityType> entityTypes = [];
             foreach (XElement xEntityType in schema.Elements(SchemaVocab.EntityType))

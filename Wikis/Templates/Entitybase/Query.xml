@@ -15,6 +15,7 @@
 		<optional-Top>...</optional-Top>
 		<optional-Skip>...</optional-Skip>
 		<optional-Expand>
+			<NavigationProperty>{NavigationProperty}</NavigationProperty>
 			<Select>...</Select>
 			<optional-Filter>...</optional-Filter>
 			<optional-Orderby>...</optional-Orderby>

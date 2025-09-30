@@ -7,19 +7,9 @@ using System.Threading.Tasks;
 
 namespace Shantiw.Data.Querying
 {
-    internal static class QueryVocab
-    {
-        public const string EntitySet = "EntitySet";
-        public const string Select = "Select";
-        public const string Orderby = "Orderby";
-        public const string Expand = "Expand";
-    }
-
-    internal class Filter
+    public class Filter
     {
         public string Expression { get; private set; }
-        public List<Property> Properties = [];
-        public List<PrincipalProperty> PrincipalProperties = [];
 
         internal Filter(string expression, EntityType entityType)
         {
@@ -27,20 +17,20 @@ namespace Shantiw.Data.Querying
         }
     }
 
-    internal abstract class Order(string propertyName)
+    public abstract class Order(string propertyName)
     {
         public string PropertyName { get; private set; } = propertyName;
     }
 
-    internal class AscendingOrder(string propertyName) : Order(propertyName)
+    public class AscendingOrder(string propertyName) : Order(propertyName)
     {
     }
 
-    internal class DescendingOrder(string propertyName) : Order(propertyName)
+    public class DescendingOrder(string propertyName) : Order(propertyName)
     {
     }
 
-    internal abstract partial class QueryBase
+    public abstract partial class QueryBase
     {
         public EntityType EntityType { get; private set; }
 
@@ -55,6 +45,48 @@ namespace Shantiw.Data.Querying
         public long? Skip { get; private set; } = null;
 
         public ExpandQuery[]? Expands { get; protected set; } = null;
+
+        private string[] GetSelect(string? select)
+        {
+            if (string.IsNullOrWhiteSpace(select))
+                return [.. EntityType.ScalarProperties.Keys];
+
+            return [.. select.Split(',', StringSplitOptions.TrimEntries)];
+        }
+
+        private static Order[] GetOrderby(string orderby)
+        {
+            List<Order> orders = [];
+            string[] orderClauses = [.. orderby.Split(',', StringSplitOptions.TrimEntries)];
+            foreach (string orderClause in orderClauses)
+            {
+                string[] parts = [.. orderClause.Split(' ', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)];
+                if (parts.Length == 1)
+                {
+                    orders.Add(new AscendingOrder(parts[0]));
+                }
+                else if (parts.Length == 2)
+                {
+                    if (parts[1].Equals("asc", StringComparison.OrdinalIgnoreCase))
+                    {
+                        orders.Add(new AscendingOrder(parts[0]));
+                    }
+                    else if (parts[1].Equals("desc", StringComparison.OrdinalIgnoreCase))
+                    {
+                        orders.Add(new DescendingOrder(parts[0]));
+                    }
+                    else
+                    {
+                        throw new ArgumentException($"Invalid order direction '{parts[1]}'. Use 'asc' or 'desc'.");
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException($"Invalid order clause '{orderClause}'.");
+                }
+            }
+            return [.. orders];
+        }
 
     }
 }

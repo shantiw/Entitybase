@@ -1,5 +1,5 @@
 {
-  "EntityType": "{EntityType}", // or "EntitySetName": "{EntitySetName}"
+  "EntityType": "{EntityType}", // or "EntitySet": "{EntitySetName}"
   "Select": "{Property}/{PrincipalProperty}/{ComputedProperty}/{CalculatedProperty},...",
   "optional-Filter": "{BooleanExpression with {Property}/{PrincipalProperty},...}",
   "optional-Orderby": "{Property}/{PrincipalProperty}/{ComputedProperty} Asc/Desc,...",
@@ -15,6 +15,7 @@
       "optional-Skip": "...",
       "optional-Expand": [
         {
+		  "NavigationProperty": "{NavigationProperty}",
           "Select": "...",
           "optional-Filter": "...",
           "optional-Orderby": "...",

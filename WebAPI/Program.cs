@@ -15,7 +15,7 @@ var summaries = new[]
 
 app.MapGet("/", () =>
 {
-    var service = new ODataService();
+    var service = new DataService();
     return "Xml or Json string";
 });
 
