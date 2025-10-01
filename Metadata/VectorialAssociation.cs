@@ -10,15 +10,15 @@ namespace Shantiw.Data.Meta
     {
         public string Name { get; private set; }
 
-        public AssociationEnd FromEnd { get; private set; }
+        public VectorialAssociationEnd FromEnd { get; private set; }
 
-        public AssociationEnd ToEnd { get; private set; }
+        public VectorialAssociationEnd ToEnd { get; private set; }
 
         internal VectorialAssociation(string name, AssociationEnd fromEnd, AssociationEnd toEnd)
         {
             Name = name;
-            FromEnd = fromEnd;
-            ToEnd = toEnd;
+            FromEnd = new(this, fromEnd);
+            ToEnd = new(this, toEnd);
         }
 
     }

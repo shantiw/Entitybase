@@ -35,7 +35,7 @@ namespace Shantiw.Data.Meta
                 string name = xReferentialConstraint.GetAttributeValue(SchemaVocab.Name);
                 AssociationEnd principalEnd = CreatePrincipalEnd(xReferentialConstraint, xAssociation, entityTypes);
                 AssociationEnd dependentEnd = CreateDependentEnd(xReferentialConstraint, entityType);
-                associations.Add(new Association(model, name, principalEnd, dependentEnd));
+                associations.Add(new Association(name, principalEnd, dependentEnd));
             }
 
             FirstAssociation = associations.First();

@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace Shantiw.Data.Meta
 {
-    public class AssociationEnd
+    internal class AssociationEnd
     {
         public string Role { get; private set; }
 

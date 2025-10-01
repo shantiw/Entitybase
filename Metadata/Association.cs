@@ -34,7 +34,7 @@ namespace Shantiw.Data.Meta
             Debug.Assert(PrincipalEnd.Properties.Length == DependentEnd.Properties.Length);
         }
 
-        public Association(EntityDataModel model, string name, AssociationEnd principalEnd, AssociationEnd dependentEnd) // ManyToMany
+        public Association(string name, AssociationEnd principalEnd, AssociationEnd dependentEnd) // ManyToMany
         {
             Name = name;
             PrincipalEnd = principalEnd;
