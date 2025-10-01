@@ -1,5 +1,4 @@
 ﻿using Shantiw.Data.DataAnnotations;
-using Shantiw.Data.Meta;
 using Shantiw.Data.Schema;
 using System;
 using System.Collections.Generic;

@@ -16,7 +16,7 @@ namespace Shantiw.Data.Meta
 
         internal VectorialAssociation(string name, AssociationEnd fromEnd, AssociationEnd toEnd)
         {
-            Name = name;
+            Name = $"{fromEnd.Role}_{toEnd.Role}_{name}";
             FromEnd = new(this, fromEnd);
             ToEnd = new(this, toEnd);
         }

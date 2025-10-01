@@ -116,7 +116,7 @@ namespace Shantiw.Data.Querying
     public partial class ExpandQuery : QueryBase
     {
         internal ExpandQuery(JsonElement jExpand, NavigationProperty navigationPropertyOfParent)
-            : base(jExpand, navigationPropertyOfParent.Path[^1].ToEnd.EntityType)
+            : base(jExpand, navigationPropertyOfParent.Vector[^1].ToEnd.EntityType)
         {
             NavigationPropertyOfParent = navigationPropertyOfParent;
         }

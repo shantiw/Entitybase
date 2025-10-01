@@ -105,7 +105,7 @@ namespace Shantiw.Data.Querying
         public NavigationProperty NavigationPropertyOfParent { get; private set; }
 
         internal ExpandQuery(XElement xExpand, NavigationProperty navigationPropertyOfParent)
-            : base(xExpand, navigationPropertyOfParent.Path[^1].ToEnd.EntityType)
+            : base(xExpand, navigationPropertyOfParent.Vector[^1].ToEnd.EntityType)
         {
             NavigationPropertyOfParent = navigationPropertyOfParent;
         }

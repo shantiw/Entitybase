@@ -1,6 +1,4 @@
-﻿using Shantiw.Data.DataAnnotations;
-using Shantiw.Data.Schema;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
@@ -14,7 +12,7 @@ namespace Shantiw.Data.Meta
 {
     public abstract class NavigationProperty : PropertyBase
     {
-        public abstract VectorialAssociation[] Path { get; }
+        public abstract VectorialAssociation[] Vector { get; }
 
         public abstract string FromMultiplicity { get; }
 

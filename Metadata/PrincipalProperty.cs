@@ -1,5 +1,4 @@
-﻿using Shantiw.Data.DataAnnotations;
-using Shantiw.Data.Schema;
+﻿using Shantiw.Data.Schema;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -25,7 +24,7 @@ namespace Shantiw.Data.Meta
             NavigationProperty = EntityType.NavigationProperties[nameOfNavigationPropertyRef];
             if (NavigationProperty.ToMultiplicity == Multiplicity.Many) throw new ArgumentException("The toMultiplicity of the navigationProperty must not be Many.");
 
-            PropertyRef = NavigationProperty.Path[^1].ToEnd.EntityType.Properties[nameOfPropertyRef];
+            PropertyRef = NavigationProperty.Vector[^1].ToEnd.EntityType.Properties[nameOfPropertyRef];
         }
 
     }
