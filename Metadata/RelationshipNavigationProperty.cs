@@ -11,8 +11,8 @@ namespace Shantiw.Data.Meta
 {
     internal class RelationshipNavigationProperty : NavigationProperty
     {
-        private readonly VectorialAssociation[] _vector;
-        public override VectorialAssociation[] Vector { get { return _vector; } }
+        private readonly VectAssociation[] _vector;
+        public override VectAssociation[] Vector { get { return _vector; } }
 
         private readonly string _fromMultiplicity;
         public override string FromMultiplicity { get { return _fromMultiplicity; } }
@@ -28,46 +28,46 @@ namespace Shantiw.Data.Meta
             string toRole = xNavigationProperty.GetAttributeValue(SchemaVocab.ToRole);
             if (entityType.EntityDataModel.Associations.TryGetValue(relationship, out Association? association))
             {
-                VectorialAssociation vectorialAssociation;
+                VectAssociation vectAssociation;
                 if (association.PrincipalEnd.Role == fromRole)
                 {
                     Debug.Assert(association.DependentEnd.Role == toRole);
 
-                    vectorialAssociation = new(relationship, association.PrincipalEnd, association.DependentEnd);
+                    vectAssociation = new(relationship, association.PrincipalEnd, association.DependentEnd);
                 }
                 else
                 {
                     Debug.Assert(association.PrincipalEnd.Role == toRole);
                     Debug.Assert(association.DependentEnd.Role == fromRole);
 
-                    vectorialAssociation = new(relationship, association.DependentEnd, association.PrincipalEnd);
+                    vectAssociation = new(relationship, association.DependentEnd, association.PrincipalEnd);
                 }
 
-                _vector = [vectorialAssociation];
-                _fromMultiplicity = vectorialAssociation.FromEnd.Multiplicity;
-                _toMultiplicity = vectorialAssociation.ToEnd.Multiplicity;
+                _vector = [vectAssociation];
+                _fromMultiplicity = vectAssociation.FromEnd.Multiplicity;
+                _toMultiplicity = vectAssociation.ToEnd.Multiplicity;
             }
             else // ManyToMany
             {
-                VectorialAssociation vectorialAssociation1, vectorialAssociation2;
+                VectAssociation vectAssociation1, vectAssociation2;
                 ManyToManyAssociation manyToMany = entityType.EntityDataModel.ManyToManyAssociations[relationship];
                 if (manyToMany.FirstAssociation.PrincipalEnd.Role == fromRole)
                 {
                     Debug.Assert(manyToMany.SecondAssociation.PrincipalEnd.Role == toRole);
 
-                    vectorialAssociation1 = new(manyToMany.FirstAssociation.Name, manyToMany.FirstAssociation.PrincipalEnd, manyToMany.FirstAssociation.DependentEnd);
-                    vectorialAssociation2 = new(manyToMany.SecondAssociation.Name, manyToMany.SecondAssociation.DependentEnd, manyToMany.SecondAssociation.PrincipalEnd);
+                    vectAssociation1 = new(manyToMany.FirstAssociation.Name, manyToMany.FirstAssociation.PrincipalEnd, manyToMany.FirstAssociation.DependentEnd);
+                    vectAssociation2 = new(manyToMany.SecondAssociation.Name, manyToMany.SecondAssociation.DependentEnd, manyToMany.SecondAssociation.PrincipalEnd);
                 }
                 else
                 {
                     Debug.Assert(manyToMany.FirstAssociation.PrincipalEnd.Role == toRole);
                     Debug.Assert(manyToMany.SecondAssociation.PrincipalEnd.Role == fromRole);
 
-                    vectorialAssociation1 = new(manyToMany.SecondAssociation.Name, manyToMany.SecondAssociation.PrincipalEnd, manyToMany.SecondAssociation.DependentEnd);
-                    vectorialAssociation2 = new(manyToMany.FirstAssociation.Name, manyToMany.FirstAssociation.DependentEnd, manyToMany.FirstAssociation.PrincipalEnd);
+                    vectAssociation1 = new(manyToMany.SecondAssociation.Name, manyToMany.SecondAssociation.PrincipalEnd, manyToMany.SecondAssociation.DependentEnd);
+                    vectAssociation2 = new(manyToMany.FirstAssociation.Name, manyToMany.FirstAssociation.DependentEnd, manyToMany.FirstAssociation.PrincipalEnd);
                 }
 
-                _vector = [vectorialAssociation1, vectorialAssociation2];
+                _vector = [vectAssociation1, vectAssociation2];
                 _fromMultiplicity = Multiplicity.Many;
                 _toMultiplicity = Multiplicity.Many;
             }

@@ -17,7 +17,7 @@ namespace Shantiw.Data.Querying
 
             //
             XElement? xSelect = xQueryOrExpand.Element(QueryVocab.Select);
-            Select = GetSelect(xSelect?.Value);
+            Select = new Select(xSelect?.Value, entityType);
 
             //
             XElement? xFilter = xQueryOrExpand.Element(nameof(Filter));
@@ -30,7 +30,7 @@ namespace Shantiw.Data.Querying
             XElement? xOrderby = xQueryOrExpand.Element(QueryVocab.Orderby);
             if (xOrderby != null)
             {
-                Orderby = GetOrderby(xOrderby.Value);
+                OrderBy = new OrderBy(xOrderby.Value);
             }
 
             //
@@ -60,6 +60,9 @@ namespace Shantiw.Data.Querying
                     throw new ArgumentException($"The value of Skip must be a valid integer.");
                 }
             }
+
+            //
+            AggregateProperties();
 
             //
             List<ExpandQuery> expands = [];

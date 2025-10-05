@@ -25,16 +25,20 @@ namespace Shantiw.Data.Meta
 
         public IReadOnlyDictionary<string, Property> Properties { get; private set; }
 
-        public IReadOnlyDictionary<string, NavigationProperty> NavigationProperties { get; private set; } = new Dictionary<string, NavigationProperty>();
+        private Dictionary<string, NavigationProperty> _navigationProperties = [];
+        public IReadOnlyDictionary<string, NavigationProperty> NavigationProperties => _navigationProperties;
 
-        public IReadOnlyDictionary<string, PrincipalProperty> PrincipalProperties { get; private set; } = new Dictionary<string, PrincipalProperty>();
+        private readonly Dictionary<string, PrincipalProperty> _principalProperties = [];
+        public IReadOnlyDictionary<string, PrincipalProperty> PrincipalProperties => _principalProperties;
 
-        public IReadOnlyDictionary<string, ComputedProperty> ComputedProperties { get; private set; } = new Dictionary<string, ComputedProperty>();
+        private readonly Dictionary<string, ComputedProperty> _computedProperties = [];
+        public IReadOnlyDictionary<string, ComputedProperty> ComputedProperties => _computedProperties;
 
-        public IReadOnlyDictionary<string, CalculatedProperty> CalculatedProperties { get; private set; } = new Dictionary<string, CalculatedProperty>();
+        private readonly Dictionary<string, CalculatedProperty> _calculatedProperties = [];
+        public IReadOnlyDictionary<string, CalculatedProperty> CalculatedProperties => _calculatedProperties;
 
         private readonly Dictionary<string, PropertyBase> _scalarProperties = [];
-        public IReadOnlyDictionary<string, PropertyBase> ScalarProperties { get { return _scalarProperties; } }
+        public IReadOnlyDictionary<string, PropertyBase> ScalarProperties => _scalarProperties;
 
         private string? _displayName = null;
         public string DisplayName
@@ -95,55 +99,50 @@ namespace Shantiw.Data.Meta
 
         internal void BuildRelationshipNavigationProperties()
         {
-            Dictionary<string, NavigationProperty> navigationProperties = (Dictionary<string, NavigationProperty>)NavigationProperties;
             foreach (XElement xNavigationProperty in _xEntityType.Elements(nameof(NavigationProperty))
                     .Where(p => p.Attribute(SchemaVocab.Relationship) != null))
             {
                 NavigationProperty navigationProperty = new RelationshipNavigationProperty(this, xNavigationProperty);
-                navigationProperties.Add(navigationProperty.Name, navigationProperty);
+                _navigationProperties.Add(navigationProperty.Name, navigationProperty);
             }
         }
 
         internal void BuildPathNavigationProperties()
         {
-            Dictionary<string, NavigationProperty> navigationProperties = (Dictionary<string, NavigationProperty>)NavigationProperties;
             foreach (XElement xNavigationProperty in _xEntityType.Elements(nameof(NavigationProperty))
                 .Where(p => p.Attribute(nameof(PathNavigationProperty.Path)) != null))
             {
                 NavigationProperty navigationProperty = new PathNavigationProperty(this, xNavigationProperty);
-                navigationProperties.Add(navigationProperty.Name, navigationProperty);
+                _navigationProperties.Add(navigationProperty.Name, navigationProperty);
             }
         }
 
         internal void BuildPrincipalProperties()
         {
-            Dictionary<string, PrincipalProperty> principalProperties = (Dictionary<string, PrincipalProperty>)PrincipalProperties;
             foreach (XElement xNavigationProperty in _xEntityType.Elements(nameof(PrincipalProperty)))
             {
                 PrincipalProperty principalProperty = new(this, xNavigationProperty);
-                principalProperties.Add(principalProperty.Name, principalProperty);
+                _principalProperties.Add(principalProperty.Name, principalProperty);
                 _scalarProperties.Add(principalProperty.Name, principalProperty);
             }
         }
 
         internal void BuildComputedProperties()
         {
-            Dictionary<string, ComputedProperty> computedProperties = (Dictionary<string, ComputedProperty>)ComputedProperties;
             foreach (XElement xComputedProperty in _xEntityType.Elements(nameof(ComputedProperty)))
             {
                 ComputedProperty computedProperty = new(this, xComputedProperty);
-                computedProperties.Add(computedProperty.Name, computedProperty);
+                _computedProperties.Add(computedProperty.Name, computedProperty);
                 _scalarProperties.Add(computedProperty.Name, computedProperty);
             }
         }
 
         internal void BuildCalculatedProperties()
         {
-            Dictionary<string, CalculatedProperty> calculatedProperties = (Dictionary<string, CalculatedProperty>)CalculatedProperties;
             foreach (XElement xCalculatedProperty in _xEntityType.Elements(nameof(CalculatedProperty)))
             {
                 CalculatedProperty calculatedProperty = new(this, xCalculatedProperty);
-                calculatedProperties.Add(calculatedProperty.Name, calculatedProperty);
+                _calculatedProperties.Add(calculatedProperty.Name, calculatedProperty);
                 _scalarProperties.Add(calculatedProperty.Name, calculatedProperty);
             }
         }

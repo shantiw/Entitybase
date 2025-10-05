@@ -7,19 +7,37 @@ using System.Threading.Tasks;
 
 namespace Shantiw.Data.Querying
 {
+    public class Select
+    {
+        public string[] Properties { get; private set; }
+
+        internal Select(string? select, EntityType entityType)
+        {
+            if (string.IsNullOrWhiteSpace(select))
+                Properties = [.. entityType.ScalarProperties.Keys];
+            else
+                Properties = [.. select.Split(',', StringSplitOptions.TrimEntries)];
+        }
+
+    }
+
     public class Filter
     {
         public string Expression { get; private set; }
 
+        public PreprocessedClause PreprocessedClause { get; private set; }
+
         internal Filter(string expression, EntityType entityType)
         {
             Expression = expression;
+            PreprocessedClause = new PreprocessedClause(expression, entityType);
         }
+
     }
 
-    public abstract class Order(string propertyName)
+    public abstract class Order(string property)
     {
-        public string PropertyName { get; private set; } = propertyName;
+        public string Property => property;
     }
 
     public class AscendingOrder(string propertyName) : Order(propertyName)
@@ -30,31 +48,11 @@ namespace Shantiw.Data.Querying
     {
     }
 
-    public abstract partial class QueryBase
+    public class OrderBy
     {
-        public EntityType EntityType { get; private set; }
+        public Order[] Orders { get; private set; }
 
-        public string[] Select { get; private set; }
-
-        public Filter? Filter { get; private set; } = null;
-
-        public Order[]? Orderby { get; private set; } = null;
-
-        public long? Top { get; private set; } = null;
-
-        public long? Skip { get; private set; } = null;
-
-        public ExpandQuery[]? Expands { get; protected set; } = null;
-
-        private string[] GetSelect(string? select)
-        {
-            if (string.IsNullOrWhiteSpace(select))
-                return [.. EntityType.ScalarProperties.Keys];
-
-            return [.. select.Split(',', StringSplitOptions.TrimEntries)];
-        }
-
-        private static Order[] GetOrderby(string orderby)
+        public OrderBy(string orderby)
         {
             List<Order> orders = [];
             string[] orderClauses = [.. orderby.Split(',', StringSplitOptions.TrimEntries)];
@@ -85,8 +83,26 @@ namespace Shantiw.Data.Querying
                     throw new ArgumentException($"Invalid order clause '{orderClause}'.");
                 }
             }
-            return [.. orders];
+            Orders = [.. orders];
         }
+
+    }
+
+    public abstract partial class QueryBase
+    {
+        public EntityType EntityType { get; private set; }
+
+        public Select Select { get; private set; }
+
+        public Filter? Filter { get; private set; } = null;
+
+        public OrderBy? OrderBy { get; private set; } = null;
+
+        public long? Top { get; private set; } = null;
+
+        public long? Skip { get; private set; } = null;
+
+        public ExpandQuery[]? Expands { get; protected set; } = null;
 
     }
 }

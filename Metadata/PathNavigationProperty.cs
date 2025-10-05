@@ -12,8 +12,8 @@ namespace Shantiw.Data.Meta
     {
         public string Path { get; private set; }
 
-        private readonly VectorialAssociation[] _vector;
-        public override VectorialAssociation[] Vector { get { return _vector; } }
+        private readonly VectAssociation[] _vector;
+        public override VectAssociation[] Vector { get { return _vector; } }
 
         private readonly string _fromMultiplicity;
         public override string FromMultiplicity { get { return _fromMultiplicity; } }
@@ -27,7 +27,7 @@ namespace Shantiw.Data.Meta
             string path = xNavigationProperty.GetAttributeValue(nameof(PathNavigationProperty.Path));
             string[] pathArray = path.Split(['.', ',', '\\', '/'], StringSplitOptions.TrimEntries);
             Path = string.Join('/', pathArray);
-            List<VectorialAssociation> vector = [];
+            List<VectAssociation> vector = [];
             string toMultiplicity = Multiplicity.One;
             EntityType current = EntityType;
             foreach (string navigationPropertyName in pathArray)
@@ -46,7 +46,7 @@ namespace Shantiw.Data.Meta
                     }
                 }
 
-                VectorialAssociation[] associationArray = navigationProperty.Vector;
+                VectAssociation[] associationArray = navigationProperty.Vector;
                 vector.AddRange(associationArray);
                 current = associationArray[^1].ToEnd.EntityType;
             }

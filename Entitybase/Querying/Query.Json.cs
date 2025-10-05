@@ -21,7 +21,7 @@ namespace Shantiw.Data.Querying
             {
                 select = jSelect.ToString();
             }
-            Select = GetSelect(select);
+            Select = new Select(select, entityType);
 
             //
             if (jQueryOrExpand.TryGetProperty(nameof(Filter), out JsonElement jFilter))
@@ -32,7 +32,7 @@ namespace Shantiw.Data.Querying
             //
             if (jQueryOrExpand.TryGetProperty(QueryVocab.Orderby, out JsonElement jOrderby))
             {
-                Orderby = GetOrderby(jOrderby.ToString());
+                OrderBy = new OrderBy(jOrderby.ToString());
             }
 
             //
@@ -60,6 +60,9 @@ namespace Shantiw.Data.Querying
                     throw new ArgumentException($"The value of Skip must be a valid integer.");
                 }
             }
+
+            //
+            AggregateProperties();
 
             //
             List<ExpandQuery> expands = [];

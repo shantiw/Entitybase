@@ -12,7 +12,7 @@ namespace Shantiw.Data.Meta
 {
     public abstract class NavigationProperty : PropertyBase
     {
-        public abstract VectorialAssociation[] Vector { get; }
+        public abstract VectAssociation[] Vector { get; }
 
         public abstract string FromMultiplicity { get; }
 

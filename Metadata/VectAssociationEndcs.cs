@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Shantiw.Data.Meta
 {
-    public class VectorialAssociationEnd
+    public class VectAssociationEnd
     {
-        public VectorialAssociation VectorialAssociation { get; private set; }
+        public VectAssociation VectAssociation { get; private set; }
 
         public string Role { get; private set; }
 
@@ -18,9 +18,9 @@ namespace Shantiw.Data.Meta
 
         public Property[] Properties { get; private set; }
 
-        internal VectorialAssociationEnd(VectorialAssociation vectorialAssociation, AssociationEnd associationEnd)
+        internal VectAssociationEnd(VectAssociation vectAssociation, AssociationEnd associationEnd)
         {
-            VectorialAssociation = vectorialAssociation;
+            VectAssociation = vectAssociation;
             Role = associationEnd.Role;
             Multiplicity = associationEnd.Multiplicity;
             EntityType = associationEnd.EntityType;

@@ -11,9 +11,12 @@ namespace Shantiw.Data.Meta
     {
         public string Expression { get; private set; }
 
+        public PreprocessedClause PreprocessedClause { get; private set; }
+
         internal ComputedProperty(EntityType entityType, XElement xComputedProperty) : base(entityType, xComputedProperty)
         {
             Expression = xComputedProperty.GetAttributeValue(nameof(Expression));
+            PreprocessedClause = new PreprocessedClause(Expression, entityType);
         }
 
     }

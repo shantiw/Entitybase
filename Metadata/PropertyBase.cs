@@ -1,5 +1,4 @@
-﻿using Shantiw.Data.Schema;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,7 +32,7 @@ namespace Shantiw.Data.Meta
         internal PropertyBase(EntityType entityType, XElement xProperty)
         {
             EntityType = entityType;
-            Name = xProperty.GetAttributeValue(SchemaVocab.Name);
+            Name = xProperty.GetAttributeValue(nameof(PropertyBase.Name));
 
             ComponentModelAttributes = AttributeUtil.CreateComponentModelAttributes(xProperty);
         }
