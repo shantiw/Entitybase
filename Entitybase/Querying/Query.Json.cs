@@ -62,7 +62,7 @@ namespace Shantiw.Data.Querying
             }
 
             //
-            AggregateProperties();
+            BuildVectTree();
 
             //
             List<ExpandQuery> expands = [];

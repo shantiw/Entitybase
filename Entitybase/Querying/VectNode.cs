@@ -11,31 +11,21 @@ namespace Shantiw.Data.Querying
     {
         public int Id { get; private set; }
 
-        public VectAssociation VectAssociation { get; private set; }
+        public VectAssociation? VectAssociation { get; private set; }
 
         public VectNode? Parent { get; private set; }
 
         private readonly Dictionary<string, VectNode> _children = [];
         public IReadOnlyDictionary<string, VectNode> Children => _children;
 
-        internal static void Build(VectAssociation[] vector, VectNode root, Func<int> getSequence)
+        private VectNode()
         {
-            if (vector.Length == 0) return;
-            if (vector[0].Name != root.VectAssociation.Name) return;
-            if (vector.Length == 1) return;
-
-            int index = 1;
-            VectNode node = root;
-            while (node._children.TryGetValue(vector[index].Name, out VectNode? subNode))
-            {
-                node = subNode;
-                index++;
-                if (index == vector.Length) return;
-            }
-            node._children.Add(vector[index].Name, new VectNode(node, vector, index, getSequence));
+            Id = 0;
+            VectAssociation = null;
+            Parent = null;
         }
 
-        internal VectNode(VectNode? parent, VectAssociation[] vector, int index, Func<int> getSequence)
+        private VectNode(VectNode? parent, VectAssociation[] vector, int index, Func<int> getSequence)
         {
             Id = getSequence();
             Parent = parent;
@@ -44,6 +34,26 @@ namespace Shantiw.Data.Querying
             {
                 _children.Add(vector[i].Name, new VectNode(this, vector, i, getSequence));
             }
+        }
+
+        internal static VectNode CreateRoot()
+        {
+            return new VectNode();
+        }
+
+        internal static void Build(VectAssociation[] vector, VectNode root, Func<int> getSequence, out int lastId)
+        {
+            int index = 0;
+            VectNode node = root;
+            while (node._children.TryGetValue(vector[index].Name, out VectNode? subNode))
+            {
+                node = subNode;
+                lastId = node.Id;
+                index++;
+                if (index == vector.Length) return;
+            }
+            lastId = -1;
+            node._children.Add(vector[index].Name, new VectNode(node, vector, index, getSequence));
         }
 
     }

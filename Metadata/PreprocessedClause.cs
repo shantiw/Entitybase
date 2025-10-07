@@ -12,10 +12,6 @@ namespace Shantiw.Data.Meta
     {
         public string Expression { get; private set; }
 
-        public IReadOnlyList<string> Properties { get; private set; }
-
-        public IReadOnlyList<string> PrincipalProperties { get; private set; }
-
         public string Clause { get; private set; }
 
         public IReadOnlyDictionary<string, string> StringPlaceholders { get; private set; }
@@ -43,8 +39,6 @@ namespace Shantiw.Data.Meta
             StringPlaceholders = stringPlaceholders;
 
             //
-            List<string> properties = [];
-            List<string> principalProperties = [];
             Dictionary<string, string> propertyPlaceholders = [];
             clause = PropertyNameRegex().Replace(clause, m =>
             {
@@ -52,31 +46,22 @@ namespace Shantiw.Data.Meta
                 if (propertyPlaceholders.TryGetValue(propertyName, out string? existingGuid))
                     return existingGuid;
 
-                if (entityType.Properties.ContainsKey(propertyName))
+                if (entityType.ScalarProperties.TryGetValue(propertyName, out PropertyBase? prop))
                 {
-                    properties.Add(propertyName);
-                    string guid = GetGuid();
-                    propertyPlaceholders.Add(propertyName, guid);
-                    return guid;
-                }
+                    if (prop is Property || prop is PrincipalProperty)
+                    {
+                        string guid = GetGuid();
+                        propertyPlaceholders.Add(propertyName, guid);
+                        return guid;
+                    }
 
-                if (entityType.PrincipalProperties.ContainsKey(propertyName))
-                {
-                    principalProperties.Add(propertyName);
-                    string guid = GetGuid();
-                    propertyPlaceholders.Add(propertyName, guid);
-                    return guid;
-                }
-
-                if (entityType.ScalarProperties.ContainsKey(propertyName))
                     throw new ArgumentException($"The property \"{propertyName}\" must be a {nameof(Property)} or a {nameof(PrincipalProperty)} in the expression.");
+                }
 
                 return propertyName;
             });
 
             Clause = clause;
-            Properties = properties;
-            PrincipalProperties = principalProperties;
             PropertyPlaceholders = propertyPlaceholders;
         }
 
