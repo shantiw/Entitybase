@@ -59,7 +59,7 @@ namespace Shantiw.Data.Schema
             XElement root = new(DATABASE_SCHEMA,
                 new XAttribute(nameof(Database), database.Name),
                 new XAttribute(nameof(database.Provider), database.Provider),
-                new XAttribute(nameof(database.CreatedAt), database.CreatedAt));
+                new XAttribute(nameof(database.CreatedAt), database.CreatedAt.ToString("yyyy-MM-ddTHH:mm:ssZ")));
 
             foreach (Table table in database.Tables.OrderBy(t => t.Type))
             {

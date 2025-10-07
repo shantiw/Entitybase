@@ -20,7 +20,7 @@ namespace Shantiw.Data.Schema
 
         protected override Database GetDatabase() // exclude from sysdiagrams
         {
-            string sql = "SELECT DB_NAME(), GETDATE()";
+            string sql = "SELECT DB_NAME(), SYSUTCDATETIME()";
             DataTable dataTable = GetDataTable(sql);
             Database database = new()
             {

@@ -25,7 +25,7 @@ namespace Shantiw.Data.Schema
 
         protected override Database GetDatabase()
         {
-            string sql = "SELECT current_database(), now(), current_schema()";
+            string sql = "SELECT current_database(), CURRENT_TIMESTAMP, current_schema()";
             DataTable dataTable = GetDataTable(sql);
             Database database = new()
             {

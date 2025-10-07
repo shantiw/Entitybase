@@ -29,7 +29,7 @@ namespace Shantiw.Data.Schema
 
         protected override Database GetDatabase()
         {
-            string sql = "SELECT database(), sysdate(3)";
+            string sql = "SELECT DATABASE(), UTC_TIMESTAMP()";
             DataTable dataTable = GetDataTable(sql);
             Database database = new()
             {
