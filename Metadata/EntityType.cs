@@ -1,4 +1,5 @@
-﻿using Shantiw.Data.Schema;
+﻿using Shantiw.Data.DataAnnotations;
+using Shantiw.Data.Schema;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -58,6 +59,8 @@ namespace Shantiw.Data.Meta
 
         public IReadOnlyDictionary<string, ValidationAttribute> ValidationAttributes { get; private set; }
 
+        public IReadOnlyDictionary<string, StorageAttribute> StorageAttributes { get; private set; }
+
         private readonly XElement _xEntityType;
 
         internal EntityType(EntityDataModel model, XElement xEntityType)
@@ -95,6 +98,7 @@ namespace Shantiw.Data.Meta
             //
             ComponentModelAttributes = AttributeUtil.CreateComponentModelAttributes(xEntityType);
             ValidationAttributes = AttributeUtil.CreateEntityValidations(xEntityType);
+            StorageAttributes = AttributeUtil.CreateStorageAttributes(xEntityType);
         }
 
         internal void BuildRelationshipNavigationProperties()

@@ -1,6 +1,9 @@
-﻿using Shantiw.Data.Meta;
+﻿using Shantiw.Data.DataAnnotations;
+using Shantiw.Data.Meta;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +17,30 @@ namespace Shantiw.Data.Querying
         internal Select(string? select, EntityType entityType)
         {
             if (string.IsNullOrWhiteSpace(select))
-                Properties = [.. entityType.ScalarProperties.Keys];
+            {
+                if (entityType.StorageAttributes.TryGetValue(nameof(SelectAttribute), out StorageAttribute? attr))
+                {
+                    if (attr is SelectAttribute selectAttribute)
+                    {
+                        Properties = [.. selectAttribute.Default];
+                        return;
+                    }
+
+                    Debug.Assert(attr is SelectAttribute);
+                }
+
+                //
+                List<string> properties = [];
+                foreach (KeyValuePair<string, PropertyBase> pair in entityType.ScalarProperties)
+                {
+                    if (pair.Value is Property prop)
+                    {
+                        if (prop.Type == typeof(byte[])) continue;
+                        properties.Add(pair.Key);
+                    }
+                }
+                Properties = [.. properties];
+            }
             else
                 Properties = [.. select.Split(',', StringSplitOptions.TrimEntries)];
         }

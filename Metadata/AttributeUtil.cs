@@ -45,6 +45,20 @@ namespace Shantiw.Data.Meta
             return attributes;
         }
 
+        internal static IReadOnlyDictionary<string, StorageAttribute> CreateStorageAttributes(XElement xElement)
+        {
+            Dictionary<string, StorageAttribute> attributes = [];
+            foreach (XElement xAnnotation in xElement.Elements(SchemaVocab.Annotation))
+            {
+                StorageAttribute? attribute = AttributeFactory.CreateStorageAttribute(xAnnotation);
+                if (attribute == null) continue;
+
+                attributes.Add(attribute.GetType().Name, attribute);
+            }
+
+            return attributes;
+        }
+
         internal static IReadOnlyDictionary<string, Attribute> CreatePropertyDataAnnotations(XElement xElement)
         {
             Dictionary<string, Attribute> attributes = [];

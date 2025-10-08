@@ -46,7 +46,45 @@ namespace Shantiw.Data.DataAnnotations
 
             string booleanExpression = xAnnotation.GetAttributeValue(nameof(DataValidationAttribute.BooleanExpression));
             DataValidationAttribute attribute = new(booleanExpression);
+            return attribute;
+        }
 
+        public static StorageAttribute? CreateStorageAttribute(XElement xAnnotation)
+        {
+            string type = xAnnotation.GetAttributeValue(SchemaVocab.Type);
+            return type switch  // AttributeTargets.Class, AllowMultiple = false
+            {
+                nameof(SelectAttribute) => CreateSelectAttribute(xAnnotation),
+                nameof(UpdateAttribute) => CreateUpdateAttribute(xAnnotation),
+                nameof(DeleteAttribute) => CreateDeleteAttribute(xAnnotation),
+                _ => null
+            };
+        }
+
+        public static SelectAttribute CreateSelectAttribute(XElement xAnnotation)
+        {
+            if (xAnnotation.GetAttributeValue(SchemaVocab.Type) != nameof(SelectAttribute)) throw new ArgumentException(xAnnotation.ToString());
+
+            string defaultValue = xAnnotation.GetAttributeValue(nameof(SelectAttribute.Default));
+            SelectAttribute attribute = new(defaultValue);
+            return attribute;
+        }
+
+        public static UpdateAttribute CreateUpdateAttribute(XElement xAnnotation)
+        {
+            if (xAnnotation.GetAttributeValue(SchemaVocab.Type) != nameof(UpdateAttribute)) throw new ArgumentException(xAnnotation.ToString());
+
+            string where = xAnnotation.GetAttributeValue(nameof(UpdateAttribute.Where));
+            UpdateAttribute attribute = new(where);
+            return attribute;
+        }
+
+        public static DeleteAttribute CreateDeleteAttribute(XElement xAnnotation)
+        {
+            if (xAnnotation.GetAttributeValue(SchemaVocab.Type) != nameof(DeleteAttribute)) throw new ArgumentException(xAnnotation.ToString());
+
+            string where = xAnnotation.GetAttributeValue(nameof(DeleteAttribute.Where));
+            DeleteAttribute attribute = new(where);
             return attribute;
         }
 
