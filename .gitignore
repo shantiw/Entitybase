@@ -9,10 +9,10 @@
 /Entitybase/obj
 /Entitybase/bin
 
-/JavaScriptUtils
-/JavaScriptUtils/.vs
-/JavaScriptUtils/obj
-/JavaScriptUtils/bin
+/DbAccessor
+/Common.JavaScript/.vs
+/Common.JavaScript/obj
+/Common.JavaScript/bin
 
 /.vs
 
