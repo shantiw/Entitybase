@@ -23,6 +23,7 @@ namespace Shantiw.Data.Schema
 
         public const string Column = "Column";
         public const string Nullable = "Nullable";
+        public const string DataType = "DataType";
         public const string AutoIncrement = "AutoIncrement";
         public const string DefaultValue = "DefaultValue";
         public const string MaxLength = "MaxLength";
