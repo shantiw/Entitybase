@@ -24,7 +24,7 @@ namespace Shantiw.Data.Schema
             return new OracleDataAdapter();
         }
 
-        protected override Database GetDatabase()
+        protected override Database CreateDatabase()
         {
             throw new NotImplementedException();
         }

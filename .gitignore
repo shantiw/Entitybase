@@ -9,7 +9,15 @@
 /Entitybase/obj
 /Entitybase/bin
 
-/DbAccessor
+/DbAccessor/MySqlAccessor/bin
+/DbAccessor/MySqlAccessor/obj
+/DbAccessor/OracleAccessor/bin
+/DbAccessor/OracleAccessor/obj
+/DbAccessor/PostgreSQLAccessor/bin
+/DbAccessor/PostgreSQLAccessor/obj
+/DbAccessor/SqlAccessor/bin
+/DbAccessor/SqlAccessor/obj
+
 /Common.JavaScript/.vs
 /Common.JavaScript/obj
 /Common.JavaScript/bin

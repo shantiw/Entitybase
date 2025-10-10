@@ -23,10 +23,10 @@ namespace Shantiw.Data.Schema
             return new NpgsqlDataAdapter();
         }
 
-        protected override Database GetDatabase()
+        protected override Database CreateDatabase()
         {
             string sql = "SELECT current_database(), CURRENT_TIMESTAMP, current_schema()";
-            DataTable dataTable = GetDataTable(sql);
+            DataTable dataTable = CreateDataTable(sql);
             Database database = new()
             {
                 Name = (string)dataTable.Rows[0][0],
@@ -63,7 +63,7 @@ SELECT t.table_name, t.table_type, v.is_updatable
  WHERE t.table_schema = '{0}'
 ";
             sql = string.Format(sql, currentSchema);
-            DataTable dataTable = GetDataTable(sql);
+            DataTable dataTable = CreateDataTable(sql);
             foreach (DataRow row in dataTable.Rows)
             {
                 string tableName = (string)row[0];
@@ -98,7 +98,7 @@ SELECT
  ORDER BY table_name, ordinal_position
 ";
             sql = string.Format(sql, currentSchema);
-            DataTable dataTable = GetDataTable(sql);
+            DataTable dataTable = CreateDataTable(sql);
             foreach (DataRow row in dataTable.Rows)
             {
                 Column column = new()
@@ -149,7 +149,7 @@ SELECT k.constraint_name, k.table_name, k.column_name,
  ORDER BY k.table_name, k.ordinal_position
 ";
             sql = string.Format(sql, currentSchema);
-            DataTable dataTable = GetDataTable(sql);
+            DataTable dataTable = CreateDataTable(sql);
             foreach (DataRow row in dataTable.Rows)
             {
                 Table table = database.Tables.Single(t => t.Name == (string)row["table_name"]);
@@ -178,7 +178,7 @@ SELECT c.table_name, c.column_name, c.constraint_name, ch.check_clause
  WHERE c.constraint_schema = '{0}'
 ";
             sql = string.Format(sql, currentSchema);
-            dataTable = GetDataTable(sql);
+            dataTable = CreateDataTable(sql);
             foreach (DataRow row in dataTable.Rows)
             {
                 Table table = database.Tables.Single(t => t.Name == (string)row["table_name"]);
@@ -208,7 +208,7 @@ SELECT r.constraint_name, r.unique_constraint_name,
  WHERE r.constraint_schema = '{0}'
 ";
             sql = string.Format(sql, currentSchema);
-            DataTable dataTable = GetDataTable(sql);
+            DataTable dataTable = CreateDataTable(sql);
             foreach (DataRow row in dataTable.Rows)
             {
                 Table table = database.Tables.Single(t => t.Name == (string)row["table_name"]);
@@ -232,7 +232,7 @@ SELECT sequence_name, data_type
  WHERE sequence_schema = '{0}'
 ";
             sql = string.Format(sql, currentSchema);
-            DataTable dataTable = GetDataTable(sql);
+            DataTable dataTable = CreateDataTable(sql);
             foreach (DataRow row in dataTable.Rows)
             {
                 database.Sequences.Add(new Sequence() { Name = (string)row["sequence_name"] });
@@ -253,7 +253,7 @@ SELECT d.description, c.relname, a.attname
  (SELECT oid FROM pg_namespace WHERE nspname = '{0}')
 ";
             sql = string.Format(sql, currentSchema);
-            DataTable dataTable = GetDataTable(sql);
+            DataTable dataTable = CreateDataTable(sql);
             foreach (DataRow row in dataTable.Rows)
             {
                 Table? table = database.Tables.FirstOrDefault(t => t.Name == (string)row["relname"]);

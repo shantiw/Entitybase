@@ -12,7 +12,7 @@ namespace Shantiw.Data.Schema
 
         protected abstract DbConnection CreateConnection();
         protected abstract DbDataAdapter CreateDataAdapter();
-        protected abstract Database GetDatabase();
+        protected abstract Database CreateDatabase();
 
         protected DbSchemaExtractor(string connectionString)
         {
@@ -45,16 +45,16 @@ namespace Shantiw.Data.Schema
 
         public XElement Extract(out DataSet schemaDataSet)
         {
-            Database database = GetDatabase();
+            Database database = CreateDatabase();
 
-            schemaDataSet = GetSchemaDataSet(database);
+            schemaDataSet = CreateSchemaDataSet(database);
 
-            XElement databaseSchema = GetXml(database);
+            XElement databaseSchema = CreateXElement(database);
 
             return databaseSchema;
         }
 
-        private static XElement GetXml(Database database)
+        private static XElement CreateXElement(Database database)
         {
             XElement root = new(DATABASE_SCHEMA,
                 new XAttribute(nameof(Database), database.Name),
@@ -201,7 +201,7 @@ namespace Shantiw.Data.Schema
             return root;
         }
 
-        private DataSet GetSchemaDataSet(Database database)
+        private DataSet CreateSchemaDataSet(Database database)
         {
             DataSet schemaDataSet = new(database.Name);
 
@@ -287,7 +287,7 @@ namespace Shantiw.Data.Schema
             return element;
         }
 
-        protected DataTable GetDataTable(string sql)
+        protected DataTable CreateDataTable(string sql)
         {
             DbCommand command = Connection.CreateCommand();
             command.CommandText = sql;

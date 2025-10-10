@@ -34,7 +34,7 @@ SELECT f.[name]
   AND c.[referenced_column_id] = c2.column_id
   ORDER BY f.[name]
 ";
-            DataTable dataTable = GetDataTable(sql);
+            DataTable dataTable = CreateDataTable(sql);
             foreach (DataRow row in dataTable.Rows)
             {
                 string name = (string)row["name"];

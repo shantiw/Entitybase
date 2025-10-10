@@ -18,10 +18,10 @@ namespace Shantiw.Data.Schema
             return new SqlDataAdapter();
         }
 
-        protected override Database GetDatabase() // exclude from sysdiagrams
+        protected override Database CreateDatabase() // exclude from sysdiagrams
         {
             string sql = "SELECT DB_NAME(), SYSUTCDATETIME()";
-            DataTable dataTable = GetDataTable(sql);
+            DataTable dataTable = CreateDataTable(sql);
             Database database = new()
             {
                 Name = (string)dataTable.Rows[0][0],
@@ -57,7 +57,7 @@ SELECT T.[TABLE_NAME]
   ON T.[TABLE_NAME] = V.[TABLE_NAME]
   WHERE T.[TABLE_NAME] != N'sysdiagrams'
 ";
-            DataTable dataTable = GetDataTable(sql);
+            DataTable dataTable = CreateDataTable(sql);
             foreach (DataRow row in dataTable.Rows)
             {
                 string tableName = (string)row[0];
@@ -92,7 +92,7 @@ SELECT [TABLE_NAME]
   FROM [INFORMATION_SCHEMA].[COLUMNS]
   WHERE[TABLE_NAME] != N'sysdiagrams'
 ";
-            DataTable dataTable = GetDataTable(sql);
+            DataTable dataTable = CreateDataTable(sql);
             foreach (DataRow row in dataTable.Rows)
             {
                 Column column = new()
@@ -158,7 +158,7 @@ SELECT T.[CONSTRAINT_NAME]
   WHERE T.[CONSTRAINT_TYPE] != 'FOREIGN KEY'
   AND T.[TABLE_NAME] != N'sysdiagrams'
 ";
-            DataTable dataTable = GetDataTable(sql);
+            DataTable dataTable = CreateDataTable(sql);
             foreach (DataRow row in dataTable.Rows)
             {
                 Table table = database.Tables.Single(t => t.Name == (string)row["TABLE_NAME"]);
@@ -190,7 +190,7 @@ SELECT U.[TABLE_NAME]
   WHERE T.[CONSTRAINT_TYPE] !='FOREIGN KEY'
   AND U.[TABLE_NAME] != N'sysdiagrams'
 ";
-            dataTable = GetDataTable(sql);
+            dataTable = CreateDataTable(sql);
             foreach (DataRow row in dataTable.Rows)
             {
                 Table table = database.Tables.Single(t => t.Name == (string)row["TABLE_NAME"]);
@@ -223,7 +223,7 @@ SELECT R.[CONSTRAINT_NAME]
   WHERE K.[TABLE_NAME] != N'sysdiagrams' AND C.[TABLE_NAME] != N'sysdiagrams'
   ORDER BY R.[CONSTRAINT_NAME], K.[ORDINAL_POSITION]
 ";
-            DataTable dataTable = GetDataTable(sql);
+            DataTable dataTable = CreateDataTable(sql);
             foreach (DataRow row in dataTable.Rows)
             {
                 string name = (string)row["CONSTRAINT_NAME"];
@@ -261,7 +261,7 @@ SELECT [SEQUENCE_NAME]
       ,[DECLARED_NUMERIC_SCALE]
   FROM [INFORMATION_SCHEMA].[SEQUENCES]
 ";
-            DataTable dataTable = GetDataTable(sql);
+            DataTable dataTable = CreateDataTable(sql);
             foreach (DataRow row in dataTable.Rows)
             {
                 database.Sequences.Add(new Sequence() { Name = (string)row["SEQUENCE_NAME"] });
@@ -281,7 +281,7 @@ SELECT t.[type] AS table_type
   AND t.[type] = N'U'
   AND c.[is_identity] = 1
 ";
-            DataTable dataTable = GetDataTable(sql);
+            DataTable dataTable = CreateDataTable(sql);
             foreach (DataRow row in dataTable.Rows)
             {
                 Table? table = database.Tables.FirstOrDefault(t => t.Name == (string)row["table_name"]);
@@ -305,7 +305,7 @@ SELECT t.[name] AS table_name
   ON p.[major_id] = c.[object_id] AND p.[minor_id] = c.[column_id]
   WHERE p.[name] = N'MS_Description'
 ";
-            DataTable dataTable = GetDataTable(sql);
+            DataTable dataTable = CreateDataTable(sql);
             foreach (DataRow row in dataTable.Rows)
             {        
                 Table? table = database.Tables.FirstOrDefault(t => t.Name == (string)row["table_name"]);

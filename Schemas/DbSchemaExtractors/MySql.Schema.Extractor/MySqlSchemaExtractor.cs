@@ -27,10 +27,10 @@ namespace Shantiw.Data.Schema
             return new MySqlDataAdapter();
         }
 
-        protected override Database GetDatabase()
+        protected override Database CreateDatabase()
         {
             string sql = "SELECT DATABASE(), UTC_TIMESTAMP()";
-            DataTable dataTable = GetDataTable(sql);
+            DataTable dataTable = CreateDataTable(sql);
             Database database = new()
             {
                 Name = (string)dataTable.Rows[0][0],
@@ -63,7 +63,7 @@ SELECT
  WHERE t.TABLE_SCHEMA = '{0}'
 ";
             sql = string.Format(sql, database.Name);
-            DataTable dataTable = GetDataTable(sql);
+            DataTable dataTable = CreateDataTable(sql);
             foreach (DataRow row in dataTable.Rows)
             {
                 string tableName = (string)row[0];
@@ -99,7 +99,7 @@ SELECT
  ORDER BY `TABLE_NAME`, `ORDINAL_POSITION`
 ";
             sql = string.Format(sql, database.Name);
-            DataTable dataTable = GetDataTable(sql);
+            DataTable dataTable = CreateDataTable(sql);
             foreach (DataRow row in dataTable.Rows)
             {
                 Column column = new()
@@ -152,7 +152,7 @@ SELECT
  ORDER BY u.`TABLE_NAME`, u.`ORDINAL_POSITION`
 ";
             sql = string.Format(sql, database.Name);
-            DataTable dataTable = GetDataTable(sql);
+            DataTable dataTable = CreateDataTable(sql);
             foreach (DataRow row in dataTable.Rows)
             {
                 Table table = database.Tables.Single(t => t.Name == (string)row["TABLE_NAME"]);
@@ -195,7 +195,7 @@ SELECT
  ORDER BY u.`TABLE_NAME`, u.`CONSTRAINT_NAME`, u.POSITION_IN_UNIQUE_CONSTRAINT
 ";
             sql = string.Format(sql, database.Name);
-            DataTable dataTable = GetDataTable(sql);
+            DataTable dataTable = CreateDataTable(sql);
             foreach (DataRow row in dataTable.Rows)
             {
                 Table table = database.Tables.Single(t => t.Name == (string)row["TABLE_NAME"]);
