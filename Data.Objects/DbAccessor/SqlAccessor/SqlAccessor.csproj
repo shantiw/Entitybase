@@ -8,11 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Npgsql" Version="9.0.4" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Entitybase\Entitybase.csproj" />
+    <ProjectReference Include="..\..\Data.Objects\Data.Objects.csproj" />
   </ItemGroup>
 
 </Project>

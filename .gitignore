@@ -1,3 +1,6 @@
+**/bin/
+**/obj/
+**/.vs/
 
 /WebAPI
 /WebAPI.sln
@@ -5,76 +8,13 @@
 /WebAPI/obj
 /WebAPI/bin
 
-/Entitybase/.vs
-/Entitybase/obj
-/Entitybase/bin
+Data.Objects/Data.Objects.sln
 
-/DbAccessor/MySqlAccessor/bin
-/DbAccessor/MySqlAccessor/obj
-/DbAccessor/OracleAccessor/bin
-/DbAccessor/OracleAccessor/obj
-/DbAccessor/PostgreSQLAccessor/bin
-/DbAccessor/PostgreSQLAccessor/obj
-/DbAccessor/SqlAccessor/bin
-/DbAccessor/SqlAccessor/obj
-
-/Common.JavaScript/.vs
-/Common.JavaScript/obj
-/Common.JavaScript/bin
-
-/.vs
-
-/Metadata/.vs
-/Metadata/obj
-/Metadata/bin
-
-/Common/.vs
-/Common/obj
-/Common/bin
-
-/Schemas/.vs
 /Schemas/Schemas.sln
-/Schemas/DbSchemaExtractors/.vs
 /Schemas/DbSchemaExtractors/DbSchemaExtractors.sln
-/Schemas/DbSchemaExtractors/Db.Schema.Extractor/bin
-/Schemas/DbSchemaExtractors/Db.Schema.Extractor/obj
-/Schemas/DbSchemaExtractors/Blogs
 
-/Schemas/DbSchemaExtractors/MySql.Schema.Extractor/bin
-/Schemas/DbSchemaExtractors/MySql.Schema.Extractor/obj
-/Schemas/DbSchemaExtractors/MySqlSchemaExtractor/bin
-/Schemas/DbSchemaExtractors/MySqlSchemaExtractor/obj
-
-/Schemas/DbSchemaExtractors/Oracle.Schema.Extractor/bin
-/Schemas/DbSchemaExtractors/Oracle.Schema.Extractor/obj
-/Schemas/DbSchemaExtractors/OracleSchemaExtractor/bin
-/Schemas/DbSchemaExtractors/OracleSchemaExtractor/obj
-
-/Schemas/DbSchemaExtractors/PostgreSQL.Schema.Extractor/bin
-/Schemas/DbSchemaExtractors/PostgreSQL.Schema.Extractor/obj
-/Schemas/DbSchemaExtractors/PostgreSQLSchemaExtractor/bin
-/Schemas/DbSchemaExtractors/PostgreSQLSchemaExtractor/obj
-
-/Schemas/DbSchemaExtractors/Sql.Schema.Extractor/bin
-/Schemas/DbSchemaExtractors/Sql.Schema.Extractor/obj
-/Schemas/DbSchemaExtractors/SqlSchemaExtractor/bin
-/Schemas/DbSchemaExtractors/SqlSchemaExtractor/obj
-
-/Schemas/Mappers/.vs
 /Schemas/Mappers/SimpleMapper
 /Schemas/Mappers/SimpleMapper.sln
 /Schemas/Mappers/Mappers.sln
-/Schemas/SchemaGenerators
 
-/Schemas/Mappers/ConfigMapper/bin
-/Schemas/Mappers/ConfigMapper/obj
-/Schemas/Mappers/Mapper/bin
-/Schemas/Mappers/Mapper/obj
-/Schemas/Mappers/PluralizationServices/bin
-/Schemas/Mappers/PluralizationServices/obj
 
-/Schemas/SchemaGenerators/.vs
-/Schemas/SchemaGenerators/Schema.Generator/bin
-/Schemas/SchemaGenerators/Schema.Generator/obj
-/Schemas/SchemaGenerators/SchemaGenerator/bin
-/Schemas/SchemaGenerators/SchemaGenerator/obj

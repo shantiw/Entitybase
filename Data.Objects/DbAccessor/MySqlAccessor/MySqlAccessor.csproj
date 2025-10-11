@@ -4,11 +4,15 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>Shantiw.Data.Meta</RootNamespace>
+    <RootNamespace>Shantiw.Data.Access</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj" />
+    <PackageReference Include="MySql.Data" Version="9.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data.Objects\Data.Objects.csproj" />
   </ItemGroup>
 
 </Project>

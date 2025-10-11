@@ -22,14 +22,16 @@
 	</Remove>
 	<Add>
 		<EntityType Name="...">
-			<Property Name="...">
+			<Property Name="...">			
+				<Annotation Type="Display" Name="..." />
+				<Annotation Type="DataValidation" BooleanExpression="..." />
 				<Annotation Type="..." />
 			</Property>
 			<PrincipalProperty Name="..." NameOfNavigationPropertyRef="..." NameOfPropertyRef="...">
-				<Annotation Type="DisplayAttribute"  Name="..." />
+				<Annotation Type="Display"  Name="..." />
 			</PrincipalProperty>
 			<NavigationProperty Name="..." Path="...">
-				<Annotation Type="DisplayAttribute" Name="..." />
+				<Annotation Type="Display" Name="..." />
 			</NavigationProperty>
 			<ComputedProperty Name="..." Expression="...">
 				<Annotation Type="..." />
@@ -37,7 +39,11 @@
 			<CalculatedProperty Name="..." Type="..." Expression="...">
 				<Annotation Type="..." />
 			</CalculatedProperty>
-			<Annotation Type="..." />
+			<Annotation Type="Display" Name="..." />
+			<Annotation Type="DataValidation" BooleanExpression="..." />
+			<Annotation Type="Select" Default="..." />
+			<Annotation Type="Update" Where="..." />
+			<Annotation Type="Delete" Where="..." />
 		</EntityType>
 	</Add>
 </MSL>

@@ -8,11 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.9.1" />
+    <PackageReference Include="Npgsql" Version="9.0.4" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Entitybase\Entitybase.csproj" />
+    <ProjectReference Include="..\..\Data.Objects\Data.Objects.csproj" />
   </ItemGroup>
 
 </Project>
