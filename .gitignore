@@ -2,19 +2,13 @@
 **/obj/
 **/.vs/
 
-/WebAPI
-/WebAPI.sln
-/WebAPI/.vs
-/WebAPI/obj
-/WebAPI/bin
-
-Data.Objects/Data.Objects.sln
+/Data.Objects/Data.Objects.sln
 
 /Schemas/Schemas.sln
+
 /Schemas/DbSchemaExtractors/DbSchemaExtractors.sln
 
 /Schemas/Mappers/SimpleMapper
 /Schemas/Mappers/SimpleMapper.sln
+
 /Schemas/Mappers/Mappers.sln
-
-
