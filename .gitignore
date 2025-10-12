@@ -2,8 +2,6 @@
 **/obj/
 **/.vs/
 
-/Data.Objects/Data.Objects.sln
-
 /Schemas/Schemas.sln
 
 /Schemas/DbSchemaExtractors/DbSchemaExtractors.sln
