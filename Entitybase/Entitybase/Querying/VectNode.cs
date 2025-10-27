@@ -16,7 +16,7 @@ namespace Shantiw.Data.Querying
         public VectNode? Parent { get; private set; }
 
         private readonly Dictionary<string, VectNode> _children = [];
-        public IReadOnlyDictionary<string, VectNode> Children => _children;
+        public IEnumerable<VectNode> Children => _children.Values;
 
         private VectNode()
         {

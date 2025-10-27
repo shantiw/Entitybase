@@ -8,18 +8,21 @@ using System.Xml.Linq;
 
 namespace Shantiw.Data.Meta
 {
-    public partial class PreprocessedClause
+    public partial class ExpressionObject
     {
+        public EntityType EntityType { get; private set; }
+
         public string Expression { get; private set; }
 
         public string Clause { get; private set; }
 
         public IReadOnlyDictionary<string, string> StringPlaceholders { get; private set; }
 
-        public IReadOnlyDictionary<string, string> PropertyPlaceholders { get; private set; }
+        public IReadOnlyDictionary<string, string> PropertyNamePlaceholders { get; private set; }
 
-        public PreprocessedClause(string expression, EntityType entityType)
+        public ExpressionObject(string expression, EntityType entityType)
         {
+            EntityType = entityType;
             Expression = expression;
 
             //
@@ -39,11 +42,11 @@ namespace Shantiw.Data.Meta
             StringPlaceholders = stringPlaceholders;
 
             //
-            Dictionary<string, string> propertyPlaceholders = [];
+            Dictionary<string, string> propertyNamePlaceholders = [];
             clause = PropertyNameRegex().Replace(clause, m =>
             {
                 string propertyName = m.Value;
-                if (propertyPlaceholders.TryGetValue(propertyName, out string? existingGuid))
+                if (propertyNamePlaceholders.TryGetValue(propertyName, out string? existingGuid))
                     return existingGuid;
 
                 if (entityType.ScalarProperties.TryGetValue(propertyName, out PropertyBase? prop))
@@ -51,7 +54,7 @@ namespace Shantiw.Data.Meta
                     if (prop is Property || prop is PrincipalProperty)
                     {
                         string guid = GetGuid();
-                        propertyPlaceholders.Add(propertyName, guid);
+                        propertyNamePlaceholders.Add(propertyName, guid);
                         return guid;
                     }
 
@@ -62,7 +65,7 @@ namespace Shantiw.Data.Meta
             });
 
             Clause = clause;
-            PropertyPlaceholders = propertyPlaceholders;
+            PropertyNamePlaceholders = propertyNamePlaceholders;
         }
 
         private static string GetGuid()

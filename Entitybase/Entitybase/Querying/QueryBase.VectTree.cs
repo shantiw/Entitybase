@@ -55,8 +55,8 @@ namespace Shantiw.Data.Querying
         {
             List<string> propNames = [];
             propNames.AddRange(Select.Properties);
-            if (Filter != null) propNames.AddRange(Filter.PreprocessedClause.PropertyPlaceholders.Keys);
-            if (OrderBy != null) propNames.AddRange(OrderBy.Orders.Select(o => o.Property));
+            if (Filter != null) propNames.AddRange(Filter.ExpressionObject.PropertyNamePlaceholders.Keys);
+            if (OrderBy != null) propNames.AddRange(OrderBy.SortOrders.Select(o => o.Property));
 
             //
             propNames = [.. propNames.Distinct()];
@@ -83,7 +83,7 @@ namespace Shantiw.Data.Querying
             propNames = [];
             foreach (ComputedProperty computedProperty in _computedProperties)
             {
-                propNames.AddRange(computedProperty.PreprocessedClause.PropertyPlaceholders.Keys);
+                propNames.AddRange(computedProperty.ExpressionObject.PropertyNamePlaceholders.Keys);
             }
             propNames = [.. propNames.Distinct()];
             foreach (string propName in propNames)

@@ -48,56 +48,53 @@ namespace Shantiw.Data.Querying
     }
 
     public class Filter
-    {
-        public string Expression { get; private set; }
-
-        public PreprocessedClause PreprocessedClause { get; private set; }
+    {       
+        public ExpressionObject ExpressionObject { get; private set; }
 
         internal Filter(string expression, EntityType entityType)
         {
-            Expression = expression;
-            PreprocessedClause = new PreprocessedClause(expression, entityType);
+            ExpressionObject = new ExpressionObject(expression, entityType);
         }
 
     }
 
-    public abstract class Order(string property)
+    public abstract class SortOrder(string property)
     {
         public string Property => property;
     }
 
-    public class AscendingOrder(string propertyName) : Order(propertyName)
+    public class AscendingOrder(string propertyName) : SortOrder(propertyName)
     {
     }
 
-    public class DescendingOrder(string propertyName) : Order(propertyName)
+    public class DescendingOrder(string propertyName) : SortOrder(propertyName)
     {
     }
 
     public class OrderBy
     {
-        public Order[] Orders { get; private set; }
+        public SortOrder[] SortOrders { get; private set; }
 
         public OrderBy(string orderby)
         {
-            List<Order> orders = [];
+            List<SortOrder> sortOrders = [];
             string[] orderClauses = [.. orderby.Split(',', StringSplitOptions.TrimEntries)];
             foreach (string orderClause in orderClauses)
             {
                 string[] parts = [.. orderClause.Split(' ', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)];
                 if (parts.Length == 1)
                 {
-                    orders.Add(new AscendingOrder(parts[0]));
+                    sortOrders.Add(new AscendingOrder(parts[0]));
                 }
                 else if (parts.Length == 2)
                 {
                     if (parts[1].Equals("asc", StringComparison.OrdinalIgnoreCase))
                     {
-                        orders.Add(new AscendingOrder(parts[0]));
+                        sortOrders.Add(new AscendingOrder(parts[0]));
                     }
                     else if (parts[1].Equals("desc", StringComparison.OrdinalIgnoreCase))
                     {
-                        orders.Add(new DescendingOrder(parts[0]));
+                        sortOrders.Add(new DescendingOrder(parts[0]));
                     }
                     else
                     {
@@ -109,7 +106,7 @@ namespace Shantiw.Data.Querying
                     throw new ArgumentException($"Invalid order clause '{orderClause}'.");
                 }
             }
-            Orders = [.. orders];
+            SortOrders = [.. sortOrders];
         }
 
     }
@@ -128,7 +125,7 @@ namespace Shantiw.Data.Querying
 
         public long? Skip { get; private set; } = null;
 
-        public ExpandQuery[]? Expands { get; protected set; } = null;
+        public ExpandQuery[] Expands { get; protected set; } = [];
 
     }
 }
